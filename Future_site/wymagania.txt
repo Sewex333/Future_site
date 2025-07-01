@@ -1,0 +1,24 @@
+Wymagania na 3 strony (Future, Damian Pepliński, Odra):
+
+- landing page 
+- ogolna strona (o nas, o klubach)
+- kontakt 
+- formularz zgłoszeniowy
+
+Dodatkowe: 
+
+- sklep (mozliwosc zamawiania na sklepie)
+- obsługa i mozliwosc edytowania tekstu dla mniej ogarniętych informatycznie osob
+- blok/zakładka (ukatualnione social media zintegrowane na stronie) 
+- albumy ze zdjeciami
+- rozpisanie zakładek drużyn, obozy, treningi, turnieje
+- mozliwosc zapisania sie na oboz i dokonania wpłaty 
+
+Future: 
+    -biale tlo
+    -czarny tekst
+    -złote elementy
+
+    sklep:
+        -zolte i pomaranczowe wyroznienia (sprzedazowe)
+

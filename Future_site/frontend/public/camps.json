@@ -1,0 +1,34 @@
+[
+  {
+    "id": "wasosz",
+    "type": "oboz",
+    "title": "Obóz Piłkarski Wąsosz 2025",
+    "image": "/wasocz.png",
+    "date": "27.07 – 03.08.2025",
+    "place": "Hotel Albatros, Wąsosz",
+    "price": "2099 zł (członkowie) / 2199 zł (pozostali)",
+    "details": "pełne wyżywienie, zakwaterowanie, atrakcje, transport",
+    "documentLink": "/Documents/oboz_wasosz.pdf",
+    "sport_kart": "/Documents/sport_kart.pdf",
+    "email": "ffc.biuro@gmail.com",
+    "info": "Future Football Camp - niezapomniane dni pełne treningów, gier, przygód i edukacji w Ośrodku Wypoczynkowym w Wąsoszu!",
+    "szczegoly": "Dokładną listę opiekunów, trenerów, godzinę odjazdu i powrotu przekażemy ok. 14.07.2025. Wyjazd 27.07 rano, powrót 03.08 po południu.",
+    "platnosc": "Dokumenty i pełną płatność należy wysłać skanem do 16.06.2025 na adres ffc.biuro@gmail.com. Oryginały należy dostarczyć do 30.06.2025 osobiście lub pocztą na adres: Dunikowskiego 41/12, 70-123 Szczecin. W załącznikach znajdują się: 1. Karta kwalifikacyjna i dokumenty (PDF/DOC), 2. Karta zdrowia sportowca, 3. Deklaracja gry (tylko dla zawodników FFC).",
+    "documents": "Dokumenty wymagane do wypełnienia: \n 1. Karta kwalifikacyjna i dokumenty w wersji DPF / DOC \n 2. Karta zdrowia sportowca - niezbędna dla każdego \n 3. Deklaracja gry obozowa - obowiązkowa tylko dla graczy z naszego klubu w sezonie 2025/ 2026"
+  },
+  {
+    "id": "polkolonia2025",
+    "type": "polkolonia",
+    "title": "Półkolonie Letnie Szczecin 2025",
+    "image": "/polkolonia.jpg",
+    "date": "30.06 – 04.07.2025",
+    "place": "SP61, ul. 3 Maja 4, Szczecin",
+    "price": "699 zł (członkowie) / 749 zł (pozostali)",
+    "details": "park linowy, kino, trampoliny, wykłady, treningi, basen i więcej!",
+    "documentLink": "",
+    "email": "ffc.biuro@gmail.com",
+    "info": "Mamy przyjemność zaprosić dzieci na Półkolonie Letnie w SP61 w Szczecinie. To aktywne, pełne przygód i rozwoju wakacje!",
+    "szczegoly": "Ekscytujące atrakcje – park linowy, trampoliny, basen MOSRIR, kino, kręgle. Program dnia: gry i zabawy, sportowe treningi, edukacja i relaks.",
+    "platnosc": "Zapis przez mail: ffc.biuro@gmail.com lub tel. 505 205 550. Rezerwacja po wpłacie 699/749 zł na: Fundacja Future Football Club, Dunikowskiego 41/12, 70-123 Szczecin, NIP 955 244 71 46. Tytuł: Imię i nazwisko dziecka, data urodzenia, półkolonie LATO 2025. Po wpłacie otrzymasz dokumenty do wypełnienia."
+  }
+]

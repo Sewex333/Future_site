@@ -1,0 +1,10 @@
+/* Obozy.css */
+.obozyMain {
+  font-family: 'Arial', sans-serif;
+  background-color: #000; /* Czarny */
+  color: #FFD700; /* Złoty */
+}
+
+h1, h2 {
+  text-shadow: 2px 2px 4px #000000;
+}
