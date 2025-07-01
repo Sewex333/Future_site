@@ -1,9 +1,9 @@
-// backend/firebase.js
-const { initializeApp, applicationDefault } = require('firebase-admin/app');
+const { initializeApp, cert } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore');
+const serviceAccount = require('./react-native-dream-9213a-firebase-adminsdk-h9bc7-13c14882f8.json');
 
 const app = initializeApp({
-  credential: applicationDefault(),
+  credential: cert(serviceAccount)
 });
 
 const db = getFirestore();
