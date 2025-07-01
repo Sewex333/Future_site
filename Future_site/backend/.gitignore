@@ -1,5 +1,6 @@
 /node_modules
-*.json
+react-native-dream-9213a-firebase-adminsdk-h9bc7-f25032eba5.json
+react-native-dream-9213a-firebase-adminsdk-h9bc7-13c14882f8.json
 *.key
 *.pem
 .env
