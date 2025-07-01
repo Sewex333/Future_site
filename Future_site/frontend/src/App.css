@@ -1,0 +1,120 @@
+@import "tailwindcss";
+#root{
+  height: 100%;
+  width: 100%;
+  background-color: white;
+}
+body{
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+.navbar{
+  position: absolute;
+  margin: 0;
+  width: 100%;
+  height:10vh;
+  background-color: black;
+  text-align: center;
+  color: white;
+  
+}
+.title{
+  padding: 10px;
+  color: white;
+  margin: 0;
+  font-size: 5vh;
+}
+a{
+  color: white;
+}
+#links{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#zdjecieMain{
+  background-image: url("zdjecieOPEN.JPG");
+  width: 100%;
+  height: 90vh;
+  padding-top: 15%;
+  padding-left: 10%;
+  font-size: 1.5rem;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding-bottom: 110px;
+}
+#desc{
+  float: right;
+  margin-right: 80px;
+  width: 40%;
+  font-size: 20px;
+  height: 100%;
+  background-color: navy;
+  color: yellow;
+}
+#smallPhoto{
+  padding: 30px;
+  height: 30vh;
+  margin-left: 70px;
+}
+
+.link{
+  position: relative;
+  float: left;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 22px;
+  width: 25%; 
+  text-align: center;
+  text-shadow: 1.3px 1.3px 4px  #ffd700; 
+}
+.link::before {
+  content: "";
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  width: 50%;
+  height: 50%;
+  border: 1px solid rgba(255, 255, 0, 0.425);
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  box-sizing: border-box;
+  
+}
+
+.link:hover::before {
+  opacity: 1;
+  
+}
+.link:hover{
+  transition: color 0.2s ease-in-out;
+  color: rgba(255, 255, 0, 0.425);
+  text-decoration: underline;
+}
+.powitalnyTekst{
+  position: absolute;
+  /* z-index: 1; */
+  color: black;
+  font-size: 4em;
+  
+}
+.greeting_text{
+  /* padding-top: 15%; */
+  width: 50%;
+  z-index: 1;
+  font-weight:900;
+  backdrop-filter: blur(10px);
+}
+
+
+#Future{
+  font-size:2rem;
+  text-shadow: 2px 2px 10px  #ffd700; 
+}
+.subtext_main{
+  color: gold;
+}
