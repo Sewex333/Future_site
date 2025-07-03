@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react'
 import emailjs from 'emailjs-com';
 import "../Form.css"
+import { Link } from 'react-router';
 
 const Form = () => {
   const [name, setName] = useState('');
@@ -138,6 +139,7 @@ const Form = () => {
           </div>
 
           <br />
+          
           <input
             type="submit"
             value="Wyślij"
@@ -150,3 +152,6 @@ const Form = () => {
 }
 
 export default Form;
+
+//<Link to="/" className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg w-full mt-4 cursor-pointer transition">Powrót</Link> 
+          

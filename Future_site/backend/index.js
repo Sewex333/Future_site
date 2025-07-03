@@ -55,6 +55,33 @@ app.get('/api/events', async (req, res) => {
   }
 });
 
+app.get('/api/oferty', async (req, res) => {
+  try {
+    const snapshot = await db.collection('oferty').get();
+    const oferty = snapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        nazwa: data.nazwa || 'Brak nazwy',
+        opis: data.opis || '',
+        cena: data.cena || 'Brak ceny',
+        czas: data.czas || '',
+        poziom: data.poziom || '',
+        ikona: data.ikona || '⚽',
+        typ: data.typ || 'inne',
+        link: data.link || '/',
+        features: data.features || [],
+        kolor: data.kolor || 'from-gray-500 to-gray-600',
+        dostepny: data.dostepny !== undefined ? data.dostepny : true
+      };
+    });
+    res.json(oferty);
+  } catch (error) {
+    console.error('Błąd pobierania ofert:', error);
+    res.status(500).json({ error: 'Błąd pobierania ofert' });
+  }
+});
+
 app.get('/api/test-connection', (req, res) => {
     res.status(200).json({"message" : "polaczenie z db dziala"});
 })
