@@ -29,7 +29,7 @@ const oferty = [
       "Zajęcia rekreacyjne",
       "Certyfikat i pamiątki"
     ],
-    kolor: "from-gray-700 to-gray-900",
+    kolor: "yellow-500",
     dostepny: true
   },
   {
@@ -49,7 +49,7 @@ const oferty = [
       "Eventy korporacyjne",
       "Profesjonalna organizacja"
     ],
-    kolor: "from-yellow-500 to-yellow-600",
+    kolor: "black",
     dostepny: true
   },
   {
@@ -69,7 +69,7 @@ const oferty = [
       "Analiza wideo z meczów",
       "Indywidualny plan rozwoju"
     ],
-    kolor: "from-gray-800 to-black",
+    kolor: "yellow-500",
     dostepny: true
   },
   {
@@ -89,7 +89,7 @@ const oferty = [
       "Motywacja i cele sportowe",
       "Praca z psychologiem sportu"
     ],
-    kolor: "from-yellow-400 to-yellow-500",
+    kolor: "black",
     dostepny: true
   },
   {
@@ -109,7 +109,7 @@ const oferty = [
       "Sprzęt treningowy",
       "Szybka dostawa"
     ],
-    kolor: "from-yellow-500 to-yellow-600",
+    kolor: "yellow-500",
     dostepny: true
   },
   {
@@ -129,7 +129,7 @@ const oferty = [
       "Analiza gry",
       "Rozwój mentalny"
     ],
-    kolor: "from-blue-500 to-blue-600",
+    kolor: "black",
     dostepny: true
   },
   {
@@ -149,7 +149,7 @@ const oferty = [
       "Kalendarz wydarzeń",
       "Galeria zdjęć"
     ],
-    kolor: "from-green-500 to-green-600",
+    kolor: "black",
     dostepny: true
   }
 ];
