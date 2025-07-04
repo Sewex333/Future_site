@@ -9,49 +9,64 @@ const Partnerzy = () => {
       nazwa: "Labran",
       opis: "Galanteria skórzana - oficjalne torby i akcesoria klubowe",
       kategoria: "Wyposażenie",
-      image: "/images/partner-labran.jpg"
+      image: "/labran.png",
+      link:"https://www.facebook.com/Labranpl?__cft__[0]=AZWTMDTk6C1qShC1ji7loYKuREvpsOSZISHazg_bXyDG4ZXTeHAEyZ-aZzlXFjyG49i7BMAuIkBAXsLEt69741eXWQHj1hvXB8tGjy5PYR4V2f0MmAKDL477nQpprCvldh2laxShoxeROP_8O-HYouQD2OHFlshBjPGt6GzqMkDAhIU92jxKadajG-dxVgERe3Sdv5B21vF2ivLP25oUVLC9&__tn__=-]K-R"
     },
     {
       id: 2,
       nazwa: "Grzegorz Nowotniak",
       opis: "Oficjalny spiker meczów Future Football Club",
       kategoria: "Media",
-      image: "/images/partner-spiker.jpg"
+      image: "/grzegorz_nowotniak.jpg",
+      link:"https://www.facebook.com/deejaynov?__cft__[0]=AZWTMDTk6C1qShC1ji7loYKuREvpsOSZISHazg_bXyDG4ZXTeHAEyZ-aZzlXFjyG49i7BMAuIkBAXsLEt69741eXWQHj1hvXB8tGjy5PYR4V2f0MmAKDL477nQpprCvldh2laxShoxeROP_8O-HYouQD2OHFlshBjPGt6GzqMkDAhIU92jxKadajG-dxVgERe3Sdv5B21vF2ivLP25oUVLC9&__tn__=-]K-R"
     },
     {
       id: 3,
       nazwa: "MOSRiR Szczecin",
       opis: "Oficjalny partner infrastruktury sportowej klubu",
       kategoria: "Infrastruktura",
-      image: "/images/partner-mosrir.jpg"
+      image: "/mosrir.jpg",
+      link:"https://www.facebook.com/mosrirszczecin?__cft__[0]=AZWTMDTk6C1qShC1ji7loYKuREvpsOSZISHazg_bXyDG4ZXTeHAEyZ-aZzlXFjyG49i7BMAuIkBAXsLEt69741eXWQHj1hvXB8tGjy5PYR4V2f0MmAKDL477nQpprCvldh2laxShoxeROP_8O-HYouQD2OHFlshBjPGt6GzqMkDAhIU92jxKadajG-dxVgERe3Sdv5B21vF2ivLP25oUVLC9&__tn__=-]K-R"
     },
     {
       id: 4,
       nazwa: "Pizzeria Swojska Pomorzany",
       opis: "Catering dla zawodników i kibiców Future FC",
       kategoria: "Catering",
-      image: "/images/partner-pizzeria.jpg"
+      image: "/pizzeria.jpg",
+      link:"https://www.facebook.com/profile.php?id=61551252213573&__cft__[0]=AZWTMDTk6C1qShC1ji7loYKuREvpsOSZISHazg_bXyDG4ZXTeHAEyZ-aZzlXFjyG49i7BMAuIkBAXsLEt69741eXWQHj1hvXB8tGjy5PYR4V2f0MmAKDL477nQpprCvldh2laxShoxeROP_8O-HYouQD2OHFlshBjPGt6GzqMkDAhIU92jxKadajG-dxVgERe3Sdv5B21vF2ivLP25oUVLC9&__tn__=-]K-R"
     },
     {
       id: 5,
       nazwa: "Szmaragd Cafe",
       opis: "Miejsce spotkań kibiców i zawodników",
       kategoria: "Gastronomia",
-      image: "/images/partner-cafe.jpg"
+      image: "/kawiarnia.jpg",
+      link:"https://www.facebook.com/cafeszmaragd?__cft__[0]=AZWTMDTk6C1qShC1ji7loYKuREvpsOSZISHazg_bXyDG4ZXTeHAEyZ-aZzlXFjyG49i7BMAuIkBAXsLEt69741eXWQHj1hvXB8tGjy5PYR4V2f0MmAKDL477nQpprCvldh2laxShoxeROP_8O-HYouQD2OHFlshBjPGt6GzqMkDAhIU92jxKadajG-dxVgERe3Sdv5B21vF2ivLP25oUVLC9&__tn__=-]K-R"
     },
     {
       id: 6,
       nazwa: "SportPlus Szczecin",
       opis: "Oficjalny dostawca pucharów i nagród klubowych",
       kategoria: "Nagrody",
-      image: "/images/partner-sportplus.jpg"
+      image: "/nagordy.jpg",
+      link:"https://www.facebook.com/SportplusSzczecin?__cft__[0]=AZWTMDTk6C1qShC1ji7loYKuREvpsOSZISHazg_bXyDG4ZXTeHAEyZ-aZzlXFjyG49i7BMAuIkBAXsLEt69741eXWQHj1hvXB8tGjy5PYR4V2f0MmAKDL477nQpprCvldh2laxShoxeROP_8O-HYouQD2OHFlshBjPGt6GzqMkDAhIU92jxKadajG-dxVgERe3Sdv5B21vF2ivLP25oUVLC9&__tn__=-]K-R"
     },
     {
       id: 7,
       nazwa: "Radek Janukiewicz",
       opis: "Główny trener bramkarzy Future Football Club",
       kategoria: "Sztab Szkoleniowy",
-      image: "/images/partner-bramkarz.jpg"
+      image: "/radek_jaunukiewicz.jpg",
+      link:"https://www.facebook.com/profile.php?id=100083789346503&__cft__[0]=AZWTMDTk6C1qShC1ji7loYKuREvpsOSZISHazg_bXyDG4ZXTeHAEyZ-aZzlXFjyG49i7BMAuIkBAXsLEt69741eXWQHj1hvXB8tGjy5PYR4V2f0MmAKDL477nQpprCvldh2laxShoxeROP_8O-HYouQD2OHFlshBjPGt6GzqMkDAhIU92jxKadajG-dxVgERe3Sdv5B21vF2ivLP25oUVLC9&__tn__=-]K-R"
+    },
+    {
+      id: 8,
+      nazwa: "Damian Pepliński",
+      opis: "Główny prowadzący treningów indywidualnych Future Football Club",
+      kategoria: "Sztab Szkoleniowy",
+      image: "/damian_peplinski.jpg",
+      link:"https://www.facebook.com/pepdamian"
     }
   ];
 
@@ -59,51 +74,60 @@ const Partnerzy = () => {
     {
       id: 8,
       nazwa: "Piotr Matulka",
-      opis: "Psycholog sportowy Future Football Club",
+      opis: "Trener mentalny Future Football Club",
       kategoria: "Psychologia Sportu",
-      image: "/images/partner-mentalny.jpg"
+      image: "/trener_mentalny.jpg",
+      link:"https://www.facebook.com/piotrmatulkatrenermentalny?__cft__[0]=AZWTMDTk6C1qShC1ji7loYKuREvpsOSZISHazg_bXyDG4ZXTeHAEyZ-aZzlXFjyG49i7BMAuIkBAXsLEt69741eXWQHj1hvXB8tGjy5PYR4V2f0MmAKDL477nQpprCvldh2laxShoxeROP_8O-HYouQD2OHFlshBjPGt6GzqMkDAhIU92jxKadajG-dxVgERe3Sdv5B21vF2ivLP25oUVLC9&__tn__=-]K-R"
     },
     {
       id: 9,
-      nazwa: "Centrum Rozwoju Nauki i Biznesu",
-      opis: "Partner edukacyjny dla zawodników akademii",
+      nazwa: "EuropaBiz",
+      opis: "Centrum Rozwoju Nauki i Biznesu - Partner edukacyjny dla zawodników akademii",
       kategoria: "Edukacja",
-      image: "/images/partner-europabiz.jpg"
+      image: "/europaBiz.jpg",
+      link:"https://www.facebook.com/EuropaBiz?__cft__[0]=AZWTMDTk6C1qShC1ji7loYKuREvpsOSZISHazg_bXyDG4ZXTeHAEyZ-aZzlXFjyG49i7BMAuIkBAXsLEt69741eXWQHj1hvXB8tGjy5PYR4V2f0MmAKDL477nQpprCvldh2laxShoxeROP_8O-HYouQD2OHFlshBjPGt6GzqMkDAhIU92jxKadajG-dxVgERe3Sdv5B21vF2ivLP25oUVLC9&__tn__=-]K-R"
     },
     {
       id: 10,
       nazwa: "OLYMPIA",
-      opis: "Oficjalny dostawca suplementów dla zawodników",
+      opis: "Dostawca suplementów dla zawodników",
       kategoria: "Suplementy",
-      image: "/images/partner-olympia.jpg"
+      image: "/olympa.jpg",
+      link:"https://www.facebook.com/olympia.shop/?locale=pl_PL"
     },
     {
       id: 11,
       nazwa: "Myjnia Posejdon",
       opis: "Partner usługowy - dbamy o czystość klubowych pojazdów",
       kategoria: "Usługi",
-      image: "/images/partner-posejdon.jpg"
+      image: "/myjnia.png",
+      link:"https://www.facebook.com/ProfesjonalnaMyjniaPosejdon?__cft__[0]=AZWTMDTk6C1qShC1ji7loYKuREvpsOSZISHazg_bXyDG4ZXTeHAEyZ-aZzlXFjyG49i7BMAuIkBAXsLEt69741eXWQHj1hvXB8tGjy5PYR4V2f0MmAKDL477nQpprCvldh2laxShoxeROP_8O-HYouQD2OHFlshBjPGt6GzqMkDAhIU92jxKadajG-dxVgERe3Sdv5B21vF2ivLP25oUVLC9&__tn__=-]K-R"
     },
     {
       id: 12,
       nazwa: "Gigi Cargo",
       opis: "Transport zawodników na mecze wyjazdowe",
       kategoria: "Transport",
-      image: "/images/partner-cargo.jpg"
+      image: "transport.jpg",
+      link:"https://www.facebook.com/people/GiGi-Cargo/61559969609707/"
     },
     {
       id: 13,
       nazwa: "KonTour Luxury Travel",
       opis: "Organizacja wyjazdów na turnieje międzynarodowe",
       kategoria: "Turystyka Sportowa",
-      image: "/images/partner-travel.jpg"
+      image: "/kontour.jpg",
+      link:"https://www.facebook.com/KonTourLuxuryTravel?__cft__[0]=AZWTMDTk6C1qShC1ji7loYKuREvpsOSZISHazg_bXyDG4ZXTeHAEyZ-aZzlXFjyG49i7BMAuIkBAXsLEt69741eXWQHj1hvXB8tGjy5PYR4V2f0MmAKDL477nQpprCvldh2laxShoxeROP_8O-HYouQD2OHFlshBjPGt6GzqMkDAhIU92jxKadajG-dxVgERe3Sdv5B21vF2ivLP25oUVLC9&__tn__=-]K-R"
     }
   ];
 
   const PartnerCard = ({ partner }) => (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-black">
       <div className="h-48 bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-600 flex items-center justify-center relative">
-        <div className="absolute inset-0 bg-black opacity-10"></div>
+        
+        <div className="absolute inset-0 bg-black opacity-10">
+          
+        </div>
         <div className="text-black text-6xl font-bold opacity-30 z-10">
           {partner.nazwa.charAt(0)}
         </div>
