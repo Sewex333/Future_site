@@ -27,7 +27,7 @@ const Oferta = () => {
 
   const OfferCard = ({ oferta }) => (
     <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-gray-100">
-      <div className={`h-32 bg-gradient-to-r ${oferta.kolor} flex items-center justify-center relative`}>
+      <div className={`h-32 bg-${oferta.kolor} flex items-center justify-center relative`}>
         <div className="text-6xl">{oferta.ikona}</div>
         <div className="absolute top-2 right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center">
           <div className="w-4 h-4 bg-black rounded-full"></div>
