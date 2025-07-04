@@ -110,6 +110,32 @@ app.get('/api/aktualnosci', async (req, res) => {
   }
 });
 
+app.get('/api/partnerzy', async (req, res) => {
+  try {
+    const snapshot = await db.collection('partnerzy').get();
+    const partnerzy = snapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        nazwa: data.nazwa || 'Brak nazwy',
+        opis: data.opis || '',
+        kategoria: data.kategoria || 'Inne',
+        image: data.image || '/default-partner.jpg',
+        link: data.link || '#',
+        typ: data.typ || 'partner', 
+        dostepny: data.dostepny !== undefined ? data.dostepny : true,
+        opis_rozszerzony: data.opis_rozszerzony || data.opis || '',
+        logo: data.logo || '',
+        kolor_karty: data.kolor_karty || 'from-yellow-400 to-yellow-500'
+      };
+    });
+    res.json(partnerzy);
+  } catch (error) {
+    console.error('Błąd pobierania partnerów:', error);
+    res.status(500).json({ error: 'Błąd pobierania partnerów' });
+  }
+});
+
 app.get('/api/test-connection', (req, res) => {
     res.status(200).json({"message" : "polaczenie z db dziala"});
 })
