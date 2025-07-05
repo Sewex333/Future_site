@@ -11,7 +11,7 @@ const Oferta = () => {
   useEffect(() => {
     const fetchOferty = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/oferty');
+        const response = await fetch('http://54.37.232.168:8000/api/oferty');
         if (!response.ok) throw new Error('Problem z pobraniem danych');
         const data = await response.json();
         setOferty(data);
