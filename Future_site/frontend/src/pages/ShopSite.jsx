@@ -9,7 +9,7 @@ const Shop = () => {
 
   useEffect(() => {
     const fetchItems = async () => {
-      const res = await fetch('http://localhost:8000/api/items');
+      const res = await fetch('http://54.37.232.168:8000/api/items');
       const data = await res.json();
       setItems(data);
     };

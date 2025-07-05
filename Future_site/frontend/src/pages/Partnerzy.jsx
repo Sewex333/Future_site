@@ -10,7 +10,7 @@ const Partnerzy = () => {
   useEffect(() => {
     const fetchPartnerzy = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/partnerzy');
+        const response = await fetch('http://54.37.232.168:8000/api/partnerzy');
         if (!response.ok) throw new Error('Problem z pobraniem danych');
         const data = await response.json();
         setPartnerzy(data);

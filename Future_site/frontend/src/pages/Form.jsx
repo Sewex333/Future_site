@@ -25,7 +25,7 @@ const Form = () => {
         alert('Something went wrong!');
       });
 
-    fetch('http://localhost:8000/api/data', {
+    fetch('http://54.37.232.168:8000/api/data', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
