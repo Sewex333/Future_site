@@ -29,7 +29,7 @@ const Navbar = () => {
         <Link to="/ebooki-materialy" className="hover:text-yellow-400">E-booki</Link> 
         <Link to="/aktualnosci" className="hover:text-yellow-400">Aktualności</Link> 
         <Link to="/partnerzy" className="hover:text-yellow-400">Partnerzy</Link> 
-        <Link to="/kontakt" className="hover:text-yellow-400">Kontakt</Link> 
+        <Link to="/kontakt" className="hover:text-yellow-400">Kontakt i FAQ</Link> 
       </div> 
     </nav> 
   ) 

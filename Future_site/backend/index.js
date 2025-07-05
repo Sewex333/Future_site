@@ -55,6 +55,87 @@ app.get('/api/events', async (req, res) => {
   }
 });
 
+app.get('/api/oferty', async (req, res) => {
+  try {
+    const snapshot = await db.collection('oferty').get();
+    const oferty = snapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        nazwa: data.nazwa || 'Brak nazwy',
+        opis: data.opis || '',
+        cena: data.cena || 'Brak ceny',
+        czas: data.czas || '',
+        poziom: data.poziom || '',
+        ikona: data.ikona || '⚽',
+        typ: data.typ || 'inne',
+        link: data.link || '/',
+        features: data.features || [],
+        kolor: data.kolor || 'from-gray-500 to-gray-600',
+        dostepny: data.dostepny !== undefined ? data.dostepny : true
+      };
+    });
+    res.json(oferty);
+  } catch (error) {
+    console.error('Błąd pobierania ofert:', error);
+    res.status(500).json({ error: 'Błąd pobierania ofert' });
+  }
+});
+
+
+app.get('/api/aktualnosci', async (req, res) => {
+  try {
+    const snapshot = await db.collection('aktualnosci').get();
+    const aktualnosci = snapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        tytul: data.tytul || 'Brak tytułu',
+        data: data.data || '',
+        kategoria: data.kategoria || 'Inne',
+        opis: data.opis || '',
+        obrazek: data.obrazek || '📰',
+        pelnyTekst: data.pelnyTekst || '',
+        dostepny: data.dostepny !== undefined ? data.dostepny : true,
+        wyrozniany: data.wyrozniany !== undefined ? data.wyrozniany : false
+      };
+    });
+    
+    aktualnosci.sort((a, b) => new Date(b.data) - new Date(a.data));
+    
+    res.json(aktualnosci);
+  } catch (error) {
+    console.error('Błąd pobierania aktualności:', error);
+    res.status(500).json({ error: 'Błąd pobierania aktualności' });
+  }
+});
+
+app.get('/api/partnerzy', async (req, res) => {
+  try {
+    const snapshot = await db.collection('partnerzy').get();
+    const partnerzy = snapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        nazwa: data.nazwa || 'Brak nazwy',
+        opis: data.opis || '',
+        kategoria: data.kategoria || 'Inne',
+        image: data.image || '/default-partner.jpg',
+        link: data.link || '#',
+        typ: data.typ || 'partner', 
+        dostepny: data.dostepny !== undefined ? data.dostepny : true,
+        opis_rozszerzony: data.opis_rozszerzony || data.opis || '',
+        logo: data.logo || '',
+        kolor_karty: data.kolor_karty || 'from-yellow-400 to-yellow-500'
+      };
+    });
+    res.json(partnerzy);
+  } catch (error) {
+    console.error('Błąd pobierania partnerów:', error);
+    res.status(500).json({ error: 'Błąd pobierania partnerów' });
+  }
+});
+
 app.get('/api/test-connection', (req, res) => {
     res.status(200).json({"message" : "polaczenie z db dziala"});
 })

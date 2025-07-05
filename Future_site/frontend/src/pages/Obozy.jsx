@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import { Link } from 'react-router';
+import Form from './Form';
 
 const Obozy = () => {
   const [obozy, setObozy] = useState([]);
@@ -9,7 +11,7 @@ const Obozy = () => {
   useEffect(() => {
   const fetchObozy = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/obozy");
+      const response = await fetch("http://54.37.232.168:8000/api/obozy");
       const data = await response.json();
       setObozy(data.filter(item => item.type === 'oboz'));
       setPolkolonie(data.filter(item => item.type === 'polkolonia'));
@@ -116,7 +118,7 @@ const Obozy = () => {
                     <a 
                       href={camp.sport_kart} 
                       download 
-                      className="bg-white text-black font-bold px-5 py-2 rounded-lg hover:bg-gray-100 transition-colors shadow-lg"
+                      className="bg-red text-black font-bold px-5 py-2 rounded-lg hover:bg-gray-100 transition-colors shadow-lg"
                     >
                       ⚕️ Karta zdrowia
                     </a>
@@ -204,12 +206,15 @@ const Obozy = () => {
                     </li>
                   </ul>
                 </div>
-                <a
+                <Link to="/formularz" className="inline-flex items-center bg-yellow-500 text-black font-bold px-6 py-3 rounded-lg hover:bg-yellow-400 transition-colors shadow-lg">
+                ✉️ Zarezerwuj miejsce
+                </Link>
+                {/* <a
                   href={`mailto:${camp.email}`}
                   className="inline-flex items-center bg-yellow-500 text-black font-bold px-6 py-3 rounded-lg hover:bg-yellow-400 transition-colors shadow-lg"
                 >
                   ✉️ Zarezerwuj miejsce
-                </a>
+                </a> */}
               </div>
             </div>
 
