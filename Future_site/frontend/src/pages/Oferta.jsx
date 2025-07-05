@@ -1,118 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import { Form } from 'react-router';
 import { Link } from 'react-router';
 
 const Oferta = () => {
-  const oferty = [
-    {
-      id: 1,
-      nazwa: "Akademia Piłkarska",
-      opis: "Kompleksowe szkolenie młodych piłkarzy z elementami gry pozycyjnej",
-      cena: "od 200 zł/miesiąc",
-      czas: "2x tygodniowo",
-      poziom: "6-18 lat",
-      ikona: "⚽",
-      features: [
-        "Licencjonowani trenerzy UEFA",
-        "Trening techniczno-taktyczny",
-        "Rozwój fizyczny i koordynacja",
-        "Mecze ligowe i sparingi",
-        "Certyfikat ukończenia sezonu"
-      ],
-      kolor: "from-yellow-500 to-yellow-600"
-    },
-    {
-      id: 2,
-      nazwa: "Treningi Indywidualne",
-      opis: "Spersonalizowane sesje treningowe z analizą video i planem rozwoju",
-      cena: "150 zł/sesja",
-      czas: "90 minut",
-      poziom: "Wszystkie kategorie",
-      ikona: "🎯",
-      features: [
-        "Analiza techniki indywidualnej",
-        "Korekta błędów taktycznych",
-        "Trening pozycyjny",
-        "Analiza wideo z meczów",
-        "Indywidualny plan rozwoju"
-      ],
-      kolor: "from-gray-800 to-black"
-    },
-    {
-      id: 3,
-      nazwa: "Treningi Mentalne",
-      opis: "Budowanie charakteru zawodnika i radzenie sobie z presją meczową",
-      cena: "120 zł/sesja",
-      czas: "60 minut",
-      poziom: "Wszyscy zawodnicy",
-      ikona: "🧠",
-      features: [
-        "Praca nad koncentracją",
-        "Radzenie sobie z presją",
-        "Budowanie pewności siebie",
-        "Motywacja i cele sportowe",
-        "Praca z psychologiem sportu"
-      ],
-      kolor: "from-yellow-400 to-yellow-500"
-    },
-    {
-      id: 4,
-      nazwa: "Obozy Piłkarskie",
-      opis: "Intensywne obozy treningowe w malowniczych lokalizacjach",
-      cena: "od 800 zł",
-      czas: "7-14 dni",
-      poziom: "Wszystkie kategorie",
-      ikona: "🏕️",
-      features: [
-        "3 treningi dziennie",
-        "Mecze i turnieje",
-        "Pełna opieka i wyżywienie",
-        "Zajęcia rekreacyjne",
-        "Certyfikat i pamiątki"
-      ],
-      kolor: "from-gray-700 to-gray-900"
-    },
-    {
-      id: 5,
-      nazwa: "Sklep Klubowy",
-      opis: "Oficjalne stroje i akcesoria Future Football Club",
-      cena: "Różne ceny",
-      czas: "Dostępne 24/7",
-      poziom: "Dla kibiców",
-      ikona: "👕",
-      features: [
-        "Koszulki meczowe i treningowe",
-        "Spodenki i getry klubowe",
-        "Akcesoria kibiców",
-        "Sprzęt treningowy",
-        "Szybka dostawa"
-      ],
-      kolor: "from-yellow-500 to-yellow-600"
-    },
-    {
-      id: 6,
-      nazwa: "Skauting i Rozwój",
-      opis: "Program rozwoju talentów i współpraca z profesjonalnymi klubami",
-      cena: "Wycena indywidualna",
-      czas: "Według potrzeb",
-      poziom: "Utalentowani gracze",
-      ikona: "🔍",
-      features: [
-        "Obserwacja talentów",
-        "Testy w klubach",
-        "Rekomendacje do akademii",
-        "Doradztwo kariery",
-        "Kontakty z agentami"
-      ],
-      kolor: "from-gray-800 to-black"
-    }
-  ];
+  const [oferty, setOferty] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchOferty = async () => {
+      try {
+        const response = await fetch('http://54.37.232.168:8000/api/oferty');
+        if (!response.ok) throw new Error('Problem z pobraniem danych');
+        const data = await response.json();
+        setOferty(data);
+      } catch (error) {
+        console.error('Błąd:', error);
+        setError('Nie udało się załadować ofert');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchOferty();
+  }, []);
 
   const OfferCard = ({ oferta }) => (
     <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-gray-100">
-      <div className={`h-32 bg-gradient-to-r ${oferta.kolor} flex items-center justify-center relative`}>
+      <div className={`h-32 bg-${oferta.kolor} flex items-center justify-center relative`}>
         <div className="text-6xl">{oferta.ikona}</div>
         <div className="absolute top-2 right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center">
           <div className="w-4 h-4 bg-black rounded-full"></div>
@@ -135,23 +50,62 @@ const Oferta = () => {
         <div className="mb-6">
           <h4 className="font-semibold text-gray-800 mb-2">Program zawiera:</h4>
           <ul className="space-y-1">
-            {oferta.features.map((feature, index) => (
-              <li key={index} className="flex items-center text-sm text-gray-600">
-                <span className="text-yellow-500 mr-2 font-bold">⚽</span>
-                {feature}
-              </li>
-            ))}
+            {Array.isArray(oferta.features) ? (
+              oferta.features.map((feature, index) => (
+                <li key={index} className="flex items-center text-sm text-gray-600">
+                  <span className="text-yellow-500 mr-2 font-bold">⚽</span>
+                  {feature}
+                </li>
+              ))
+            ) : (
+              <li className="text-sm text-gray-600">Brak informacji</li>
+            )}
           </ul>
         </div>
 
-      <Link to="/formularz">
-        <button className={`w-full bg-gradient-to-r ${oferta.kolor} text-white py-3 px-4 rounded-lg hover:opacity-90 transition-opacity duration-200 font-semibold shadow-lg`}>
-          Zapisz się na trening
-        </button>
+        <Link to={oferta.link}>
+          <button className={`w-full bg-gradient-to-r from-gray-800 to-black text-white py-3 px-4 rounded-lg hover:opacity-90 transition-opacity duration-200 font-semibold shadow-lg`}>
+            Sprawdź szczegóły
+          </button>
         </Link>
       </div>
     </div>
   );
+
+  if (loading) {
+    return (
+      <>
+        <Navbar />
+        <div className="min-h-screen bg-gray-50 pt-20 flex items-center justify-center">
+          <div className="text-center">
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-yellow-500 mb-4"></div>
+            <p>Ładowanie ofert...</p>
+          </div>
+        </div>
+        <Footer />
+      </>
+    );
+  }
+
+  if (error) {
+    return (
+      <>
+        <Navbar />
+        <div className="min-h-screen bg-gray-50 pt-20 flex items-center justify-center">
+          <div className="text-center text-red-500">
+            <p className="text-xl">{error}</p>
+            <button 
+              onClick={() => window.location.reload()}
+              className="mt-4 px-4 py-2 bg-yellow-500 text-black rounded hover:bg-yellow-600"
+            >
+              Spróbuj ponownie
+            </button>
+          </div>
+        </div>
+        <Footer />
+      </>
+    );
+  }
 
   return (
     <>
@@ -203,11 +157,17 @@ const Oferta = () => {
             <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
               Wybierz swój program treningowy
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {oferty.map(oferta => (
-                <OfferCard key={oferta.id} oferta={oferta} />
-              ))}
-            </div>
+            {oferty.length === 0 ? (
+              <div className="text-center py-12">
+                <p className="text-gray-600">Brak dostępnych ofert. Sprawdź później!</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {oferty.map(oferta => (
+                  <OfferCard key={oferta.id} oferta={oferta} />
+                ))}
+              </div>
+            )}
           </div>
         </section>
 
@@ -226,12 +186,16 @@ const Oferta = () => {
               Dołącz do Future Football Club i rozwijaj swoje umiejętności pod okiem licencjonowanych trenerów
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-white text-black px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors shadow-lg">
-                Umów trening próbny
-              </button>
-              <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-black transition-colors">
-                Sprawdź cennik
-              </button>
+              <Link to="/formularz">
+                <button className="bg-white text-black px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors shadow-lg">
+                  Umów trening próbny
+                </button>
+              </Link>
+              <Link to="/kontakt">
+                <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-black transition-colors">
+                  Sprawdź cennik
+                </button>
+              </Link>
             </div>
           </div>
         </section>
