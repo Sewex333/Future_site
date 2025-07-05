@@ -16,6 +16,11 @@ const Shop = () => {
 
     fetchItems();
   }, []);
+
+  //apt install curl -y
+// curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+// apt install -y nodejs
+// npm install -g pm2
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
