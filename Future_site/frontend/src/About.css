@@ -1,63 +1,52 @@
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
 .container {
     margin: 50px auto;
     display: flex;
     flex-direction: column;
     gap: 40px;
     padding: 60px 20px;
-    
 }
-
 
 .blok {
-    background-color: #f9f9f9;
-    border-left: 6px solid #d4af37; 
+    background-color: #1a1a1a;
+    border-left: 6px solid #d4af37;
     border-radius: 14px;
-    padding: 24px 28px;
-    color: #222;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    max-width: 650px;
-    transition: transform 0.3s ease;
+    padding: 28px 32px;
+    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.15);
+    max-width: 700px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .blok:hover {
-    transform: translateY(-4px);    
-}
-
-.blok p {
-    margin-bottom: 1.2em;
-    line-height: 1.7;
-    font-size: 1rem;
-}
-
-.blok strong {
-    font-size: 1.3rem;
-    color: #bfa134; 
-}
-
-.blok em {
-    color: #555;
-}
-
-
-.blok:hover {
-    transform: translateY(-4px);    
-}
-
-.blok p {
-    margin-bottom: 1.2em;
-    line-height: 1.7;
-    font-size: 1rem;
+    transform: translateY(-5px);
+    box-shadow: 0 6px 24px rgba(255, 215, 0, 0.2);
 }
 
 .blok h1 {
-    font-weight: bold;
-    font-size: 1.8rem;
+    font-size: 1.9rem;
     color: #d4af37;
+    margin-bottom: 16px;
+}
+
+.blok p {
+    margin-bottom: 1.2em;
+    line-height: 1.7;
+    font-size: 1.05rem;
+    color: #f2f2f2;
 }
 
 .blok .span1 {
     font-weight: bold;
+    color: #f7c948;
     font-style: italic;
+}
+
+.highlight {
+    color: #d4af37;
+    font-weight: bold;
 }
 
 .lewo {
@@ -67,5 +56,3 @@
 .prawo {
     align-self: flex-end;
 }
-
-
