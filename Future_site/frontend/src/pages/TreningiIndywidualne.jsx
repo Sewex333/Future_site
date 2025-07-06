@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import { Link } from 'react-router';
 
 const TreningiIndywidualne = () => {
   const pakiety = [
@@ -148,21 +149,7 @@ const TreningiIndywidualne = () => {
           </div>
         </section>
 
-        <section className="py-16 bg-gray-100">
-          <div className="max-w-6xl mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center mb-4 text-gray-800">
-              Wybierz swój pakiet
-            </h2>
-            <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-              Oferujemy różne pakiety treningowe dostosowane do Twojego poziomu zaawansowania i celów. 
-              Każdy pakiet jest w pełni personalizowany.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              
-            </div>
-          </div>
-        </section>
-
+        
         <section className="py-16 bg-white">
           <div className="max-w-6xl mx-auto px-4">
             <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
@@ -210,12 +197,11 @@ const TreningiIndywidualne = () => {
               Umów się na bezpłatną konsultację i odkryj swój potencjał
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black px-8 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity">
-                Bezpłatna konsultacja
-              </button>
-              <button className="border-2 border-yellow-400 text-yellow-400 px-8 py-3 rounded-lg font-semibold hover:bg-yellow-400 hover:text-black transition-colors">
-                Zobacz cennik
-              </button>
+              <Link to="/formularz">
+                <button className="bg-yellow-500 text-black px-8 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition-colors shadow-lg">
+                  Zapisz się
+                </button>
+              </Link>
             </div>
           </div>
         </section>
