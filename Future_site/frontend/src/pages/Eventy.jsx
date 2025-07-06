@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import { Link } from 'react-router';
 
 const Eventy = () => {
   const [events, setEvents] = useState([]);
@@ -233,14 +234,12 @@ const Eventy = () => {
               Zapisz się do naszego newslettera i bądź pierwszy do zgłoszenia na najlepsze eventy
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-              <input 
-                type="email" 
-                placeholder="Twój email..."
-                className="flex-1 px-4 py-3 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-yellow-400"
-              />
-              <button className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity">
-                Zapisz się
-              </button>
+              <Link to="/formularz">
+                <button className="bg-yellow-500 text-black px-8 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition-colors shadow-lg">
+                  Zapisz się
+                </button>
+              </Link>
+              
             </div>
           </div>
         </section>

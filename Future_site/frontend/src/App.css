@@ -1,40 +1,51 @@
 @import "tailwindcss";
-#root{
+
+/* Reset podstawowy */
+* {
+  box-sizing: border-box;
+}
+
+#root {
   height: 100%;
   width: 100%;
   background-color: white;
 }
-body{
+
+body {
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
 }
-.navbar{
-  position: absolute;
+
+/* Navbar - zmieniono z absolute na relative */
+.navbar {
+  position: relative; /* Zmieniono z absolute */
   margin: 0;
   width: 100%;
-  height:10vh;
+  height: 10vh;
   background-color: black;
   text-align: center;
   color: white;
-  
+  z-index: 100; /* Dodano wyższy z-index */
 }
-.title{
+
+.title {
   padding: 10px;
   color: white;
   margin: 0;
   font-size: 5vh;
 }
-a{
-  color: white;
-}
-#links{
+
+#links {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-#zdjecieMain{
+
+/* Stary styl dla zdjęcia - wyłączony żeby nie konfliktował */
+/*
+#zdjecieMain {
   background-image: url("zdjecieOPEN.JPG");
   width: 100%;
   height: 90vh;
@@ -47,7 +58,9 @@ a{
   background-size: cover;
   padding-bottom: 110px;
 }
-#desc{
+*/
+
+#desc {
   float: right;
   margin-right: 80px;
   width: 40%;
@@ -56,13 +69,14 @@ a{
   background-color: navy;
   color: yellow;
 }
-#smallPhoto{
+
+#smallPhoto {
   padding: 30px;
   height: 30vh;
   margin-left: 70px;
 }
 
-.link{
+.link {
   position: relative;
   float: left;
   padding: 12px;
@@ -70,8 +84,9 @@ a{
   font-size: 22px;
   width: 25%; 
   text-align: center;
-  text-shadow: 1.3px 1.3px 4px  #ffd700; 
+  text-shadow: 1.3px 1.3px 4px #ffd700; 
 }
+
 .link::before {
   content: "";
   position: absolute;
@@ -83,38 +98,52 @@ a{
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
   box-sizing: border-box;
-  
 }
 
 .link:hover::before {
   opacity: 1;
-  
 }
-.link:hover{
+
+.link:hover {
   transition: color 0.2s ease-in-out;
   color: rgba(255, 255, 0, 0.425);
   text-decoration: underline;
 }
-.powitalnyTekst{
+
+/* Stare style tekstowe - wyłączone żeby nie konfliktowały */
+/*
+.powitalnyTekst {
   position: absolute;
-  /* z-index: 1; */
   color: black;
   font-size: 4em;
-  
 }
-.greeting_text{
-  /* padding-top: 15%; */
+
+.greeting_text {
   width: 50%;
   z-index: 1;
-  font-weight:900;
+  font-weight: 900;
   backdrop-filter: blur(10px);
 }
+*/
 
-
-#Future{
-  font-size:2rem;
-  text-shadow: 2px 2px 10px  #ffd700; 
+#Future {
+  font-size: 2rem;
+  text-shadow: 2px 2px 10px #ffd700; 
 }
-.subtext_main{
+
+.subtext_main {
   color: gold;
+}
+
+/* Naprawione style dla video */
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Upewnij się, że sekcje są widoczne */
+section {
+  position: relative;
+  z-index: 1;
 }

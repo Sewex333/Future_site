@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import { Link } from 'react-router';
 
 const TreningiMentalne = () => {
   const programy = [
@@ -195,12 +196,11 @@ const TreningiMentalne = () => {
               Zapisz się na konsultację z naszym psychologiem sportu.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <button className="bg-black text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-gray-800 transition-colors shadow-lg">
-                Umów konsultację
-              </button>
-              <button className="border-4 border-black text-black bg-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg">
-                Pobierz program
-              </button>
+              <Link to="/formularz">
+                <button className="bg-black-500 text-black px-8 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition-colors shadow-lg">
+                  Zapisz się
+                </button>
+              </Link>
             </div>
           </div>
         </section>

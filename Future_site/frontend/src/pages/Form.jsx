@@ -41,51 +41,67 @@ const Form = () => {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 bg-white rounded-xl shadow-lg mt-20 mb-20">
-        <div className="mb-6 text-center">
-          <button
-            className={`px-4 py-2 rounded-l-lg ${formType === "zawodnik" ? "bg-blue-600 text-white" : "bg-gray-200"}`}
-            onClick={() => setFormType("zawodnik")}
-            type="button"
-          >
-            Zawodnik
-          </button>
-          <button
-            className={`px-4 py-2 rounded-r-lg ${formType === "rodzic" ? "bg-blue-600 text-white" : "bg-gray-200"}`}
-            onClick={() => setFormType("rodzic")}
-            type="button"
-          >
-            Rodzic
-          </button>
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-yellow-50 via-amber-50 to-yellow-100">
+      <div className="w-full max-w-md p-8 bg-white rounded-2xl shadow-2xl border-2 border-yellow-400 mt-20 mb-20">
+        <div className="mb-8 text-center">
+          <div className="inline-flex bg-black rounded-xl p-1 shadow-lg">
+            <button
+              className={`px-6 py-3 mx-1 rounded-lg font-semibold transition-all duration-300 ${
+                formType === "zawodnik" 
+                  ? "bg-gradient-to-r from-yellow-400 to-amber-500 text-black shadow-lg transform scale-105" 
+                  : "bg-transparent text-yellow-400 hover:bg-yellow-400 hover:text-black"
+              }`}
+              onClick={() => setFormType("zawodnik")}
+              type="button"
+            >
+              Zawodnik
+            </button>
+            <button
+              className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
+                formType === "rodzic" 
+                  ? "bg-gradient-to-r from-yellow-400 to-amber-500 text-black shadow-lg transform scale-105" 
+                  : "bg-transparent text-yellow-400 hover:bg-yellow-400 hover:text-black"
+              }`}
+              onClick={() => setFormType("rodzic")}
+              type="button"
+            >
+              Rodzic
+            </button>
+          </div>
         </div>
 
-        <h1 className="text-center text-xl font-bold mb-4">
-          Formularz zgłoszeniowy - wypełnia {formType === "zawodnik" ? "zawodnik" : "rodzic"}
-        </h1>
+        <div className="text-center mb-8">
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-yellow-600 to-amber-600 bg-clip-text text-transparent mb-2">
+            Formularz zgłoszeniowy
+          </h1>
+          <p className="text-gray-700 font-medium">
+            wypełnia {formType === "zawodnik" ? "zawodnik" : "rodzic"}
+          </p>
+        </div>
 
         <form ref={form} onSubmit={handleForm} className='max-w-sm mx-auto'>
-          <div className='mb-5'>
-            <label className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>
+          <div className='mb-6'>
+            <label className='block mb-2 text-sm font-semibold text-gray-800'>
               podaj Imie i Nazwisko:
               <input
                 type="text"
                 name='name'
                 value={name}
-                className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                className='w-full p-3 mt-1 border-2 border-yellow-300 rounded-lg focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 bg-yellow-50 text-gray-800 placeholder-gray-500 transition-all duration-300'
                 onChange={(e) => setName(e.target.value)}
+                placeholder="Wprowadź imię i nazwisko"
                 required
               />
             </label>
           </div>
 
-          <div className='mb-5'>
-            <label className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>
+          <div className='mb-6'>
+            <label className='block mb-2 text-sm font-semibold text-gray-800'>
               podaj date Urodzenia
               <input
                 type="date"
                 name='data'
-                className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                className='w-full p-3 mt-1 border-2 border-yellow-300 rounded-lg focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 bg-yellow-50 text-gray-800 transition-all duration-300'
                 value={b_date}
                 onChange={(e) => SetB_date(e.target.value)}
                 required
@@ -93,8 +109,8 @@ const Form = () => {
             </label>
           </div>
 
-          <div className='mb-5'>
-            <label className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>
+          <div className='mb-6'>
+            <label className='block mb-2 text-sm font-semibold text-gray-800'>
               Podaj numer Telefonu
               <input
                 type="tel"
@@ -103,48 +119,55 @@ const Form = () => {
                 onChange={(e) => setNr_tel(e.target.value)}
                 pattern='[0-9]{9}'
                 placeholder='000-000-000'
-                className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                className='w-full p-3 mt-1 border-2 border-yellow-300 rounded-lg focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 bg-yellow-50 text-gray-800 placeholder-gray-500 transition-all duration-300'
                 required
               />
             </label>
           </div>
 
-          <div className='mb-5'>
-            <label className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>
+          <div className='mb-6'>
+            <label className='block mb-2 text-sm font-semibold text-gray-800'>
               Podaj email
               <input
                 type="email"
                 value={mail}
                 name='mail'
-                className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                className='w-full p-3 mt-1 border-2 border-yellow-300 rounded-lg focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 bg-yellow-50 text-gray-800 placeholder-gray-500 transition-all duration-300'
                 onChange={(e) => setMail(e.target.value)}
+                placeholder="wprowadź@email.com"
                 required
               />
             </label>
           </div>
 
-          <div className='mb-5'>
-            <label className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>
+          <div className='mb-6'>
+            <label className='block mb-2 text-sm font-semibold text-gray-800'>
               Podaj informacje o sobie
             </label>
             <textarea
               name="message"
               id=""
-              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+              className='w-full p-3 border-2 border-yellow-300 rounded-lg focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 bg-yellow-50 text-gray-800 placeholder-gray-500 transition-all duration-300 min-h-[100px] resize-vertical'
               value={info}
               onChange={(e) => setInfo(e.target.value)}
-            >
-              Tutaj podaj info o sobie
-            </textarea>
+              placeholder="Tutaj podaj info o sobie"
+            />
           </div>
 
-          <br />
-          
-          <input
-            type="submit"
-            value="Wyślij"
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg w-full mt-4 cursor-pointer transition"
-          />
+          <div className="space-y-4">
+            <input
+              type="submit"
+              value="Wyślij"
+              className="w-full bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-black font-bold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 cursor-pointer border-2 border-yellow-600"
+            />
+            
+            <Link 
+              to="/" 
+              className="block w-full bg-black hover:bg-gray-800 text-yellow-400 font-bold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 text-center border-2 border-yellow-400"
+            >
+              Powrót
+            </Link>
+          </div>
         </form>
       </div>
     </div>
@@ -152,6 +175,3 @@ const Form = () => {
 }
 
 export default Form;
-
-//<Link to="/" className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg w-full mt-4 cursor-pointer transition">Powrót</Link> 
-          
