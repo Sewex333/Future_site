@@ -34,7 +34,7 @@ createRoot(document.getElementById('root')).render(
       <Route path="/partnerzy" element={<Partnerzy />} />
       <Route path="/kontakt" element={<Kontakt />} />
       <Route path="/formularz" element={<Form />} />
-      <Route path="/product/:id" element={<ProductDetail />} />
+      <Route path="/sklep/:id" element={<ProductDetail />} />
     </Routes>
   </BrowserRouter>
 )
