@@ -22,3 +22,7 @@ Future:
     sklep:
         -zolte i pomaranczowe wyroznienia (sprzedazowe)
 
+kopiowanie nowych na serwer
+sudo rm -rf /var/www/klubfrontend/*
+scp -r ./dist/* ubuntu@54.37.232.168:/var/www/klubfrontend/
+sudo systemctl restart nginx

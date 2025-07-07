@@ -10,7 +10,7 @@ const Aktualnosci = () => {
   useEffect(() => {
     const fetchAktualnosci = async () => {
       try {
-        const response = await fetch('http://54.37.232.168:8000/api/aktualnosci');
+        const response = await fetch('/api/aktualnosci');
         if (!response.ok) throw new Error('Problem z pobraniem danych');
         const data = await response.json();
         setAktualnosci(data);

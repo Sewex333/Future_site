@@ -1,13 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const product = items.find((item) => item.id === parseInt(id));
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-  if (!product) return <p>Produkt nie znaleziony</p>;
+  useEffect(() => {
+    const fetchProduct = async () => {
+      console.log('Pobieram dane dla produktu o ID:', id);
+      try {
+        const res = await fetch('/api/items');
+        if (!res.ok) throw new Error(`Błąd: ${res.status}`);
+        const data = await res.json();
+
+        const found = data.find((item) => item.id === id);
+        if (!found) {
+          console.warn('Nie znaleziono produktu o ID:', id);
+          setError(true);
+        } else {
+          setProduct(found);
+        }
+      } catch (err) {
+        console.error('Błąd pobierania produktu:', err);
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProduct();
+  }, [id]);
+
+  if (loading) return <p className="text-center py-20">Ładowanie produktu...</p>;
+  if (error || !product) return <p className="text-center py-20 text-red-600">Produkt nie znaleziony.</p>;
 
   return (
     <div className="flex flex-col min-h-screen">
