@@ -8,6 +8,7 @@ import { motion, scale } from "motion/react";
 import Form from './pages/Form'
 import Aktualnosci from './pages/Aktualnosci'
 import Footer from './pages/Footer'
+import videoMain from '../src/video/filmik_main.mp4'
 
 
 function App() {
@@ -18,8 +19,7 @@ function App() {
       <Navbar />
       <main>
         
-        <section className="relative h-[90vh] overflow-hidden bg-gray-900">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-900 via-purple-900 to-gray-900"></div>
+        <section className="absolute h-[90vh] overflow-hidden bg-gray-900">
           
           <video
             className="absolute top-0 left-0 w-full h-full object-cover z-0"
@@ -29,19 +29,10 @@ function App() {
             playsInline
             preload="metadata"
             controls
-            onLoadStart={() => console.log('Video started loading')}
-            onCanPlay={() => console.log('Video can play')}
-            onError={(e) => {
-              console.error('Video error:', e);
-              console.log('Video source:', e.target.src);
-            }}
-            onLoadedData={() => console.log('Video loaded')}
-          >
-            <source src="/filmik_glowna.mp4" type="video/mp4" />
-            Twoja przeglądarka nie obsługuje elementu video.
-          </video>
+            src={videoMain}
+          />
+            
           
-          <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-20 z-2"></div>
         </section>
 
         <section className="relative bg-gradient-to-br from-gray-900 via-black to-gray-800 py-20">
@@ -80,12 +71,7 @@ function App() {
               >
                 Zapisz się teraz
               </a>
-              <a 
-                href="#oferta" 
-                className="bg-transparent border-2 border-yellow-500 text-yellow-400 hover:bg-yellow-500 hover:text-black font-bold py-4 px-8 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-              >
-                Poznaj naszą ofertę
-              </a>
+               <Link to="/oferta" className="bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-black font-bold py-4 px-8 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">Oferta</Link>
             </motion.div>
           </div>
         </section>

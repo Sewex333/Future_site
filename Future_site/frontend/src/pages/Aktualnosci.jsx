@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import { Link } from 'react-router';
 
 const Aktualnosci = () => {
   const [aktualnosci, setAktualnosci] = useState([]);
@@ -138,7 +139,7 @@ const Aktualnosci = () => {
               </h2>
               <div className="w-24 h-1 bg-gradient-to-r from-yellow-400 to-yellow-500 mx-auto rounded-full"></div>
               <p className="text-gray-600 mt-4">
-                Codziennie nowe zdjęcia z treningów, relacje z meczów i ważne informacje
+                 Najnowsze zdjęcia z treningów, relacje z meczów i ważne informacje
               </p>
             </div>
             
@@ -167,21 +168,21 @@ const Aktualnosci = () => {
               </div>
             </div>
             <h2 className="text-4xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-200">
-              Newsletter Future FC
+              Future FC
             </h2>
-            <p className="text-xl mb-10 opacity-90 max-w-2xl mx-auto">
-              Zapisz się do naszego newslettera i otrzymuj najważniejsze informacje 
-              o klubie bezpośrednio na swoją skrzynkę mailową.
+             <p className="text-xl mb-6 opacity-90 max-w-2xl mx-auto">
+              ⚽ Chcesz rozwijać swoje umiejętności w profesjonalnym środowisku?
+            </p>
+            <p className="text-lg mb-10 opacity-80 max-w-2xl mx-auto">
+              Dołącz do <strong>Future FC</strong> – klubu, który stawia na pasję, rozwój i ducha zespołu. Jesteśmy miejscem, gdzie talent spotyka możliwości.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-              <input 
-                type="email" 
-                placeholder="Twój adres email"
-                className="flex-1 px-4 py-3 rounded-lg text-black border-2 border-gray-300 focus:border-yellow-400 focus:outline-none"
-              />
-              <button className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-black px-8 py-3 rounded-lg font-bold hover:from-yellow-500 hover:to-yellow-600 transition-all duration-200 border-2 border-yellow-400">
-                Zapisz się
-              </button>
+              <Link
+                to="/formularz"
+                className="inline-flex items-center bg-yellow-500 text-black font-bold px-6 py-3 rounded-lg hover:bg-yellow-400 transition-colors shadow-lg"
+              >
+                Skontaktuj się
+              </Link>
             </div>
           </div>
         </section>
