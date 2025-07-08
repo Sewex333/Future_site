@@ -26,3 +26,7 @@ kopiowanie nowych na serwer
 sudo rm -rf /var/www/klubfrontend/*
 scp -r ./dist/* ubuntu@54.37.232.168:/var/www/klubfrontend/
 sudo systemctl restart nginx
+
+ubuntu@vps-2e6785f1:/var/www/klubfrontend$ sudo chown -R www-data:www-data /var/www/klubfrontend
+ubuntu@vps-2e6785f1:/var/www/klubfrontend$ sudo find /var/www/klubfrontend -type d -exec chmod 755 {} \;
+ubuntu@vps-2e6785f1:/var/www/klubfrontend$ sudo find /var/www/klubfrontend -type f -exec chmod 644 {} \;
