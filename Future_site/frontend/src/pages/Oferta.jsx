@@ -11,7 +11,7 @@ const Oferta = () => {
   useEffect(() => {
     const fetchOferty = async () => {
       try {
-        const response = await fetch('/api/oferty');
+        const response = await fetch('http://54.37.232.168:8000/api/oferty');
         if (!response.ok) throw new Error('Problem z pobraniem danych');
         const data = await response.json();
         setOferty(data);
@@ -42,10 +42,7 @@ const Oferta = () => {
         </div>
         <p className="text-gray-600 mb-4">{oferta.opis}</p>
         
-        <div className="flex justify-between items-center mb-4">
-          <div className="text-2xl font-bold text-yellow-600">{oferta.cena}</div>
-          <div className="text-sm text-gray-500 font-medium">{oferta.czas}</div>
-        </div>
+        
 
         <div className="mb-6">
           <h4 className="font-semibold text-gray-800 mb-2">Program zawiera:</h4>
@@ -120,11 +117,10 @@ const Oferta = () => {
               </div>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Nasza Oferta Treningowa
+              Treningi Piłkarskie Future Football Club
             </h1>
             <p className="text-xl opacity-90 max-w-3xl mx-auto">
-              Future Football Club oferuje kompleksowe szkolenie piłkarskie na najwyższym poziomie. 
-              Od akademii młodzieżowej po treningi indywidualne - rozwijamy talenty futbolowe.
+              Odkryj swoją pasję do piłki nożnej! Nasze programy treningowe pomogą Ci rozwinąć umiejętności techniczne, taktyczne i fizyczne. Dołącz do grona zawodników, którzy realizują swoje futbolowe marzenia.
             </p>
           </div>
         </div>
@@ -155,7 +151,7 @@ const Oferta = () => {
         <section className="py-16">
           <div className="max-w-7xl mx-auto px-4">
             <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
-              Wybierz swój program treningowy
+              Znajdź swój idealny program treningowy
             </h2>
             {oferty.length === 0 ? (
               <div className="text-center py-12">
@@ -180,20 +176,16 @@ const Oferta = () => {
               </div>
             </div>
             <h2 className="text-3xl font-bold mb-4">
-              Gotowy na profesjonalny trening?
+              Rozpocznij swoją piłkarską przygodę już dziś!
             </h2>
             <p className="text-xl mb-8 opacity-90">
-              Dołącz do Future Football Club i rozwijaj swoje umiejętności pod okiem licencjonowanych trenerów
+              Dołącz do Future Football Club i rozwijaj swoje umiejętności pod okiem doświadczonych trenerów z licencjami UEFA
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/formularz">
-                <button className="bg-white text-black px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors shadow-lg">
-                  Umów trening próbny
-                </button>
-              </Link>
+              
               <Link to="/kontakt">
-                <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-black transition-colors">
-                  Sprawdź cennik
+                <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-black transition-colors cursor-pointer">
+                  Umów trening próbny
                 </button>
               </Link>
             </div>

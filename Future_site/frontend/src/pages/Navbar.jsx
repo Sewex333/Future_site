@@ -49,9 +49,10 @@ const Navbar = () => {
       
       <div className="hidden md:flex gap-8 text-lg">
         <Link to="/o-nas" className="hover:text-yellow-400">O nas</Link>
+        <Link to="/aktualnosci" className="hover:text-yellow-400">Aktualności</Link>
         <Link to="/oferta" className="hover:text-yellow-400">Oferta</Link>
         <Link to="/obozy-i-polkolonie" className="hover:text-yellow-400">Obozy</Link>
-        <Link to="/eventy" className="hover:text-yellow-400">Eventy</Link>
+        <Link to="/eventy" className="hover:text-yellow-400">Eventy / Turnieje</Link>
         <div className="relative group">
           <button className="hover:text-yellow-400">Treningi</button>
           <div className="absolute invisible group-hover:visible bg-black text-white shadow-lg rounded py-2 px-4 top-full left-0 z-10 min-w-40">
@@ -61,7 +62,6 @@ const Navbar = () => {
         </div>
         <Link to="/sklep" className="hover:text-yellow-400">Sklep</Link>
         <Link to="/ebooki-materialy" className="hover:text-yellow-400">E-booki</Link>
-        <Link to="/aktualnosci" className="hover:text-yellow-400">Aktualności</Link>
         <Link to="/partnerzy" className="hover:text-yellow-400">Partnerzy</Link>
         <Link to="/kontakt" className="hover:text-yellow-400">Kontakt i FAQ</Link>
       </div>
@@ -69,9 +69,10 @@ const Navbar = () => {
       {isMenuOpen && (
         <div className="md:hidden absolute top-20 left-0 w-full bg-black text-white shadow-lg py-4 px-6 flex flex-col gap-4">
           <Link to="/o-nas" className="hover:text-yellow-400" onClick={toggleMenu}>O nas</Link>
+          <Link to="/aktualnosci" className="hover:text-yellow-400" onClick={toggleMenu}>Aktualności</Link>
           <Link to="/oferta" className="hover:text-yellow-400" onClick={toggleMenu}>Oferta</Link>
           <Link to="/obozy-i-polkolonie" className="hover:text-yellow-400" onClick={toggleMenu}>Obozy</Link>
-          <Link to="/eventy" className="hover:text-yellow-400" onClick={toggleMenu}>Eventy</Link>
+          <Link to="/eventy" className="hover:text-yellow-400" onClick={toggleMenu}>Eventy/Turnieje</Link>
           <div className="flex flex-col">
             <span className="font-semibold">Treningi</span>
             <div className="ml-4 mt-2 flex flex-col gap-2">
@@ -81,7 +82,6 @@ const Navbar = () => {
           </div>
           <Link to="/sklep" className="hover:text-yellow-400" onClick={toggleMenu}>Sklep</Link>
           <Link to="/ebooki-materialy" className="hover:text-yellow-400" onClick={toggleMenu}>E-booki</Link>
-          <Link to="/aktualnosci" className="hover:text-yellow-400" onClick={toggleMenu}>Aktualności</Link>
           <Link to="/partnerzy" className="hover:text-yellow-400" onClick={toggleMenu}>Partnerzy</Link>
           <Link to="/kontakt" className="hover:text-yellow-400" onClick={toggleMenu}>Kontakt i FAQ</Link>
         </div>
