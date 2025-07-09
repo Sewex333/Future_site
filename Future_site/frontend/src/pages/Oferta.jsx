@@ -11,7 +11,7 @@ const Oferta = () => {
   useEffect(() => {
     const fetchOferty = async () => {
       try {
-        const response = await fetch('http://54.37.232.168:8000/api/oferty');
+        const response = await fetch('/api/oferty');
         if (!response.ok) throw new Error('Problem z pobraniem danych');
         const data = await response.json();
         setOferty(data);
@@ -133,12 +133,12 @@ const Oferta = () => {
                 <div className="text-gray-600">Wyszkolonych zawodników</div>
               </div>
               <div className="border-r border-gray-200 last:border-r-0">
-                <div className="text-3xl font-bold text-black mb-2">15+</div>
-                <div className="text-gray-600">Lat doświadczenia</div>
+                <div className="text-3xl font-bold text-black mb-2">2017</div>
+                <div className="text-gray-600">Rok założenia</div>
               </div>
               <div className="border-r border-gray-200 last:border-r-0">
-                <div className="text-3xl font-bold text-yellow-600 mb-2">25+</div>
-                <div className="text-gray-600">Zawodników w klubach</div>
+                <div className="text-3xl font-bold text-yellow-600 mb-2">500+</div>
+                <div className="text-gray-600">Zawodników w klubie</div>
               </div>
               <div>
                 <div className="text-3xl font-bold text-black mb-2">100%</div>
@@ -179,7 +179,7 @@ const Oferta = () => {
               Rozpocznij swoją piłkarską przygodę już dziś!
             </h2>
             <p className="text-xl mb-8 opacity-90">
-              Dołącz do Future Football Club i rozwijaj swoje umiejętności pod okiem doświadczonych trenerów z licencjami UEFA
+              Dołącz do Future Football Club i rozwijaj swoje umiejętności pod okiem doświadczonych trenerów
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               

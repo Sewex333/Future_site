@@ -4,56 +4,7 @@ import Footer from './Footer';
 import { Link } from 'react-router';
 
 const TreningiIndywidualne = () => {
-  const pakiety = [
-    {
-      nazwa: "Pakiet Starter",
-      sesje: "4 sesje",
-      cena: "500 zł",
-      czas: "4 tygodnie",
-      opis: "Idealny na początek przygody z treningami indywidualnymi",
-      zawiera: [
-        "Analiza początkowa umiejętności",
-        "Plan treningowy na 4 tygodnie",
-        "4 sesje po 90 minut",
-        "Podstawowe ćwiczenia techniczne",
-        "Raport końcowy z postępami"
-      ],
-      popularne: false
-    },
-    {
-      nazwa: "Pakiet Professional",
-      sesje: "8 sesji",
-      cena: "900 zł",
-      czas: "8 tygodni",
-      opis: "Kompleksowy rozwój umiejętności piłkarskich",
-      zawiera: [
-        "Szczegółowa analiza video",
-        "Indywidualny plan rozwoju",
-        "8 sesji po 90 minut",
-        "Ćwiczenia zaawansowane",
-        "Analiza meczów",
-        "Materiały do treningu domowego"
-      ],
-      popularne: true
-    },
-    {
-      nazwa: "Pakiet Elite",
-      sesje: "12 sesji",
-      cena: "1200 zł",
-      czas: "12 tygodni",
-      opis: "Najwyższy poziom treningu indywidualnego",
-      zawiera: [
-        "Kompleksowa analiza biomechaniczna",
-        "Plan rozwoju na 3 miesiące",
-        "12 sesji po 90 minut",
-        "Trening z wykorzystaniem technologii",
-        "Analiza statystyczna",
-        "Konsultacje żywieniowe",
-        "Dostęp do aplikacji mobilnej"
-      ],
-      popularne: false
-    }
-  ];
+  
 
   const obszary = [
     {
@@ -198,7 +149,7 @@ const TreningiIndywidualne = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/formularz">
-                <button className="bg-yellow-500 text-black px-8 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition-colors shadow-lg">
+                <button className="bg-yellow-500 text-black px-8 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition-colors shadow-lg cursor-pointer">
                   Zapisz się
                 </button>
               </Link>

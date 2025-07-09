@@ -191,11 +191,11 @@ const Aktualnosci = () => {
           <div className="max-w-6xl mx-auto px-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               <div className="bg-white p-6 rounded-lg border-2 border-black shadow-lg">
-                <div className="text-3xl font-bold text-black mb-2">150+</div>
+                <div className="text-3xl font-bold text-black mb-2">250+</div>
                 <div className="text-gray-700 font-semibold">Zawodników</div>
               </div>
               <div className="bg-white p-6 rounded-lg border-2 border-black shadow-lg">
-                <div className="text-3xl font-bold text-black mb-2">25</div>
+                <div className="text-3xl font-bold text-black mb-2">15+</div>
                 <div className="text-gray-700 font-semibold">Trenerów</div>
               </div>
               <div className="bg-white p-6 rounded-lg border-2 border-black shadow-lg">

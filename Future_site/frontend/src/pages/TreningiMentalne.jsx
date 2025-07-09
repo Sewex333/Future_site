@@ -55,15 +55,15 @@ const TreningiMentalne = () => {
     }
   ];
 
-  const trenerdzy = [
+  const trenerzy = [
     {
-      nazwa: "Piotr Matulka",
+      nazwa: "Damian Pepliński",
       specjalizacja: "Psycholog sportu",
       doswiadczenie: "15 lat pracy z młodzieżowymi reprezentacjami Polski",
-      zdjecie: "/images/trener-matulka.jpg"
+      zdjecie: "/damian_peplinski.jpg"
     },
     {
-      nazwa: "Dr Anna Kowalska",
+      nazwa: "Wiktoria Peplińska",
       specjalizacja: "Trener mentalny",
       doswiadczenie: "Współpraca z Akademią Legii Warszawa",
       zdjecie: "/images/trener-kowalska.jpg"
@@ -87,7 +87,7 @@ const TreningiMentalne = () => {
             </h1>
             <p className="text-xl text-center opacity-90 max-w-4xl mx-auto leading-relaxed">
               Mentalne aspekty futbolu są równie ważne jak technika i kondycja fizyczna. 
-              Nasz program treningu mentalnego bazuje na najlepszych praktykach europejskich akademii.
+              Nasz program treningu mentalnego bazuje na sprawdzonych metodach europejskich akademii.
             </p>
           </div>
         </div>
@@ -137,12 +137,10 @@ const TreningiMentalne = () => {
               <div className="w-24 h-1 bg-gradient-to-r from-yellow-400 to-yellow-500 mx-auto rounded-full"></div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              {trenerdzy.map((trener, index) => (
+              {trenerzy.map((trener, index) => (
                 <div key={index} className="bg-gray-100 rounded-lg p-8 text-center border-2 border-black hover:shadow-lg transition-shadow">
-                  <div className="w-24 h-24 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full mx-auto mb-4 flex items-center justify-center border-4 border-black">
-                    <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
-                      <div className="w-6 h-6 bg-black rounded-full"></div>
-                    </div>
+                  <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-lg bg-white mx-auto mb-4">
+                    <img src={trener.zdjecie} alt={trener.nazwa} className="w-full h-full object-cover"/>
                   </div>
                   <h3 className="text-xl font-bold text-black mb-2">{trener.nazwa}</h3>
                   <p className="text-yellow-600 font-semibold mb-2">{trener.specjalizacja}</p>
@@ -169,8 +167,8 @@ const TreningiMentalne = () => {
               </div>
               <div className="text-center p-6 bg-gray-800 rounded-lg border-2 border-gray-700">
                 <div className="text-4xl mb-4">🎓</div>
-                <h3 className="text-xl font-bold mb-3 text-yellow-400">Metody Europejskie</h3>
-                <p className="text-gray-300">Stosujemy najnowsze techniki z akademii FC Barcelona, Ajax i Manchesteru City</p>
+                <h3 className="text-xl font-bold mb-3 text-yellow-400">Sprawdzone Metody</h3>
+                <p className="text-gray-300">Stosujemy skuteczne techniki z akademii FC Barcelona, Ajax i Manchesteru City</p>
               </div>
               <div className="text-center p-6 bg-gray-800 rounded-lg border-2 border-gray-700">
                 <div className="text-4xl mb-4">📈</div>
@@ -197,7 +195,7 @@ const TreningiMentalne = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Link to="/formularz">
-                <button className="bg-black-500 text-black px-8 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition-colors shadow-lg">
+                <button className="bg-yellow-500 border-black border-2 text-black px-8 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition-colors shadow-lg cursor-pointer">
                   Zapisz się
                 </button>
               </Link>

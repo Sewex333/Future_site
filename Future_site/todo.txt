@@ -1,0 +1,9 @@
+high:
+!!! popatrzenie co on napisal i poprawienie tego
+dodanie linkow do kart w roznych podstronach
+ogolne popatrzenie na karty wszystkich stron
+mid:
+zdjecia w obozach
+pytania w FAQ
+e-booki
+low:

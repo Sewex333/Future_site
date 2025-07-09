@@ -209,12 +209,7 @@ const Obozy = () => {
                 <Link to="/formularz" className="inline-flex items-center bg-yellow-500 text-black font-bold px-6 py-3 rounded-lg hover:bg-yellow-400 transition-colors shadow-lg">
                 ✉️ Zarezerwuj miejsce
                 </Link>
-                {/* <a
-                  href={`mailto:${camp.email}`}
-                  className="inline-flex items-center bg-yellow-500 text-black font-bold px-6 py-3 rounded-lg hover:bg-yellow-400 transition-colors shadow-lg"
-                >
-                  ✉️ Zarezerwuj miejsce
-                </a> */}
+                
               </div>
             </div>
 
@@ -249,12 +244,12 @@ const Obozy = () => {
               Zapisz się już dziś i zapewnij swojemu dziecku niezapomniane wakacje z piłką nożną
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-white text-black px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors shadow-lg">
-                Sprawdź dostępność
-              </button>
-              <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-black transition-colors">
-                Kontakt
-              </button>
+              
+              <Link to="/kontakt">
+                <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-black transition-colors cursor-pointer">
+                  Kontakt
+                </button>                
+              </Link>
             </div>
           </div>
         </div>
