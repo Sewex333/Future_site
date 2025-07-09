@@ -143,8 +143,8 @@ const Eventy = () => {
           <div className="max-w-6xl mx-auto px-4 text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               <span className="bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">
-                Eventy
-              </span> Sportowe
+                Eventy Sportowe
+              </span> 
             </h1>
             <p className="text-xl opacity-90 max-w-3xl mx-auto">
               Dołącz do naszych wyjątkowych wydarzeń sportowych. Turnieje, obozy, kliniki treningowe 
@@ -165,8 +165,8 @@ const Eventy = () => {
                 <div className="text-gray-600">Uczestników</div>
               </div>
               <div>
-                <div className="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent mb-2">15</div>
-                <div className="text-gray-600">Lat doświadczenia</div>
+                <div className="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent mb-2">2017</div>
+                <div className="text-gray-600">Rok założenia</div>
               </div>
               <div>
                 <div className="text-3xl font-bold text-black mb-2">100%</div>
@@ -184,22 +184,22 @@ const Eventy = () => {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               <div className="text-center">
                 <div className="text-4xl mb-3">🏆</div>
-                <h3 className="font-bold text-black mb-2">Turnieje</h3>
+                <h3 className="font-bold text-black mb-2">Turnieje / Eventy</h3>
                 <p className="text-black opacity-80 text-sm">Rywalizacja na najwyższym poziomie</p>
               </div>
               <div className="text-center">
                 <div className="text-4xl mb-3">🏕️</div>
-                <h3 className="font-bold text-black mb-2">Obozy</h3>
+                <h3 className="font-bold text-black mb-2">Obozy i Półkolonie</h3>
                 <p className="text-black opacity-80 text-sm">Intensywne treningi i rozwój</p>
               </div>
               <div className="text-center">
                 <div className="text-4xl mb-3">🎓</div>
-                <h3 className="font-bold text-black mb-2">Kliniki</h3>
+                <h3 className="font-bold text-black mb-2">Treningi / Mecze</h3>
                 <p className="text-black opacity-80 text-sm">Nauka od najlepszych</p>
               </div>
               <div className="text-center">
-                <div className="text-4xl mb-3">💼</div>
-                <h3 className="font-bold text-black mb-2">Korporacyjne</h3>
+                <div className="text-4xl mb-3">🧑‍🎓</div>
+                <h3 className="font-bold text-black mb-2">Treningi Indywidulane / Mentalne</h3>
                 <p className="text-black opacity-80 text-sm">Integracja przez sport</p>
               </div>
             </div>
@@ -225,24 +225,35 @@ const Eventy = () => {
           </div>
         </section>
 
-        <section className="py-16 bg-black">
-          <div className="max-w-4xl mx-auto px-4 text-center text-white">
-            <h2 className="text-3xl font-bold mb-4">
-              Nie przegap żadnego <span className="bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">wydarzenia</span>
-            </h2>
-            <p className="text-xl mb-8 opacity-90">
-              Zapisz się do naszego newslettera i bądź pierwszy do zgłoszenia na najlepsze eventy
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-              <Link to="/formularz">
-                <button className="bg-yellow-500 text-black px-8 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition-colors shadow-lg">
-                  Zapisz się
-                </button>
-              </Link>
-              
-            </div>
-          </div>
-        </section>
+        <section className="py-16 bg-gradient-to-r from-yellow-500 via-yellow-600 to-black relative">
+                  <div className="absolute inset-0 bg-black bg-opacity-20"></div>
+                  <div className="max-w-4xl mx-auto px-4 text-center text-white relative z-10">
+                    <div className="flex justify-center mb-6">
+                      <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center">
+                        <div className="text-4xl">🏆</div>
+                      </div>
+                    </div>
+                    <h2 className="text-3xl font-bold mb-4">
+                      Rozpocznij swoją piłkarską przygodę już dziś!
+                    </h2>
+                    <p className="text-xl mb-8 opacity-90">
+                      Dołącz do Future Football Club i rozwijaj swoje umiejętności pod okiem doświadczonych trenerów
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                      
+                      <Link to="/kontakt">
+                        <button className="bg-white border-2 border-white text-black px-8 py-3 rounded-lg font-semibold hover:bg-black hover:text-white transition-colors cursor-pointer">
+                          Zapisz się
+                        </button>
+                      </Link>
+                      <Link to="/kontakt">
+                        <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-black transition-colors cursor-pointer">
+                            Kontakt
+                        </button>                
+                    </Link>
+                    </div>
+                  </div>
+                </section>
       </div>
       <Footer />
     </>
