@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administracyjny - Future FC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .tab-button {
+            transition: all 0.3s ease;
+        }
+        
+        .tab-button.active {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: black;
+            font-weight: bold;
+        }
+        
+        .card {
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .form-input {
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.3);
+        }
+        
+        .delete-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .delete-btn:hover {
+            background-color: #ef4444;
+            transform: scale(1.1);
+        }
+        
+        .add-btn {
+            background: linear-gradient(135deg, #10b981, #059669);
+            transition: all 0.3s ease;
+        }
+        
+        .add-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+        }
+        
+        .loading {
+            border: 4px solid #f3f4f6;
+            border-top: 4px solid #fbbf24;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .success-message {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .error-message {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            animation: slideIn 0.5s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-black via-gray-900 to-black text-white py-6 shadow-xl">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center text-2xl font-bold text-black">
+                        ⚽
+                    </div>
+                    <div>
+                        <h1 class="text-3xl font-bold">Panel Administracyjny</h1>
+                        <p class="text-yellow-400">Future Football Club</p>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <div class="text-sm opacity-75">Status połączenia:</div>
+                    <div id="connectionStatus" class="text-yellow-400 font-bold">Sprawdzanie...</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="bg-white border-b-2 border-gray-200 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex space-x-1 py-4 overflow-x-auto">
+                <button onclick="switchTab('aktualnosci')" class="tab-button px-6 py-3 rounded-lg whitespace-nowrap" id="tab-aktualnosci">
+                    📰 Aktualności
+                </button>
+                <button onclick="switchTab('eventy')" class="tab-button px-6 py-3 rounded-lg whitespace-nowrap" id="tab-eventy">
+                    🎯 Eventy
+                </button>
+                <button onclick="switchTab('oferty')" class="tab-button px-6 py-3 rounded-lg whitespace-nowrap" id="tab-oferty">
+                    💼 Oferty
+                </button>
+                <button onclick="switchTab('obozy')" class="tab-button px-6 py-3 rounded-lg whitespace-nowrap" id="tab-obozy">
+                    🏕️ Obozy
+                </button>
+                <button onclick="switchTab('partnerzy')" class="tab-button px-6 py-3 rounded-lg whitespace-nowrap" id="tab-partnerzy">
+                    🤝 Partnerzy
+                </button>
+                <button onclick="switchTab('items')" class="tab-button px-6 py-3 rounded-lg whitespace-nowrap" id="tab-items">
+                    🛍️ Sklep
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Messages -->
+    <div id="messages" class="max-w-6xl mx-auto px-4 py-4"></div>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 py-8">
+        <!-- Loading State -->
+        <div id="loading" class="text-center py-20">
+            <div class="loading mx-auto mb-4"></div>
+            <p class="text-gray-600">Ładowanie danych...</p>
+        </div>
+
+        <!-- Tab Content -->
+        <div id="tabContent" class="hidden">
+            <!-- Add Form -->
+            <div class="bg-white rounded-2xl shadow-xl p-8 mb-8 border-2 border-gray-200">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">➕ Dodaj nowy element</h2>
+                <form id="addForm" class="space-y-6">
+                    <div id="formFields" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Dynamic form fields will be inserted here -->
+                    </div>
+                    <div class="flex justify-end">
+                        <button type="submit" class="add-btn text-white px-8 py-3 rounded-lg font-bold text-lg">
+                            ✅ Dodaj Element
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Items List -->
+            <div class="bg-white rounded-2xl shadow-xl p-8 border-2 border-gray-200">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">📋 Lista elementów</h2>
+                <div id="itemsList" class="space-y-4">
+                    <!-- Items will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Instructions Modal -->
+    <div id="instructionsModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-2xl p-8 max-w-2xl mx-4 max-h-[80vh] overflow-y-auto">
+            <h2 class="text-3xl font-bold mb-6 text-center text-gray-800">🚀 Instrukcja obsługi</h2>
+            
+            <div class="space-y-6">
+                <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+                    <h3 class="font-bold text-blue-800 mb-2">1. Uruchamianie backendu</h3>
+                    <p class="text-blue-700">Otwórz terminal w folderze <code class="bg-blue-200 px-2 py-1 rounded">backend</code> i wpisz:</p>
+                    <code class="block bg-blue-100 p-2 mt-2 rounded">npm install</code>
+                    <code class="block bg-blue-100 p-2 mt-1 rounded">node index.js</code>
+                    <p class="text-blue-700 mt-2">Backend powinien uruchomić się na porcie 8000</p>
+                </div>
+
+                <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400">
+                    <h3 class="font-bold text-green-800 mb-2">2. Konfiguracja proxy</h3>
+                    <p class="text-green-700">W pliku <code class="bg-green-200 px-2 py-1 rounded">vite.config.js</code> dodaj:</p>
+                    <pre class="bg-green-100 p-2 mt-2 rounded text-sm">export default {
+  server: {
+    proxy: {
+      '/api': 'http://localhost:8000'
+    }
+  }
+}</pre>
+                </div>
+
+                <div class="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-400">
+                    <h3 class="font-bold text-purple-800 mb-2">3. Jak używać panelu</h3>
+                    <ul class="text-purple-700 space-y-1">
+                        <li>• Kliknij na zakładkę (np. Aktualności)</li>
+                        <li>• Wypełnij formularz i kliknij "Dodaj Element"</li>
+                        <li>• Aby usunąć element, kliknij czerwony przycisk "Usuń"</li>
+                        <li>• Panel automatycznie odświeża dane</li>
+                    </ul>
+                </div>
+
+                <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
+                    <h3 class="font-bold text-yellow-800 mb-2">4. Ważne informacje</h3>
+                    <ul class="text-yellow-700 space-y-1">
+                        <li>• Sprawdź czy backend jest uruchomiony (status połączenia)</li>
+                        <li>• Wszystkie zmiany są natychmiast zapisywane w Firebase</li>
+                        <li>• Używaj emoji w ikonach dla lepszego wyglądu</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-8 text-center">
+                <button onclick="closeInstructions()" class="bg-gradient-to-r from-yellow-400 to-yellow-500 text-black px-8 py-3 rounded-lg font-bold text-lg hover:shadow-lg transition-all">
+                    ✅ Rozumiem, zaczynam!
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global state
+        let currentTab = 'aktualnosci';
+        let currentData = [];
+        
+        // API Base URL
+        const API_BASE = '/api';
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            checkConnection();
+            switchTab('aktualnosci');
+        });
+        
+        // Check backend connection
+        async function checkConnection() {
+            try {
+                const response = await fetch(`${API_BASE}/test-connection`);
+                if (response.ok) {
+                    document.getElementById('connectionStatus').textContent = '✅ Połączono';
+                    document.getElementById('connectionStatus').className = 'text-green-400 font-bold';
+                } else {
+                    throw new Error('Connection failed');
+                }
+            } catch (error) {
+                document.getElementById('connectionStatus').textContent = '❌ Błąd połączenia';
+                document.getElementById('connectionStatus').className = 'text-red-400 font-bold';
+                showMessage('Błąd połączenia z backendem. Sprawdź czy serwer jest uruchomiony na porcie 8000.', 'error');
+            }
+        }
+        
+        // Show/hide instructions
+        function closeInstructions() {
+            document.getElementById('instructionsModal').style.display = 'none';
+        }
+        
+        // Show messages
+        function showMessage(message, type = 'success') {
+            const messagesDiv = document.getElementById('messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = type === 'success' ? 'success-message' : 'error-message';
+            messageDiv.textContent = message;
+            messagesDiv.appendChild(messageDiv);
+            
+            setTimeout(() => {
+                messageDiv.remove();
+            }, 5000);
+        }
+        
+        // Switch tabs
+        function switchTab(tabName) {
+            currentTab = tabName;
+            
+            // Update tab buttons
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+                btn.classList.add('bg-gray-100', 'text-gray-700');
+            });
+            
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+            document.getElementById(`tab-${tabName}`).classList.remove('bg-gray-100', 'text-gray-700');
+            
+            // Show loading
+            document.getElementById('loading').classList.remove('hidden');
+            document.getElementById('tabContent').classList.add('hidden');
+            
+            // Load data
+            loadData(tabName);
+        }
+        
+        // Load data from API
+        async function loadData(endpoint) {
+            try {
+                const response = await fetch(`${API_BASE}/${endpoint}`);
+                if (!response.ok) throw new Error('Failed to fetch data');
+                
+                currentData = await response.json();
+                renderForm(endpoint);
+                renderItems(currentData);
+                
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('tabContent').classList.remove('hidden');
+            } catch (error) {
+                showMessage(`Błąd ładowania danych: ${error.message}`, 'error');
+                document.getElementById('loading').classList.add('hidden');
+            }
+        }
+        
+        // Render form based on endpoint
+        function renderForm(endpoint) {
+            const formFields = document.getElementById('formFields');
+            formFields.innerHTML = '';
+            
+            const fields = getFieldsForEndpoint(endpoint);
+            
+            fields.forEach(field => {
+                const fieldDiv = document.createElement('div');
+                fieldDiv.className = 'space-y-2';
+                
+                const label = document.createElement('label');
+                label.textContent = field.label;
+                label.className = 'block text-sm font-bold text-gray-700';
+                
+                let input;
+                if (field.type === 'textarea') {
+                    input = document.createElement('textarea');
+                    input.rows = 3;
+                } else if (field.type === 'select') {
+                    input = document.createElement('select');
+                    field.options.forEach(option => {
+                        const optionEl = document.createElement('option');
+                        optionEl.value = option;
+                        optionEl.textContent = option;
+                        input.appendChild(optionEl);
+                    });
+                } else if (field.type === 'checkbox') {
+                    input = document.createElement('input');
+                    input.type = 'checkbox';
+                    input.className = 'h-4 w-4 text-yellow-600';
+                } else {
+                    input = document.createElement('input');
+                    input.type = field.type || 'text';
+                }
+                
+                input.name = field.name;
+                input.placeholder = field.placeholder || '';
+                
+                if (field.type !== 'checkbox') {
+                    input.className = 'form-input w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400';
+                }
+                
+                fieldDiv.appendChild(label);
+                fieldDiv.appendChild(input);
+                formFields.appendChild(fieldDiv);
+            });
+        }
+        
+        // Get fields configuration for each endpoint
+        function getFieldsForEndpoint(endpoint) {
+            const fieldConfigs = {
+                aktualnosci: [
+                    { name: 'tytul', label: '📝 Tytuł', type: 'text', placeholder: 'Wprowadź tytuł aktualności' },
+                    { name: 'data', label: '📅 Data', type: 'date' },
+                    { name: 'kategoria', label: '🏷️ Kategoria', type: 'select', options: ['Sukcesy', 'Kadra', 'Wydarzenia', 'Partnerstwo', 'Treningi', 'Inne'] },
+                    { name: 'opis', label: '📄 Krótki opis', type: 'textarea', placeholder: 'Krótki opis aktualności' },
+                    { name: 'obrazek', label: '🎨 Emoji/Ikona', type: 'text', placeholder: '📰' },
+                    { name: 'pelnyTekst', label: '📖 Pełny tekst', type: 'textarea', placeholder: 'Pełna treść aktualności' },
+                    { name: 'wyrozniany', label: '⭐ Wyróżniony', type: 'checkbox' },
+                    { name: 'dostepny', label: '✅ Dostępny', type: 'checkbox' }
+                ],
+                eventy: [
+                    { name: 'nazwa', label: '🎯 Nazwa', type: 'text', placeholder: 'Nazwa eventu' },
+                    { name: 'kategoria', label: '🏷️ Kategoria', type: 'select', options: ['Turniej', 'Trening', 'Obóz', 'Inne'] },
+                    { name: 'opis', label: '📄 Opis', type: 'textarea', placeholder: 'Opis eventu' },
+                    { name: 'data', label: '📅 Data', type: 'date' },
+                    { name: 'miejsce', label: '📍 Miejsce', type: 'text', placeholder: 'Miejsce eventu' },
+                    { name: 'uczestnicy', label: '👥 Uczestnicy', type: 'text', placeholder: 'Liczba uczestników' },
+                    { name: 'nagrody', label: '🏆 Nagrody', type: 'text', placeholder: 'Nagrody' },
+                    { name: 'cena', label: '💰 Cena', type: 'text', placeholder: 'Cena uczestnictwa' },
+                    { name: 'ikona', label: '🎨 Ikona', type: 'text', placeholder: '⚽' },
+                    { name: 'dostepny', label: '✅ Dostępny', type: 'checkbox' }
+                ],
+                oferty: [
+                    { name: 'nazwa', label: '💼 Nazwa', type: 'text', placeholder: 'Nazwa oferty' },
+                    { name: 'opis', label: '📄 Opis', type: 'textarea', placeholder: 'Opis oferty' },
+                    { name: 'cena', label: '💰 Cena', type: 'text', placeholder: 'Cena oferty' },
+                    { name: 'czas', label: '⏰ Czas', type: 'text', placeholder: 'Czas trwania' },
+                    { name: 'poziom', label: '📊 Poziom', type: 'select', options: ['Początkujący', 'Średni', 'Zaawansowany'] },
+                    { name: 'typ', label: '🏷️ Typ', type: 'select', options: ['trening', 'obóz', 'kurs', 'inne'] },
+                    { name: 'link', label: '🔗 Link', type: 'text', placeholder: 'Link do oferty' },
+                    { name: 'ikona', label: '🎨 Ikona', type: 'text', placeholder: '⚽' },
+                    { name: 'kolor', label: '🎨 Kolor', type: 'text', placeholder: 'from-blue-500 to-blue-600' },
+                    { name: 'dostepny', label: '✅ Dostępny', type: 'checkbox' }
+                ],
+                obozy: [
+                    { name: 'nazwa', label: '🏕️ Nazwa', type: 'text', placeholder: 'Nazwa obozu' },
+                    { name: 'opis', label: '📄 Opis', type: 'textarea', placeholder: 'Opis obozu' },
+                    { name: 'data', label: '📅 Data', type: 'date' },
+                    { name: 'miejsce', label: '📍 Miejsce', type: 'text', placeholder: 'Miejsce obozu' },
+                    { name: 'cena', label: '💰 Cena', type: 'text', placeholder: 'Cena obozu' },
+                    { name: 'dostepny', label: '✅ Dostępny', type: 'checkbox' }
+                ],
+                partnerzy: [
+                    { name: 'nazwa', label: '🤝 Nazwa', type: 'text', placeholder: 'Nazwa partnera' },
+                    { name: 'opis', label: '📄 Opis', type: 'textarea', placeholder: 'Opis partnera' },
+                    { name: 'kategoria', label: '🏷️ Kategoria', type: 'select', options: ['Sponsor', 'Partner', 'Dostawca', 'Inne'] },
+                    { name: 'link', label: '🔗 Link', type: 'text', placeholder: 'Strona partnera' },
+                    { name: 'typ', label: '🏷️ Typ', type: 'select', options: ['partner', 'sponsor', 'dostawca'] },
+                    { name: 'logo', label: '🖼️ Logo URL', type: 'text', placeholder: 'URL do logo' },
+                    { name: 'kolor_karty', label: '🎨 Kolor karty', type: 'text', placeholder: 'from-yellow-400 to-yellow-500' },
+                    { name: 'dostepny', label: '✅ Dostępny', type: 'checkbox' }
+                ],
+                items: [
+                    { name: 'nazwa', label: '🛍️ Nazwa', type: 'text', placeholder: 'Nazwa produktu' },
+                    { name: 'opis', label: '📄 Opis', type: 'textarea', placeholder: 'Opis produktu' },
+                    { name: 'cena', label: '💰 Cena', type: 'text', placeholder: 'Cena produktu' },
+                    { name: 'kategoria', label: '🏷️ Kategoria', type: 'text', placeholder: 'Kategoria produktu' },
+                    { name: 'dostepny', label: '✅ Dostępny', type: 'checkbox' }
+                ]
+            };
+            
+            return fieldConfigs[endpoint] || [];
+        }
+        
+        // Render items list
+        function renderItems(items) {
+            const itemsList = document.getElementById('itemsList');
+            itemsList.innerHTML = '';
+            
+            if (items.length === 0) {
+                itemsList.innerHTML = '<div class="text-center py-8 text-gray-500">Brak elementów do wyświetlenia</div>';
+                return;
+            }
+            
+            items.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'card bg-gray-50 border-2 border-gray-200 rounded-lg p-4 hover:shadow-lg';
+                
+                const itemHeader = document.createElement('div');
+                itemHeader.className = 'flex justify-between items-start mb-2';
+                
+                const itemTitle = document.createElement('h3');
+                itemTitle.className = 'text-lg font-bold text-gray-800';
+                itemTitle.textContent = item.nazwa || item.tytul || 'Brak nazwy';
+                
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'delete-btn bg-red-500 text-white px-3 py-1 rounded-lg text-sm font-bold';
+                deleteBtn.textContent = '🗑️ Usuń';
+                deleteBtn.onclick = () => deleteItem(item.id);
+                
+                itemHeader.appendChild(itemTitle);
+                itemHeader.appendChild(deleteBtn);
+                
+                const itemInfo = document.createElement('div');
+                itemInfo.className = 'text-sm text-gray-600 space-y-1';
+                
+                // Show key information
+                Object.entries(item).forEach(([key, value]) => {
+                    if (key !== 'id' && key !== 'pelnyTekst' && value) {
+                        const infoLine = document.createElement('div');
+                        infoLine.innerHTML = `<strong>${key}:</strong> ${value}`;
+                        itemInfo.appendChild(infoLine);
+                    }
+                });
+                
+                itemDiv.appendChild(itemHeader);
+                itemDiv.appendChild(itemInfo);
+                itemsList.appendChild(itemDiv);
+            });
+        }
+        
+        // Handle form submission
+        document.getElementById('addForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const data = {};
+            
+            // Collect form data
+            for (let [key, value] of formData.entries()) {
+                if (e.target[key].type === 'checkbox') {
+                    data[key] = e.target[key].checked;
+                } else {
+                    data[key] = value;
+                }
+            }
+            
+            // Set default values
+            data.dostepny = data.dostepny || false;
+            if (currentTab === 'aktualnosci') {
+                data.wyrozniany = data.wyrozniany || false;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/${currentTab}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+                
+                if (!response.ok) throw new Error('Failed to add item');
+                
+                showMessage('Element został dodany pomyślnie!');
+                e.target.reset();
+                loadData(currentTab);
+            } catch (error) {
+                showMessage(`Błąd dodawania elementu: ${error.message}`, 'error');
+            }
+        });
+        
+        // Delete item
+        async function deleteItem(id) {
+            if (!confirm('Czy na pewno chcesz usunąć ten element?')) return;
+            
+            try {
+                const response = await fetch(`${API_BASE}/${currentTab}/${id}`, {
+                    method: 'DELETE',
+                });
+                
+                if (!response.ok) throw new Error('Failed to delete item');
+                
+                showMessage('Element został usunięty pomyślnie!');
+                loadData(currentTab);
+            } catch (error) {
+                showMessage(`Błąd usuwania elementu: ${error.message}`, 'error');
+            }
+        }
+    </script>
+</body>
+</html>
