@@ -66,7 +66,7 @@ const TreningiMentalne = () => {
       nazwa: "Wiktoria Peplińska",
       specjalizacja: "Trener mentalny",
       doswiadczenie: "Współpraca z Akademią Legii Warszawa",
-      zdjecie: "/images/trener-kowalska.jpg"
+      zdjecie: "/w_peplinska.png"
     }
   ];
 
@@ -86,8 +86,10 @@ const TreningiMentalne = () => {
               Treningi Mentalne
             </h1>
             <p className="text-xl text-center opacity-90 max-w-4xl mx-auto leading-relaxed">
-              Mentalne aspekty futbolu są równie ważne jak technika i kondycja fizyczna. 
-              Nasz program treningu mentalnego bazuje na sprawdzonych metodach europejskich akademii.
+              Mentalność u nas to podstawa. Bez mentalności wszystkie inne aspekty często schodzą na drugi plan. 
+              Dlatego kładziemy ogromny nacisk na budowanie silnej psychiki naszych zawodników. 
+              Wierzymy, że prawdziwa przewaga rodzi się w umyśle - to tam podejmowane są najważniejsze decyzje, 
+              które decydują o sukcesie na boisku. 
             </p>
           </div>
         </div>

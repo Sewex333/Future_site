@@ -16,7 +16,6 @@ const oferty = [
     customId: 1, 
     nazwa: "Obozy Piłkarskie",
     opis: "Intensywne obozy treningowe w malowniczych lokalizacjach z profesjonalną opieką trenerską",
-    cena: "od 800 zł",
     czas: "7-14 dni",
     poziom: "Wszystkie kategorie",
     ikona: "🏕️",
@@ -29,14 +28,13 @@ const oferty = [
       "Zajęcia rekreacyjne",
       "Certyfikat i pamiątki"
     ],
-    kolor: "yellow-500",
+    kolor: "black",
     dostepny: true
   },
   {
     customId: 2,
     nazwa: "Eventy Sportowe",
     opis: "Różnorodne wydarzenia sportowe - turnieje, mecze charytatywne, kliniki treningowe",
-    cena: "od 25 zł",
     czas: "Według harmonogramu",
     poziom: "Dla wszystkich",
     ikona: "🏆",
@@ -56,7 +54,6 @@ const oferty = [
     customId: 3,
     nazwa: "Treningi Indywidualne",
     opis: "Spersonalizowane sesje treningowe z analizą video i planem rozwoju",
-    cena: "150 zł/sesja",
     czas: "90 minut",
     poziom: "Wszystkie kategorie",
     ikona: "🎯",
@@ -66,7 +63,6 @@ const oferty = [
       "Analiza techniki indywidualnej",
       "Korekta błędów taktycznych",
       "Trening pozycyjny",
-      "Analiza wideo z meczów",
       "Indywidualny plan rozwoju"
     ],
     kolor: "yellow-500",
@@ -76,7 +72,6 @@ const oferty = [
     customId: 4,
     nazwa: "Treningi Mentalne",
     opis: "Budowanie charakteru zawodnika i radzenie sobie z presją meczową",
-    cena: "120 zł/sesja",
     czas: "60 minut",
     poziom: "Wszyscy zawodnicy",
     ikona: "🧠",
@@ -96,7 +91,6 @@ const oferty = [
     customId: 5,
     nazwa: "Sklep Klubowy",
     opis: "Oficjalne stroje i akcesoria Future Football Club - wszystko czego potrzebujesz",
-    cena: "od 25 zł",
     czas: "Dostępne 24/7",
     poziom: "Dla kibiców",
     ikona: "👕",
@@ -116,7 +110,6 @@ const oferty = [
     customId: 6,
     nazwa: "E-booki i Materiały",
     opis: "Profesjonalne materiały treningowe, taktyczne i rozwojowe dla zawodników",
-    cena: "od 15 zł",
     czas: "Dostęp natychmiastowy",
     poziom: "Wszyscy zawodnicy",
     ikona: "📚",
@@ -136,7 +129,6 @@ const oferty = [
     customId: 7,
     nazwa: "Aktualności",
     opis: "Najnowsze informacje o klubie, zawodnikach i wydarzeniach sportowych",
-    cena: "Bezpłatne",
     czas: "Codziennie",
     poziom: "Dla wszystkich",
     ikona: "📰",
@@ -147,9 +139,8 @@ const oferty = [
       "Wyniki meczów",
       "Transfery zawodników",
       "Kalendarz wydarzeń",
-      "Galeria zdjęć"
     ],
-    kolor: "black",
+    kolor: "yellow-500",
     dostepny: true
   }
 ];
