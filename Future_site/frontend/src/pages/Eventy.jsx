@@ -11,7 +11,7 @@ const Eventy = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch('/api/events');
+        const response = await fetch('http://54.37.232.168:8000/api/events');
         if (!response.ok) throw new Error('Problem z pobraniem danych');
         const data = await response.json();
         setEvents(data);
@@ -65,36 +65,21 @@ const Eventy = () => {
           </div>
         </div>
 
-        <div className="mb-6">
-          <h4 className="font-semibold text-gray-800 mb-2 text-sm">Zawiera:</h4>
-          <ul className="space-y-1">
-            {Array.isArray(event.features) ? (
-              event.features.map((feature, index) => (
-                <li key={index} className="flex items-center text-xs text-gray-600">
-                  <span className="text-yellow-500 mr-2 text-sm">✓</span>
-                  {feature}
-                </li>
-              ))
-            ) : (
-              <li className="text-xs text-gray-600">Brak informacji</li>
-            )}
-          </ul>
-        </div>
+        
 
         <div className="flex justify-between items-center">
-          <div className="text-2xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">
-            {event.cena}
-          </div>
-          <button 
-            className={`px-6 py-2 rounded-lg font-semibold text-sm transition-colors duration-200 ${
-              event.dostepny 
-                ? 'bg-black text-white hover:bg-gray-800' 
-                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-            }`}
-            disabled={!event.dostepny}
-          >
-            {event.dostepny ? 'Zapisz się' : 'Wyprzedane'}
-          </button>
+          {event.dostepny ? (
+            <Link 
+              to="/kontakt" 
+              className="w-full block px-6 py-3 bg-black text-white rounded-lg font-semibold text-sm text-center transition-all duration-200 hover:bg-gray-800 hover:shadow-md transform hover:-translate-y-0.5"
+            >
+              Zapisz się
+            </Link>
+          ) : (
+            <div className="w-full px-6 py-3 bg-gray-300 text-gray-500 rounded-lg font-semibold text-sm text-center cursor-not-allowed">
+              Wyprzedane
+            </div>
+          )}
         </div>
       </div>
     </div>

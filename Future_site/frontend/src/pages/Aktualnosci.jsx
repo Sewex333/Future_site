@@ -44,9 +44,7 @@ const Aktualnosci = () => {
         <p className="text-gray-500 text-sm mb-2">{aktualnosc.data}</p>
         <h3 className="text-xl font-bold text-black mb-3">{aktualnosc.tytul}</h3>
         <p className="text-gray-700 mb-4">{aktualnosc.opis}</p>
-        <button className="w-full bg-gradient-to-r from-yellow-400 to-yellow-500 text-black py-2 px-4 rounded-lg font-bold hover:from-yellow-500 hover:to-yellow-600 transition-all duration-200 border-2 border-black">
-          Czytaj więcej
-        </button>
+        
       </div>
     </div>
   );
