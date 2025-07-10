@@ -1,9 +1,22 @@
-high:
-!!! popatrzenie co on napisal i poprawienie tego
-dodanie linkow do kart w roznych podstronach
-ogolne popatrzenie na karty wszystkich stron
-mid:
-zdjecia w obozach
-pytania w FAQ
-e-booki
-low:
+Podstrony:
+    Aktualnosci:
+        Poprawa kart
+    Oferta:
+        Skończone!
+    Obozy:
+        Poprawa zdjęć
+    Eventy / Turnieje:
+        Poprawa kart
+    Treningi:
+        Indywidualne:
+            Co on chce
+        Mentalne:
+            To samo
+    E-booki:
+        Zmienienie kart 
+        Dodanie faktycznych e-bookow
+    Partnerzy:
+        zmienic to co on chce
+    Kontakt i FAQ:
+        Pytania
+

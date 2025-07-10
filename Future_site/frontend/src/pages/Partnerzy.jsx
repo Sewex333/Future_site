@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import { Link } from 'react-router';
 
 const Partnerzy = () => {
   const [partnerzy, setPartnerzy] = useState([]);
@@ -228,12 +229,11 @@ const Partnerzy = () => {
               Razem budujemy przyszłość polskiego futbolu i tworzymy niepowtarzalne możliwości rozwoju dla młodych talentów!
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <button className="bg-black text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-gray-800 transition-all duration-200 shadow-lg hover:shadow-xl border-2 border-black">
-                Pakiety Partnerskie
-              </button>
-              <button className="border-4 border-black text-black bg-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition-all duration-200 shadow-lg hover:shadow-xl">
-                Skontaktuj się z nami
-              </button>
+              <Link to="/kontakt">
+                <button className="bg-white border-2 border-black text-black px-8 py-3 rounded-lg font-semibold  transition-colors cursor-pointer">
+                  Skontaktuj się z nami
+                </button>
+              </Link>
             </div>
           </div>
         </section>
@@ -285,7 +285,7 @@ const Partnerzy = () => {
                 <div className="text-gray-700 font-semibold">Partnerów</div>
               </div>
               <div className="bg-white p-6 rounded-lg border-2 border-black shadow-lg">
-                <div className="text-3xl font-bold text-black mb-2">150+</div>
+                <div className="text-3xl font-bold text-black mb-2">500+</div>
                 <div className="text-gray-700 font-semibold">Zawodników</div>
               </div>
               <div className="bg-white p-6 rounded-lg border-2 border-black shadow-lg">

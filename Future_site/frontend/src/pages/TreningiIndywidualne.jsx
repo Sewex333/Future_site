@@ -68,7 +68,7 @@ const TreningiIndywidualne = () => {
           <div className="max-w-6xl mx-auto px-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               <div>
-                <div className="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent mb-2">300+</div>
+                <div className="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent mb-2">500+</div>
                 <div className="text-gray-600">Zawodników</div>
               </div>
               <div>
@@ -76,11 +76,11 @@ const TreningiIndywidualne = () => {
                 <div className="text-gray-600">Postęp w umiejętnościach</div>
               </div>
               <div>
-                <div className="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent mb-2">5+</div>
-                <div className="text-gray-600">Lat doświadczenia</div>
+                <div className="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent mb-2">2017</div>
+                <div className="text-gray-600">Rok założenia</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-black mb-2">90</div>
+                <div className="text-3xl font-bold text-black mb-2">+/-90</div>
                 <div className="text-gray-600">Minut sesji</div>
               </div>
             </div>
@@ -148,7 +148,7 @@ const TreningiIndywidualne = () => {
               Umów się na bezpłatną konsultację i odkryj swój potencjał
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/formularz">
+              <Link to="/kontakt">
                 <button className="bg-yellow-500 text-black px-8 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition-colors shadow-lg cursor-pointer">
                   Zapisz się
                 </button>

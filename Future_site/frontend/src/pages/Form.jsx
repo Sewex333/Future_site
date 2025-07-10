@@ -82,7 +82,7 @@ const Form = () => {
         <form ref={form} onSubmit={handleForm} className='max-w-sm mx-auto'>
           <div className='mb-6'>
             <label className='block mb-2 text-sm font-semibold text-gray-800'>
-              podaj Imie i Nazwisko:
+              Podaj Imie i Nazwisko:
               <input
                 type="text"
                 name='name'
@@ -97,7 +97,7 @@ const Form = () => {
 
           <div className='mb-6'>
             <label className='block mb-2 text-sm font-semibold text-gray-800'>
-              podaj date Urodzenia
+              Podaj date Urodzenia
               <input
                 type="date"
                 name='data'
