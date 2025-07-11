@@ -201,8 +201,8 @@ const Aktualnosci = () => {
                 <div className="text-gray-700 font-semibold">Turniejów</div>
               </div>
               <div className="bg-white p-6 rounded-lg border-2 border-black shadow-lg">
-                <div className="text-3xl font-bold text-black mb-2">8</div>
-                <div className="text-gray-700 font-semibold">Lat doświadczenia</div>
+                <div className="text-3xl font-bold text-black mb-2">2017</div>
+                <div className="text-gray-700 font-semibold">Doświadczenie od</div>
               </div>
             </div>
           </div>

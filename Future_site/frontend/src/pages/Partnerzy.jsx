@@ -152,7 +152,7 @@ const Partnerzy = () => {
             </h1>
             <p className="text-xl opacity-90 max-w-4xl mx-auto leading-relaxed">
               Razem tworzymy przyszłość futbolu! Poznaj firmy i osoby, które wspierają 
-              Future Football Club w budowaniu najlepszej akademii piłkarskiej w regionie.
+              Future Football Club w budowaniu jednej z najlepszych akademii piłkarskiej w regionie.
             </p>
           </div>
         </section>
@@ -225,7 +225,7 @@ const Partnerzy = () => {
               Zostań Partnerem Future FC
             </h2>
             <p className="text-xl mb-10 text-black opacity-90 max-w-3xl mx-auto">
-              Dołącz do ekskluzywnego grona firm wspierających najlepszą akademię futbolową w regionie. 
+              Dołącz do ekskluzywnego grona firm wspierających jedną z najlepszych akademii piłkarskiej w regionie. 
               Razem budujemy przyszłość polskiego futbolu i tworzymy niepowtarzalne możliwości rozwoju dla młodych talentów!
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
@@ -285,7 +285,7 @@ const Partnerzy = () => {
                 <div className="text-gray-700 font-semibold">Partnerów</div>
               </div>
               <div className="bg-white p-6 rounded-lg border-2 border-black shadow-lg">
-                <div className="text-3xl font-bold text-black mb-2">500+</div>
+                <div className="text-3xl font-bold text-black mb-2">250+</div>
                 <div className="text-gray-700 font-semibold">Zawodników</div>
               </div>
               <div className="bg-white p-6 rounded-lg border-2 border-black shadow-lg">
@@ -293,8 +293,8 @@ const Partnerzy = () => {
                 <div className="text-gray-700 font-semibold">Trenerów</div>
               </div>
               <div className="bg-white p-6 rounded-lg border-2 border-black shadow-lg">
-                <div className="text-3xl font-bold text-black mb-2">8</div>
-                <div className="text-gray-700 font-semibold">Lat doświadczenia</div>
+                <div className="text-3xl font-bold text-black mb-2">2017</div>
+                <div className="text-gray-700 font-semibold">Doświadczenie od</div>
               </div>
             </div>
           </div>

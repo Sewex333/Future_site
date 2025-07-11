@@ -136,6 +136,32 @@ app.get('/api/partnerzy', async (req, res) => {
   }
 });
 
+app.get('/api/ebooki', async (req, res) => {
+  try {
+    const snapshot = await db.collection('ebooki').get();
+    const ebooki = snapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        tytul: data.tytul || 'Brak tytułu',
+        opis: data.opis || '',
+        ikona: data.ikona || '📚',
+        pdfPath: data.pdfPath || '',
+        zawiera: data.zawiera || [],
+        dostepny: data.dostepny !== undefined ? data.dostepny : true,
+        kolejnosc: data.kolejnosc || 0
+      };
+    });
+    
+    ebooki.sort((a, b) => a.kolejnosc - b.kolejnosc);
+    
+    res.json(ebooki);
+  } catch (error) {
+    console.error('Błąd pobierania e-booków:', error);
+    res.status(500).json({ error: 'Błąd pobierania e-booków' });
+  }
+});
+
 app.get('/api/test-connection', (req, res) => {
     res.status(200).json({"message" : "polaczenie z db dziala"});
 })

@@ -1,23 +1,11 @@
 Podstrony:
-    Aktualnosci:
-        [ DONE ] Poprawa kart
     Obozy:
         Poprawa zdjęć
-    Eventy / Turnieje:
-        [ DONE ] Poprawa kart
     Treningi:
-        Indywidualne:
-            Co on chce
         Mentalne:
             To samo
-    E-booki:
-        Zmienienie kart 
-        Dodanie faktycznych e-bookow
-    Partnerzy:
-        zmienic to co on chce
     Kontakt i FAQ:
         Pytania
 
-Dodanie animacji do wsyztskich kart
 
 Zrobic osobna storne do dodawania rzeczy do bazy danych!!!
