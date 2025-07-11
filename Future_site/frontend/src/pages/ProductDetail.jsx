@@ -13,7 +13,7 @@ const ProductDetail = () => {
     const fetchProduct = async () => {
       console.log('Pobieram dane dla produktu o ID:', id);
       try {
-        const res = await fetch('/api/items');
+        const res = await fetch('http://localhost:8000/api/items');
         if (!res.ok) throw new Error(`Błąd: ${res.status}`);
         const data = await res.json();
 
@@ -57,14 +57,35 @@ const ProductDetail = () => {
                 {product.price.toFixed(2)} zł
               </p>
             </div>
-            <a
-              href="https://secure.payu.com/api/v2_1/orders"
+            <button
+              onClick={async () => {
+                try {
+                  const res = await fetch('http://localhost:8000/api/p24/pay', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      name: product.name,
+                      price: Math.round(product.price * 1),
+                      email: 'test@localhost.pl'
+                    })
+                  });
+
+                  const data = await res.json();
+                  console.log(data)
+                  if (data.url) {
+                    window.location.href = data.url;
+                  } else {
+                    alert('Błąd inicjalizacji płatności');
+                  }
+                } catch (err) {
+                  console.error(err);
+                  alert('Nie udało się nawiązać połączenia z bramką płatności.');
+                }
+              }}
               className="bg-green-600 text-white px-6 py-3 rounded-xl hover:bg-green-700 transition text-center"
-              target="_blank"
-              rel="noopener noreferrer"
             >
-              Kup teraz przez PayU
-            </a>
+              Kup teraz przez Przelewy24
+            </button>
           </div>
         </div>
       </main>
