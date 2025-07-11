@@ -65,22 +65,18 @@ const TreningiIndywidualne = () => {
         </div>
 
         <section className="py-12 bg-white">
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-20 text-center">
               <div>
                 <div className="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent mb-2">500+</div>
                 <div className="text-gray-600">Zawodników</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-black mb-2">95%</div>
-                <div className="text-gray-600">Postęp w umiejętnościach</div>
-              </div>
-              <div>
                 <div className="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent mb-2">2017</div>
-                <div className="text-gray-600">Rok założenia</div>
+                <div className="text-gray-600">Doświadczenie od</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-black mb-2">+/-90</div>
+                <div className="text-3xl font-bold text-black mb-2">+/-60</div>
                 <div className="text-gray-600">Minut sesji</div>
               </div>
             </div>
@@ -111,29 +107,29 @@ const TreningiIndywidualne = () => {
                 <div className="w-16 h-16 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-black font-bold text-xl">1</span>
                 </div>
-                <h3 className="font-bold text-gray-800 mb-2">Analiza Początkowa</h3>
-                <p className="text-gray-600 text-sm">Oceniamy Twoje umiejętności i wyznaczamy cele</p>
+                <h3 className="font-bold text-gray-800 mb-2">Poznajemy się</h3>
+                <p className="text-gray-600 text-sm">Przeprowadzamy testy i analizujemy Twój potencjał</p>
               </div>
               <div className="text-center">
                 <div className="w-16 h-16 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-black font-bold text-xl">2</span>
                 </div>
-                <h3 className="font-bold text-gray-800 mb-2">Plan Indywidualny</h3>
-                <p className="text-gray-600 text-sm">Tworzymy spersonalizowany program treningowy</p>
+                <h3 className="font-bold text-gray-800 mb-2">Plan działania</h3>
+                <p className="text-gray-600 text-sm">Ustalamy spersonalizowany plan treningowy</p>
               </div>
               <div className="text-center">
                 <div className="w-16 h-16 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-black font-bold text-xl">3</span>
                 </div>
-                <h3 className="font-bold text-gray-800 mb-2">Treningi</h3>
-                <p className="text-gray-600 text-sm">Regularne sesje z monitorowaniem postępów</p>
+                <h3 className="font-bold text-gray-800 mb-2">Realizacja treningu</h3>
+                <p className="text-gray-600 text-sm">Trenujesz indywidualnie lub w grupie do 4 osób</p>
               </div>
               <div className="text-center">
                 <div className="w-16 h-16 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-black font-bold text-xl">4</span>
                 </div>
-                <h3 className="font-bold text-gray-800 mb-2">Ewaluacja</h3>
-                <p className="text-gray-600 text-sm">Oceniamy postępy i dostosowujemy plan</p>
+                <h3 className="font-bold text-gray-800 mb-2">Weryfikacja postępów</h3>
+                <p className="text-gray-600 text-sm">Sprawdzamy efekty i ustalamy kolejne cele</p>
               </div>
             </div>
           </div>

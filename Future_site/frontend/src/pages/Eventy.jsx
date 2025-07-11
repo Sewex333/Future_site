@@ -11,7 +11,7 @@ const Eventy = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch('http://54.37.232.168:8000/api/events');
+        const response = await fetch('/api/events');
         if (!response.ok) throw new Error('Problem z pobraniem danych');
         const data = await response.json();
         setEvents(data);
@@ -151,7 +151,7 @@ const Eventy = () => {
               </div>
               <div>
                 <div className="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent mb-2">2017</div>
-                <div className="text-gray-600">Rok założenia</div>
+                <div className="text-gray-600">Doświadczenie od</div>
               </div>
               <div>
                 <div className="text-3xl font-bold text-black mb-2">100%</div>

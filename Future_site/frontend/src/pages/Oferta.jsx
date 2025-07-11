@@ -134,7 +134,7 @@ const Oferta = () => {
               </div>
               <div className="border-r border-gray-200 last:border-r-0">
                 <div className="text-3xl font-bold text-black mb-2">2017</div>
-                <div className="text-gray-600">Rok założenia</div>
+                <div className="text-gray-600">Doświadczenie od</div>
               </div>
               <div className="border-r border-gray-200 last:border-r-0">
                 <div className="text-3xl font-bold text-yellow-600 mb-2">500+</div>
