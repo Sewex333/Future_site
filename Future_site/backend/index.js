@@ -9,7 +9,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-
 function generateSign(sessionId, merchantId, amount, currency, crc) {
   const obj = {
     sessionId: sessionId,
@@ -24,6 +23,7 @@ function generateSign(sessionId, merchantId, amount, currency, crc) {
 
   return hash;
 }
+
 function generateP24Sign(data, crc) {
   const signString =
     data.merchantId.toString() +
@@ -63,23 +63,17 @@ function generateWebhookSignFromJson(data, crc) {
 
 function generateVerifySign(sessionId, orderId, amount, currency, crc) {
   const obj = {
-    sessionId: sessionId.toString(),
-    orderId: parseInt(orderId),
-    amount: parseInt(amount),
-    currency: currency.toString(),
-    crc: crc.trim()
+    sessionId: String(sessionId),
+    orderId: Number(orderId),
+    amount: Number(amount),
+    currency: String(currency),
+    crc: String(crc).trim()
   };
-
-  const jsonString = JSON.stringify(obj)
-    .replace(/\\\//g, '/')
-    .replace(/\\u[\dA-F]{4}/gi, (match) => {
-      return String.fromCharCode(parseInt(match.replace(/\\u/g, ''), 16));
-    });
-
+  const jsonString = JSON.stringify(obj);
+  console.log('Verify sign input:', obj);
+  console.log('Verify sign JSON:', jsonString);
   return crypto.createHash('sha384').update(jsonString).digest('hex');
 }
-
-
 
 //JEBANA PLATNOSC
 
@@ -132,14 +126,14 @@ app.post('/api/p24/pay', async (req, res) => {
     description,
     email,
     country: "PL",
-    urlStatus: 'https://da0d049f74f9.ngrok-free.app/api/p24/verify', // Użyj pełnego URL z ngrok
+    urlStatus: 'https://29e295aca34f.ngrok-free.app/api/p24/verify', // Użyj pełnego URL z ngrok
     urlReturn: 'http://localhost:5173/payment/status?sessionId=' + sessionId,
     sign
   };
 
   console.log('Final payload:', payload);
 
- try {
+  try {
     const response = await axios.post(
       'https://sandbox.przelewy24.pl/api/v1/transaction/register',
       payload,
@@ -181,7 +175,6 @@ app.post('/api/p24/verify', async (req, res) => {
       return res.status(403).send('Invalid signature');
     }
 
-    // Verification payload
     const verifySign = generateVerifySign(
       notification.sessionId,
       notification.orderId,
@@ -193,25 +186,35 @@ app.post('/api/p24/verify', async (req, res) => {
     const verifyPayload = {
       merchantId: Number(notification.merchantId),
       posId: Number(notification.posId),
-      sessionId: notification.sessionId,
+      sessionId: String(notification.sessionId),
       amount: Number(notification.amount),
-      currency: notification.currency,
+      currency: String(notification.currency),
       orderId: Number(notification.orderId),
       sign: verifySign
     };
 
-    const verifyResponse = await axios.post(
+    console.log('Verify payload:', verifyPayload);
+
+    const verifyResponse = await axios.put(  // Changed from post to put
       'https://sandbox.przelewy24.pl/api/v1/transaction/verify',
       verifyPayload,
       {
         headers: {
-          'Authorization': `Basic ${Buffer.from(`${process.env.P24_POS_ID}:${process.env.P24_SECRET}`).toString('base64')}`,
+          Authorization: `Basic ${Buffer.from(`${process.env.P24_POS_ID}:${process.env.P24_SECRET}`).toString('base64')}`,
           'Content-Type': 'application/json'
         }
       }
     );
 
     if (verifyResponse.data?.data?.status === 'success') {
+      const paymentRef = db.collection('payments').doc(notification.sessionId);
+      await paymentRef.update({
+        status: 'completed',
+        updatedAt: new Date(),
+        orderId: notification.orderId,
+        methodId: notification.methodId,
+        statement: notification.statement
+      });
       console.log('✅ Płatność potwierdzona!');
       return res.status(200).send('OK');
     } else {
@@ -219,15 +222,13 @@ app.post('/api/p24/verify', async (req, res) => {
       return res.status(400).send('Verification failed');
     }
   } catch (error) {
-    console.error('Błąd weryfikacji webhooka P24:', error);
+    console.error('Błąd weryfikacji webhooka P24:', error.message, error.response?.data);
     return res.status(500).send('Internal server error');
   }
 });
 
-
 app.get('/api/p24/payment-result', async (req, res) => {
   const { sessionId } = req.query;
-
 
   try {
     const paymentRef = db.collection('payments').doc(sessionId);
@@ -267,6 +268,7 @@ app.get('/api/p24/payment-result', async (req, res) => {
     });
   }
 });
+
 app.get('/api/items', async (req, res) => {
   try {
     const snapshot = await db.collection('shopItems').get();
@@ -425,8 +427,6 @@ app.get('/api/ebooki', async (req, res) => {
 app.get('/api/test-connection', (req, res) => {
   res.status(200).json({ message: 'Połączenie z bazą danych działa' });
 });
-
-
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
