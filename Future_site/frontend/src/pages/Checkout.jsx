@@ -112,6 +112,8 @@ const Checkout = () => {
       });
 
       const paymentData = await paymentResponse.json();
+
+      console.log('ODP P24:', paymentData);
       if (paymentData.url) {
         window.location.href = paymentData.url;
       } else {

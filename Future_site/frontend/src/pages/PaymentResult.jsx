@@ -65,7 +65,7 @@ const PaymentResult = () => {
               <p className="text-xl mb-6">{result?.message}</p>
               <div className="text-5xl mb-6">😕</div>
               <a 
-                href="/" 
+                href="/"
                 className="mt-6 inline-block bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 transition"
               >
                 Spróbuj ponownie
