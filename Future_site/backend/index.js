@@ -25,7 +25,29 @@ function generateSign(sessionId, merchantId, amount, currency, crc) {
   return crypto.createHash('sha384').update(jsonString).digest('hex');
 }
 
-//JEBANA PLATNOSC
+app.post('/api/p24/checkout', async (req, res) => {
+  const { firstName, lastName, email, address, postalCode, city, phone, productId, productName, price } = req.body;
+  
+  console.log('Received checkout data:', {
+    firstName,
+    lastName,
+    email,
+    address,
+    postalCode,
+    city,
+    phone,
+    productId,
+    productName,
+    price
+  });
+
+  try {
+    res.status(200).json({ message: 'Checkout data received successfully' });
+  } catch (error) {
+    console.error('Error processing checkout data:', error);
+    res.status(500).json({ error: 'Failed to process checkout data' });
+  }
+});
 
 app.post('/api/p24/pay', async (req, res) => {
   const { price, description = "Default description", email = "test@test.pl", productId, productName } = req.body;
@@ -83,7 +105,7 @@ app.post('/api/p24/pay', async (req, res) => {
 
   console.log('Final payload:', payload);
 
- try {
+  try {
     const response = await axios.post(
       'https://sandbox.przelewy24.pl/api/v1/transaction/register',
       payload,
@@ -110,13 +132,12 @@ app.post('/api/p24/pay', async (req, res) => {
 });
 
 app.post('/api/p24/verify', async (req, res) => {
-
   console.log('=== OTRZYMANO ŻĄDANIE WERYFIKACJI ===');
   console.log('Headers:', req.headers);
   console.log('Body:', req.body);
   const { merchantId, posId, sessionId, amount, originAmount, currency, orderId, methodId, statement, sign } = req.body;
   
-    console.log('Otrzymano żądanie weryfikacji:', req.body);
+  console.log('Otrzymano żądanie weryfikacji:', req.body);
   // 1. Zweryfikuj podpis
   const crc = process.env.P24_CRC;
   const localSign = generateSign(
@@ -143,8 +164,6 @@ app.post('/api/p24/verify', async (req, res) => {
       updatedAt: new Date()
     });
     
-    // Tutaj możesz dodać dodatkową logikę, np. wysłać e-mail potwierdzający
-    
     res.status(200).send('OK');
   } catch (error) {
     console.error('Error updating payment status:', error);
@@ -154,8 +173,7 @@ app.post('/api/p24/verify', async (req, res) => {
 
 app.get('/api/p24/payment-result', async (req, res) => {
   const { sessionId } = req.query;
-  console.log('Sprawdzanie statusu dla sessionId:', sessionId); // 👈 Loguj ID
-
+  console.log('Sprawdzanie statusu dla sessionId:', sessionId);
 
   try {
     const paymentRef = db.collection('payments').doc(sessionId);
@@ -169,8 +187,6 @@ app.get('/api/p24/payment-result', async (req, res) => {
     }
     
     const paymentData = doc.data();
-    // console.log('Dane z Firestore:', paymentData); // 👈 Pokazuje aktualny status
-
     if (paymentData.status === 'completed') {
       res.json({ 
         status: 'success',
@@ -195,7 +211,7 @@ app.get('/api/p24/payment-result', async (req, res) => {
 
 app.get('/api/items', async (req, res) => {
   try {
-    const snapshot = await db.collection('shopItems').get(); // firebase-admin syntax
+    const snapshot = await db.collection('shopItems').get();
     const items = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     res.json(items);
   } catch (error) {
@@ -205,33 +221,33 @@ app.get('/api/items', async (req, res) => {
 });
 
 app.get('/api/obozy', async (req, res) => {
-    try {
-    const snapshot = await db.collection('camps').get(); // firebase-admin syntax
+  try {
+    const snapshot = await db.collection('camps').get();
     const items = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     res.json(items);
   } catch (error) {
     console.error('Błąd pobierania danych:', error);
     res.status(500).json({ error: 'Błąd pobierania danych' });
   }
-})
+});
 
 app.get('/api/events', async (req, res) => {
   try {
-    const snapshot = await db.collection('eventy').get(); // Zwróć uwagę na nazwę kolekcji
+    const snapshot = await db.collection('eventy').get();
     const events = snapshot.docs.map(doc => {
       const data = doc.data();
       return {
         id: doc.id,
-        nazwa: data.nazwa || 'Brak nazwy', // Mapowanie niestandardowych pól
+        nazwa: data.nazwa || 'Brak nazwy',
         kategoria: data.kategoria || 'Inne',
         opis: data.opis || '',
         data: data.data || '',
         miejsce: data.miejsce || '',
         uczestnicy: data.uczestnicy || '',
         nagrody: data.nagrody || '',
-        features: data.faktura || [], // To pole wydaje się być tablicą
+        features: data.faktura || [],
         cena: data.cena || data.cens || 'Brak ceny',
-        dostepny: data.dostepny || false, // Uwaga na polskie znaki
+        dostepny: data.dostepny || false,
         ikona: data.ikona || '⚽'
       };
     });
@@ -268,7 +284,6 @@ app.get('/api/oferty', async (req, res) => {
     res.status(500).json({ error: 'Błąd pobierania ofert' });
   }
 });
-
 
 app.get('/api/aktualnosci', async (req, res) => {
   try {
@@ -309,7 +324,7 @@ app.get('/api/partnerzy', async (req, res) => {
         kategoria: data.kategoria || 'Inne',
         image: data.image || '/default-partner.jpg',
         link: data.link || '#',
-        typ: data.typ || 'partner', 
+        typ: data.typ || 'partner',
         dostepny: data.dostepny !== undefined ? data.dostepny : true,
         opis_rozszerzony: data.opis_rozszerzony || data.opis || '',
         logo: data.logo || '',
@@ -350,8 +365,8 @@ app.get('/api/ebooki', async (req, res) => {
 });
 
 app.get('/api/test-connection', (req, res) => {
-    res.status(200).json({"message" : "polaczenie z db dziala"});
-})
+  res.status(200).json({"message" : "polaczenie z db dziala"});
+});
 
 app.listen(8000, () => {
   console.log('✅ Backend działa na porcie 8000');
