@@ -9,21 +9,60 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// const testSign = generateVerifySign(
+//   "test_1752320945654",
+//   1016459,
+//   4000,
+//   "PLN",
+//   "68d4e143c5b70534"
+// );
+// console.log('Test SIGN:', testSign);
+
 function generateSign(sessionId, merchantId, amount, currency, crc) {
   const obj = {
     sessionId: sessionId,
     merchantId: Number(merchantId),
     amount: Number(amount),
     currency: currency,
-    crc: crc
+    crc: crc.trim()
   };
 
-  // JSON string bez escape unicode i slashes:
   const jsonString = JSON.stringify(obj);
+  const hash = crypto.createHash('sha384').update(jsonString).digest('hex');
 
-  console.log('RAW SIGNATURE STRING JSON:', jsonString);
-  return crypto.createHash('sha384').update(jsonString).digest('hex');
+  console.log('\n🔐 [SIGN for /pay]');
+  console.log('Input JSON:', jsonString);
+  console.log('Generated SIGN:', hash, '\n');
+
+  return hash;
 }
+
+
+
+function generateVerifySign(notificationData, crc) {
+  const obj = {
+    merchantId: Number(notificationData.merchantId),
+    posId: Number(notificationData.posId),
+    sessionId: notificationData.sessionId,
+    amount: Number(notificationData.amount),
+    originAmount: Number(notificationData.originAmount),
+    currency: notificationData.currency,
+    orderId: Number(notificationData.orderId),
+    methodId: Number(notificationData.methodId),
+    statement: notificationData.statement,
+    crc: crc.trim()
+  };
+
+  const jsonString = JSON.stringify(obj);
+  const hash = crypto.createHash('sha384').update(jsonString).digest('hex');
+
+  console.log('\n🛡️ [SIGN for /verify]');
+  console.log('Input JSON:', jsonString);
+  console.log('Generated SIGN:', hash, '\n');
+
+  return hash;
+}
+
 
 //JEBANA PLATNOSC
 
@@ -76,7 +115,7 @@ app.post('/api/p24/pay', async (req, res) => {
     description,
     email,
     country: "PL",
-    urlStatus: 'https://f9a5e1d3c9d1.ngrok-free.app/api/p24/verify', // Użyj pełnego URL z ngrok
+    urlStatus: 'https://ec2e4c1c9761.ngrok-free.app/api/p24/verify', // Użyj pełnego URL z ngrok
     urlReturn: 'http://localhost:5173/payment/status?sessionId=' + sessionId,
     sign
   };
@@ -110,48 +149,107 @@ app.post('/api/p24/pay', async (req, res) => {
 });
 
 app.post('/api/p24/verify', async (req, res) => {
-
-  console.log('=== OTRZYMANO ŻĄDANIE WERYFIKACJI ===');
-  console.log('Headers:', req.headers);
-  console.log('Body:', req.body);
-  const { merchantId, posId, sessionId, amount, originAmount, currency, orderId, methodId, statement, sign } = req.body;
+  console.log('Received verification request:', req.body);
   
-    console.log('Otrzymano żądanie weryfikacji:', req.body);
-  // 1. Zweryfikuj podpis
+  const notificationData = req.body;
   const crc = process.env.P24_CRC;
-  const localSign = generateSign(
-    sessionId,
-    merchantId,
-    amount,
-    currency,
-    crc
-  );
 
-  if (localSign !== sign) {
-    console.error('Invalid signature');
+  // Generuj podpis
+  const localSign = generateVerifySign(notificationData, crc);
+
+  console.log('Signature verification:');
+  console.log('- Received:', notificationData.sign);
+  console.log('- Generated:', localSign);
+  console.log('- Match:', localSign === notificationData.sign);
+
+  if (localSign !== notificationData.sign) {
+    console.error('Signature mismatch!');
     return res.status(400).send('Invalid signature');
   }
 
-  // 2. Zaktualizuj status płatności w Firestore
+  let originalPayment;
   try {
-    const paymentRef = db.collection('payments').doc(sessionId);
-    await paymentRef.update({
-      status: 'completed',
-      orderId,
-      methodId,
-      statement,
-      updatedAt: new Date()
+    const paymentRef = db.collection('payments').doc(notificationData.sessionId);
+    const doc = await paymentRef.get();
+    
+    if (!doc.exists) {
+      console.error('Original payment not found');
+      return res.status(400).send('Payment not found');
+    }
+    
+    originalPayment = doc.data();
+  } catch (error) {
+    console.error('Error fetching payment:', error);
+    return res.status(500).send('Database error');
+  }
+
+  // 3. Prepare verification payload with ALL required fields
+  const verifyPayload = {
+    merchantId: parseInt(process.env.P24_MERCHANT_ID),
+    posId: parseInt(process.env.P24_POS_ID),
+    sessionId: notificationData.sessionId,
+    amount: parseInt(notificationData.amount),
+    originAmount: parseInt(notificationData.originAmount),
+    currency: notificationData.currency,
+    orderId: parseInt(notificationData.orderId),
+    methodId: parseInt(notificationData.methodId),       // dodaj
+    statement: notificationData.statement,               // dodaj
+    sign: localSign,
+    description: originalPayment.description || 'Default description',
+    email: originalPayment.email || 'test@test.pl'
+  };
+  console.log('Full verification payload:', verifyPayload);
+
+  // 4. Send verification request
+  try {
+    const verifyResponse = await axios.post(
+      'https://sandbox.przelewy24.pl/api/v1/transaction/verify',
+      verifyPayload,
+      {
+        headers: {
+          'Authorization': `Basic ${Buffer.from(`${process.env.P24_POS_ID}:${process.env.P24_SECRET}`).toString('base64')}`,
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }
+      }
+    );
+
+    console.log('Verification response:', verifyResponse.data);
+
+    // 5. Update payment status
+    if (verifyResponse.data.data?.status === 'success') {
+      await paymentRef.update({
+        status: 'completed',
+        orderId: notificationData.orderId,
+        verifiedAt: new Date(),
+        updatedAt: new Date()
+      });
+      
+      console.log('✅ Payment verified successfully');
+      return res.status(200).send('OK');
+    } else {
+      console.error('Verification failed:', verifyResponse.data);
+      return res.status(400).send('Verification failed');
+    }
+  } catch (error) {
+    console.error('Full error details:', {
+      message: error.message,
+      response: {
+        status: error.response?.status,
+        data: error.response?.data,
+        headers: error.response?.headers
+      },
+      config: {
+        url: error.config?.url,
+        method: error.config?.method,
+        data: error.config?.data,
+        headers: error.config?.headers
+      }
     });
     
-    // Tutaj możesz dodać dodatkową logikę, np. wysłać e-mail potwierdzający
-    
-    res.status(200).send('OK');
-  } catch (error) {
-    console.error('Error updating payment status:', error);
-    res.status(500).send('Error updating payment');
+    return res.status(500).send('Verification error');
   }
 });
-
 app.get('/api/p24/payment-result', async (req, res) => {
   const { sessionId } = req.query;
   console.log('Sprawdzanie statusu dla sessionId:', sessionId); // 👈 Loguj ID
@@ -175,12 +273,14 @@ app.get('/api/p24/payment-result', async (req, res) => {
       res.json({ 
         status: 'success',
         message: 'Płatność zakończona pomyślnie! Dziękujemy za zakupy.',
+        sessionId,
         paymentData
       });
     } else {
       res.json({ 
         status: 'pending',
         message: 'Oczekiwanie na potwierdzenie płatności...',
+        sessionId,
         paymentData
       });
     }
@@ -188,7 +288,8 @@ app.get('/api/p24/payment-result', async (req, res) => {
     console.error('Error fetching payment:', error);
     res.status(500).json({ 
       status: 'error',
-      message: 'Wystąpił błąd podczas weryfikacji płatności.' 
+      message: 'Wystąpił błąd podczas weryfikacji płatności.',
+      sessionId,
     });
   }
 });
