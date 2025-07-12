@@ -18,6 +18,7 @@ import Kontakt from './pages/Kontakt.jsx'
 import Form from './pages/Form.jsx'
 import ProductDetail from './pages/ProductDetail.jsx'
 import PaymentResult from './pages/PaymentResult.jsx'
+import Checkout from './pages/Checkout.jsx'
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
@@ -38,6 +39,7 @@ createRoot(document.getElementById('root')).render(
       <Route path="/sklep/:id" element={<ProductDetail />} />
       <Route path="/return" element={<PaymentResult />} />
       <Route path="/payment/status" element={<PaymentResult />} />
+      <Route path="/sklep/:id/checkout" element={<Checkout />} />
     </Routes>
   </BrowserRouter>
 )
