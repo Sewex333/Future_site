@@ -17,6 +17,7 @@ import Partnerzy from './pages/Partnerzy.jsx'
 import Kontakt from './pages/Kontakt.jsx'
 import Form from './pages/Form.jsx'
 import ProductDetail from './pages/ProductDetail.jsx'
+import PaymentResult from './pages/PaymentResult.jsx'
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
@@ -35,6 +36,8 @@ createRoot(document.getElementById('root')).render(
       <Route path="/kontakt" element={<Kontakt />} />
       <Route path="/formularz" element={<Form />} />
       <Route path="/sklep/:id" element={<ProductDetail />} />
+      <Route path="/return" element={<PaymentResult />} />
+      <Route path="/payment/status" element={<PaymentResult />} />
     </Routes>
   </BrowserRouter>
 )

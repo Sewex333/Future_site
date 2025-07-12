@@ -66,12 +66,13 @@ const ProductDetail = () => {
                     body: JSON.stringify({
                       name: product.name,
                       price: Math.round(product.price * 1),
-                      email: 'test@localhost.pl'
+                      email: 'test@localhost.pl',
+                      productId: product.id,
+                      productName: product.name
                     })
                   });
 
                   const data = await res.json();
-                  console.log(data)
                   if (data.url) {
                     window.location.href = data.url;
                   } else {
