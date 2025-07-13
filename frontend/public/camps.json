@@ -1,0 +1,43 @@
+[
+  {
+    "id": "wasosz",
+    "title": "Obóz Piłkarski Wąsosz 2025",
+    "image": "/wasocz.png",
+    "date": "27.07 – 03.08.2025",
+    "place": "Hotel Albatros, Wąsosz",
+    "price": "2099 zł (członkowie) / 2199 zł (pozostali)",
+    "details": "pełne wyżywienie, zakwaterowanie, atrakcje, transport",
+    "documentLink": "/Documents/oboz_wasosz.pdf"
+  },
+  {
+    "id": "wasosz",
+    "title": "Obóz Piłkarski Wąsosz 2025",
+    "image": "/wasocz.png",
+    "date": "27.07 – 03.08.2025",
+    "place": "Hotel Albatros, Wąsosz",
+    "price": "2099 zł (członkowie) / 2199 zł (pozostali)",
+    "details": "pełne wyżywienie, zakwaterowanie, atrakcje, transport",
+    "documentLink": "/Documents/oboz_wasosz.pdf"
+  },
+  {
+    "id": "wasosz",
+    "title": "Obóz Piłkarski Wąsosz 2025",
+    "image": "/wasocz.png",
+    "date": "27.07 – 03.08.2025",
+    "place": "Hotel Albatros, Wąsosz",
+    "price": "2099 zł (członkowie) / 2199 zł (pozostali)",
+    "details": "pełne wyżywienie, zakwaterowanie, atrakcje, transport",
+    "documentLink": "/Documents/oboz_wasosz.pdf"
+  },
+  {
+    "id": "polkolonia2025",
+    "title": "Półkolonie Letnie Szczecin 2025",
+    "image": "/polkolonia.jpg",
+    "date": "30.06 – 04.07.2025",
+    "place": "SP61, ul. 3 Maja 4, Szczecin",
+    "price": "699 zł (członkowie) / 749 zł (pozostali)",
+    "details": "park linowy, kino, trampoliny, wykłady, treningi, basen i więcej!",
+    "documentLink": "",
+    "contactEmail": "ffc.biuro@gmail.com"
+  }
+]
