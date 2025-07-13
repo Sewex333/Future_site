@@ -59,13 +59,11 @@ const TreningiMentalne = () => {
     {
       nazwa: "Damian Pepliński",
       specjalizacja: "Psycholog sportu",
-      doswiadczenie: "15 lat pracy z młodzieżowymi reprezentacjami Polski",
       zdjecie: "/damian_peplinski.jpg"
     },
     {
       nazwa: "Wiktoria Peplińska",
       specjalizacja: "Trener mentalny",
-      doswiadczenie: "Współpraca z Akademią Legii Warszawa",
       zdjecie: "/w_peplinska.png"
     }
   ];
