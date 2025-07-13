@@ -11,7 +11,7 @@ const ShopSite = () => {
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const res = await fetch('http://localhost:8000/api/items');
+        const res = await fetch('/api/items');
         if (!res.ok) throw new Error('Błąd sieci');
         const data = await res.json();
         setItems(data);

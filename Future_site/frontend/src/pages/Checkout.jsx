@@ -23,7 +23,7 @@ const Checkout = () => {
     const fetchProduct = async () => {
       console.log('Pobieram dane dla produktu o ID:', id);
       try {
-        const res = await fetch('http://localhost:8000/api/items');
+        const res = await fetch('/api/items');
         if (!res.ok) throw new Error(`Błąd: ${res.status}`);
         const data = await res.json();
         const found = data.find((item) => item.id === id);
@@ -83,7 +83,7 @@ const Checkout = () => {
 
     try {
       // Send form data to new checkout endpoint
-      const checkoutResponse = await fetch('http://localhost:8000/api/p24/checkout', {
+      const checkoutResponse = await fetch('/api/p24/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -99,7 +99,7 @@ const Checkout = () => {
       }
 
       // Proceed to payment
-      const paymentResponse = await fetch('http://localhost:8000/api/p24/pay', {
+      const paymentResponse = await fetch('/api/p24/pay', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

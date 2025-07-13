@@ -9,6 +9,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+
+// Istniejące endpointy GET (bez zmian)
+
 function generateSign(sessionId, merchantId, amount, currency, crc) {
   const obj = {
     sessionId: sessionId,
@@ -126,8 +129,8 @@ app.post('/api/p24/pay', async (req, res) => {
     description,
     email,
     country: "PL",
-    urlStatus: 'https://29e295aca34f.ngrok-free.app/api/p24/verify', // Użyj pełnego URL z ngrok
-    urlReturn: 'http://localhost:5173/payment/status?sessionId=' + sessionId,
+    urlStatus: '/api/p24/verify', // Użyj pełnego URL z ngrok
+    urlReturn: 'https://future.szczecin.pl/payment/status?sessionId=' + sessionId,
     sign
   };
 
@@ -135,7 +138,7 @@ app.post('/api/p24/pay', async (req, res) => {
 
   try {
     const response = await axios.post(
-      'https://sandbox.przelewy24.pl/api/v1/transaction/register',
+      'https://secure.przelewy24.pl/api/v1/transaction/register',
       payload,
       {
         headers: {
@@ -146,7 +149,7 @@ app.post('/api/p24/pay', async (req, res) => {
     );
 
     if (response.data && response.data.responseCode === 0 && response.data.data.token) {
-      res.json({ url: `https://sandbox.przelewy24.pl/trnRequest/${response.data.data.token}` });
+      res.json({ url: `https://secure.przelewy24.pl/trnRequest/${response.data.data.token}` });
     } else {
       res.status(500).json({ error: 'Invalid response from payment gateway' });
     }
@@ -196,7 +199,7 @@ app.post('/api/p24/verify', async (req, res) => {
     console.log('Verify payload:', verifyPayload);
 
     const verifyResponse = await axios.put(  // Changed from post to put
-      'https://sandbox.przelewy24.pl/api/v1/transaction/verify',
+      'https://secure.przelewy24.pl/api/v1/transaction/verify',
       verifyPayload,
       {
         headers: {
@@ -230,44 +233,85 @@ app.post('/api/p24/verify', async (req, res) => {
 app.get('/api/p24/payment-result', async (req, res) => {
   const { sessionId } = req.query;
 
+  if (!sessionId) {
+    return res.status(400).json({ status: 'error', message: 'Session ID is required.' });
+  }
+
   try {
+    // Zmieniono z 'orders' na 'payments' - zgodnie z tym gdzie zapisywane są płatności
     const paymentRef = db.collection('payments').doc(sessionId);
     const doc = await paymentRef.get();
-    
+
     if (!doc.exists) {
-      return res.status(404).json({ 
+      console.warn('Payment result requested for non-existent session:', sessionId);
+      return res.status(404).json({
         status: 'error',
-        message: 'Payment not found' 
+        message: 'Payment not found for this session.',
       });
     }
-    
+
     const paymentData = doc.data();
-    // console.log('Dane z Firestore:', paymentData); // 👈 Pokazuje aktualny status
+    console.log('Payment Data from Firestore for sessionId', sessionId, ':', paymentData);
 
     if (paymentData.status === 'completed') {
-      res.json({ 
+      res.json({
         status: 'success',
         message: 'Płatność zakończona pomyślnie! Dziękujemy za zakupy.',
         sessionId,
         paymentData
       });
-    } else {
-      res.json({ 
+    } else if (paymentData.status === 'pending') {
+      res.json({
         status: 'pending',
         message: 'Oczekiwanie na potwierdzenie płatności...',
         sessionId,
         paymentData
       });
+    } else {
+      // Handle other potential statuses like 'failed', 'failed_verification', etc.
+      res.json({
+        status: 'failed',
+        message: 'Płatność nie powiodła się lub została anulowana.',
+        sessionId,
+        paymentData
+      });
     }
   } catch (error) {
-    console.error('Error fetching payment:', error);
-    res.status(500).json({ 
+    console.error('Error fetching payment result:', error);
+    res.status(500).json({
       status: 'error',
-      message: 'Wystąpił błąd podczas weryfikacji płatności.',
+      message: 'Wystąpił błąd podczas weryfikacji statusu płatności.',
       sessionId,
+      details: error.message
     });
   }
 });
+
+
+app.post('/api/p24/checkout', async (req, res) => {
+  const { firstName, lastName, email, address, postalCode, city, phone, productId, productName, price } = req.body;
+  
+  console.log('Received checkout data:', {
+    firstName,
+    lastName,
+    email,
+    address,
+    postalCode,
+    city,
+    phone,
+    productId,
+    productName,
+    price
+  });
+
+  try {
+    res.status(200).json({ message: 'Checkout data received successfully' });
+  } catch (error) {
+    console.error('Error processing checkout data:', error);
+    res.status(500).json({ error: 'Failed to process checkout data' });
+  }
+});
+
 
 app.get('/api/items', async (req, res) => {
   try {
@@ -362,8 +406,9 @@ app.get('/api/aktualnosci', async (req, res) => {
         wyrozniany: data.wyrozniany !== undefined ? data.wyrozniany : false
       };
     });
-    
+
     // Sortowanie od najnowszych
+
     aktualnosci.sort((a, b) => new Date(b.data) - new Date(a.data));
     res.json(aktualnosci);
   } catch (error) {
@@ -414,7 +459,7 @@ app.get('/api/ebooki', async (req, res) => {
         kolejnosc: data.kolejnosc || 0
       };
     });
-    
+
     // Sortowanie według pola 'kolejnosc'
     ebooki.sort((a, b) => a.kolejnosc - b.kolejnosc);
     res.json(ebooki);
@@ -425,10 +470,60 @@ app.get('/api/ebooki', async (req, res) => {
 });
 
 app.get('/api/test-connection', (req, res) => {
-  res.status(200).json({ message: 'Połączenie z bazą danych działa' });
+  res.status(200).json({ message: 'polaczenie z db dziala' });
+});
+
+// Nowe endpointy CRUD
+const collections = ['aktualnosci', 'eventy', 'oferty', 'obozy', 'partnerzy', 'items'];
+
+collections.forEach(collection => {
+  // POST - Dodawanie
+  app.post(`/api/${collection}`, async (req, res) => {
+    try {
+      const data = req.body;
+      const docRef = await db.collection(collection).add(data);
+      const addedDoc = await docRef.get();
+      res.status(201).json({ id: docRef.id, ...addedDoc.data() });
+    } catch (error) {
+      console.error(`Błąd dodawania do ${collection}:`, error);
+      res.status(500).json({ error: `Błąd dodawania do ${collection}` });
+    }
+  });
+
+  // PUT - Edytowanie
+  app.put(`/api/${collection}/:id`, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const data = req.body;
+      await db.collection(collection).doc(id).set(data, { merge: true });
+      const updatedDoc = await db.collection(collection).doc(id).get();
+      res.json({ id, ...updatedDoc.data() });
+    } catch (error) {
+      console.error(`Błąd edycji ${collection}:`, error);
+      res.status(500).json({ error: `Błąd edycji ${collection}` });
+    }
+  });
+
+  // DELETE - Usuwanie
+  app.delete(`/api/${collection}/:id`, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const docRef = db.collection(collection).doc(id);
+      const doc = await docRef.get();
+      if (!doc.exists) {
+        return res.status(404).json({ error: 'Dokument nie istnieje' });
+      }
+      await docRef.delete();
+      res.status(200).json({ message: 'Dokument został usunięty' });
+    } catch (error) {
+      console.error(`Błąd usuwania z ${collection}:`, error);
+      res.status(500).json({ error: `Wystąpił błąd podczas usuwania z ${collection}` });
+    }
+  });
 });
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log(`✅ Backend działa na porcie ${PORT}`);
 });
+
