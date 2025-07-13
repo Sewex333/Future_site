@@ -12,7 +12,7 @@ const ProductDetail = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await fetch('http://localhost:8000/api/items');
+        const res = await fetch('/api/items');
         if (!res.ok) throw new Error(`Błąd: ${res.status}`);
         const data = await res.json();
         const found = data.find((item) => item.id.toString() === id);

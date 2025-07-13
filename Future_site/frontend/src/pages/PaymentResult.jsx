@@ -14,7 +14,7 @@ const PaymentResult = () => {
       const sessionId = searchParams.get('sessionId');
       
       const res = await fetch(
-        `http://localhost:8000/api/p24/payment-result?sessionId=${sessionId}`
+        `/api/p24/payment-result?sessionId=${sessionId}`
       );
       const data = await res.json();
       
