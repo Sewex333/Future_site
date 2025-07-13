@@ -6,10 +6,11 @@ const Navbar = () => {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+    window.scrollTo(0, 0);
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-black text-white shadow-md flex justify-between items-center px-6 h-20">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-black text-white shadow-md flex justify-between items-center px-6 h-20 ">
       <Link to="/" className="text-xl font-bold text-white hover:text-yellow-400">
         <div className="flex items-center gap-2">
           <img src="/logotyp.png" alt="Logo" className="h-10" />
