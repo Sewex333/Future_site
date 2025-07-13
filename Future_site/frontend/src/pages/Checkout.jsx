@@ -112,8 +112,6 @@ const Checkout = () => {
       });
 
       const paymentData = await paymentResponse.json();
-
-      console.log('ODP P24:', paymentData);
       if (paymentData.url) {
         window.location.href = paymentData.url;
       } else {
@@ -154,7 +152,7 @@ const Checkout = () => {
               <form onSubmit={handleSubmit} className="space-y-4">
                 {Object.keys(formData).map((key) => (
                   <div key={key}>
-                    <label className="block text-white capitalize mb-1">{key === 'firstName' ? 'Imię' : key === 'lastName' ? 'Nazwisko' : key === 'postalCode' ? 'Kod pocztowy' : key === 'city' ? 'Miasto' : key === 'phone' ? 'Numer telefonu' : key}</label>
+                    <label className="block text-white capitalize mb-1" style={{ color: 'white' }}>{key === 'firstName' ? 'Imię' : key === 'lastName' ? 'Nazwisko' : key === 'postalCode' ? 'Kod pocztowy' : key === 'city' ? 'Miasto' : key === 'phone' ? 'Numer telefonu' : key}</label>
                     <input
                       type={key === 'email' ? 'email' : 'text'}
                       name={key}
