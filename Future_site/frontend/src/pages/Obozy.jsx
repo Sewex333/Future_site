@@ -11,7 +11,7 @@ const Obozy = () => {
   useEffect(() => {
   const fetchObozy = async () => {
     try {
-      const response = await fetch("/api/obozy");
+      const response = await fetch("http://localhost:8000/api/obozy");
       const data = await response.json();
       setObozy(data.filter(item => item.type === 'oboz'));
       setPolkolonie(data.filter(item => item.type === 'polkolonia'));
