@@ -6,7 +6,11 @@ const crypto = require('crypto');
 require('dotenv').config();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: 'https://future.szczecin.pl',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+}));
 app.use(express.json());
 
 
@@ -129,7 +133,7 @@ app.post('/api/p24/pay', async (req, res) => {
     description,
     email,
     country: "PL",
-    urlStatus: '/api/p24/verify', // Użyj pełnego URL z ngrok
+    urlStatus: 'https://future.szczecin.pl/api/p24/verify', // Użyj pełnego URL z ngrok
     urlReturn: 'https://future.szczecin.pl/payment/status?sessionId=' + sessionId,
     sign
   };
@@ -522,8 +526,7 @@ collections.forEach(collection => {
   });
 });
 
-const PORT = process.env.PORT || 8000;
-app.listen(PORT, () => {
-  console.log(`✅ Backend działa na porcie ${PORT}`);
+app.listen(8000, '0.0.0.0', () => {
+    console.log(`Backend działa na porcie 8000`);
 });
 
