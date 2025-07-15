@@ -91,7 +91,7 @@ function App() {
             src={videoMain}
           />
         </section>
-
+        
         <motion.section 
           className="relative bg-gradient-to-br from-gray-900 via-black to-gray-800 py-12 md:py-20"
         >
