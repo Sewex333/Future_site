@@ -6,8 +6,8 @@ const faqData = {
   "faq": [
     {
       "id": 1,
-      "pytanie": "Od jakiego wieku można zapisać dziecko do szkółki?",
-      "odpowiedz": "Przyjmujemy dzieci od 4 roku życia. Mamy grupy dostosowane do wieku, aby zapewnić optymalny rozwój."
+      "pytanie": "Od jakiego wieku można zapisać dziecko do szkółki? / Czy można dołączyć w trakcie sezonu? Czy są nabory tylko raz w roku?",
+      "odpowiedz": "Przyjmujemy dzieci od 4 roku życia. Mamy grupy dostosowane do wieku, aby zapewnić optymalny rozwój.\n\nTak, można dołączyć w trakcie trwania sezonu.\n\nDLA NAJMŁODSZYCH ZAWODNIKÓW:\n• Okres nie ma większego znaczenia\n• Na starcie sezonu, gdy przychodzi dużo nowych osób, łatwiej się zaaklimatyzować nowym osobom\n\nNAJLEPSZE OKRESY NA NABÓR:\n• Sierpień lub początek września\n• Marzec / kwiecień\n\nDLACZEGO TE TERMINY:\n• Okienko transferowe jest jeszcze otwarte\n• Runda jesienna i wiosenna dopiero się zaczyna"
     },
     {
       "id": 2,

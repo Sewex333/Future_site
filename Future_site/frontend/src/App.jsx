@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import Navbar from './pages/Navbar';
 import Form from './pages/Form';
 import Footer from './pages/Footer';
-import videoMain from '../src/video/filmik_main.mp4';
+import videoMain from '../public/filmik_main.mp4';
 import './App.css';
 
 function App() {
