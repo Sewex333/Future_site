@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import Navbar from './pages/Navbar';
 import Form from './pages/Form';
 import Footer from './pages/Footer';
-import videoMain from '../public/filmik_main.mp4';
+import videoMain from './public/filmik_main.mp4';
 import './App.css';
 
 function App() {
@@ -91,7 +91,7 @@ function App() {
             src={videoMain}
           />
         </section>
-
+        
         <motion.section 
           className="relative bg-gradient-to-br from-gray-900 via-black to-gray-800 py-12 md:py-20"
         >
