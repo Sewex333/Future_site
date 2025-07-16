@@ -52,7 +52,7 @@ const Navbar = () => {
         <Link to="/o-nas" className="hover:text-yellow-400">O nas</Link>
         <Link to="/aktualnosci" className="hover:text-yellow-400">Aktualności</Link>
         <Link to="/oferta" className="hover:text-yellow-400">Oferta</Link>
-        <Link to="/obozy-i-polkolonie" className="hover:text-yellow-400">Obozy</Link>
+        <Link to="/obozy-i-polkolonie" className="hover:text-yellow-400">Obozy / Połkolonie</Link>
         <Link to="/eventy" className="hover:text-yellow-400">Eventy / Turnieje</Link>
         <div className="relative group">
           <button className="hover:text-yellow-400">Treningi</button>
@@ -72,7 +72,7 @@ const Navbar = () => {
           <Link to="/o-nas" className="hover:text-yellow-400" onClick={toggleMenu}>O nas</Link>
           <Link to="/aktualnosci" className="hover:text-yellow-400" onClick={toggleMenu}>Aktualności</Link>
           <Link to="/oferta" className="hover:text-yellow-400" onClick={toggleMenu}>Oferta</Link>
-          <Link to="/obozy-i-polkolonie" className="hover:text-yellow-400" onClick={toggleMenu}>Obozy</Link>
+          <Link to="/obozy-i-polkolonie" className="hover:text-yellow-400" onClick={toggleMenu}>Obozy / Połkolonie</Link>
           <Link to="/eventy" className="hover:text-yellow-400" onClick={toggleMenu}>Eventy/Turnieje</Link>
           <div className="flex flex-col">
             <span className="font-semibold">Treningi</span>
