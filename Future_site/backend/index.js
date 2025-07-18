@@ -81,13 +81,24 @@ function generateVerifySign(sessionId, orderId, amount, currency, crc) {
 //JEBANA PLATNOSC
 
 app.post('/api/p24/pay', async (req, res) => {
-  const { price, description = "Default description", email = "test@test.pl", productId, productName } = req.body;
+  const price = req.body.price || 0;
+const description = req.body.description || '';
+const email = req.body.email || '';
+const productId = req.body.productId || '';
+const productName = req.body.productName || '';
+const orderId = req.body.orderId || '';
+  
+  console.log('Received payment request:', { price, description, email, productId, productName, orderId });
   
   if (!price || isNaN(price)) {
     return res.status(400).json({ error: 'Invalid price' });
   }
 
-  const sessionId = `test_${Date.now()}`;
+  if (!orderId) {
+    return res.status(400).json({ error: 'Order ID is required' });
+  }
+
+  const sessionId = `order_${orderId}_${Date.now()}`;
   const amount = Math.round(parseFloat(price) * 100);
   const currency = 'PLN';
   const crc = process.env.P24_CRC;
@@ -100,8 +111,19 @@ app.post('/api/p24/pay', async (req, res) => {
     crc
   );
 
-  // Zapisz płatność do Firestore przed wysłaniem do P24
   try {
+    // Sprawdź czy zamówienie istnieje
+    const orderRef = db.collection('orders').doc(orderId);
+    const orderDoc = await orderRef.get();
+    
+    if (!orderDoc.exists) {
+      return res.status(404).json({ error: 'Order not found' });
+    }
+
+    const orderData = orderDoc.data();
+
+    // Zapisz płatność do Firestore
+    console.log('Saving payment to Firestore...');
     const paymentRef = db.collection('payments').doc(sessionId);
     await paymentRef.set({
       sessionId,
@@ -111,32 +133,38 @@ app.post('/api/p24/pay', async (req, res) => {
       email,
       productId,
       productName,
-      status: 'pending', // początkowy status
+      orderId,
+      customerData: orderData.customerData, // Dodaj dane klienta do płatności
+      status: 'pending',
       createdAt: new Date(),
       updatedAt: new Date()
     });
-  } catch (error) {
-    console.error('Error saving payment to Firestore:', error);
-    return res.status(500).json({ error: 'Failed to save payment data' });
-  }
+    console.log('Payment saved to Firestore successfully');
 
-  const payload = {
-    merchantId: parseInt(process.env.P24_MERCHANT_ID),
-    posId: parseInt(process.env.P24_POS_ID),
-    sessionId,
-    amount,
-    currency,
-    description,
-    email,
-    country: "PL",
-    urlStatus: '/api/p24/verify', // Użyj pełnego URL z ngrok
-    urlReturn: 'https://future.szczecin.pl/payment/status?sessionId=' + sessionId,
-    sign
-  };
+    // Zaktualizuj zamówienie z sessionId
+    await orderRef.update({
+      sessionId,
+      paymentStatus: 'processing',
+      updatedAt: new Date()
+    });
+    console.log('Order updated with sessionId');
 
-  console.log('Final payload:', payload);
+    const payload = {
+      merchantId: parseInt(process.env.P24_MERCHANT_ID),
+      posId: parseInt(process.env.P24_POS_ID),
+      sessionId,
+      amount,
+      currency,
+      description,
+      email,
+      country: "PL",
+      urlStatus: `${process.env.BASE_URL || 'https://future.szczecin.pl'}/api/p24/verify`,
+      urlReturn: `${process.env.BASE_URL || 'https://future.szczecin.pl'}/payment/status?sessionId=${sessionId}`,
+      sign
+    };
 
-  try {
+    console.log('Final payload:', payload);
+
     const response = await axios.post(
       'https://secure.przelewy24.pl/api/v1/transaction/register',
       payload,
@@ -148,20 +176,61 @@ app.post('/api/p24/pay', async (req, res) => {
       }
     );
 
+    console.log('Przelewy24 response:', response.data);
+
     if (response.data && response.data.responseCode === 0 && response.data.data.token) {
       res.json({ url: `https://secure.przelewy24.pl/trnRequest/${response.data.data.token}` });
     } else {
-      res.status(500).json({ error: 'Invalid response from payment gateway' });
+      console.error('Invalid response from Przelewy24:', response.data);
+      
+      // Oznacz płatność jako failed
+      await paymentRef.update({
+        status: 'failed',
+        errorDetails: response.data,
+        updatedAt: new Date()
+      });
+
+      // Zaktualizuj status zamówienia
+      await orderRef.update({
+        paymentStatus: 'failed',
+        updatedAt: new Date()
+      });
+
+      res.status(500).json({ error: 'Invalid response from payment gateway', details: response.data });
     }
   } catch (error) {
-    console.error('Payment error:', error);
+    console.error('Payment error:', error.message, error.response?.data);
+    
+    // Oznacz płatność jako failed jeśli istnieje
+    try {
+      const paymentRef = db.collection('payments').doc(sessionId);
+      const paymentDoc = await paymentRef.get();
+      if (paymentDoc.exists) {
+        await paymentRef.update({
+          status: 'failed',
+          errorDetails: error.message,
+          updatedAt: new Date()
+        });
+      }
+
+      // Zaktualizuj status zamówienia
+      if (orderId) {
+        const orderRef = db.collection('orders').doc(orderId);
+        await orderRef.update({
+          paymentStatus: 'failed',
+          updatedAt: new Date()
+        });
+      }
+    } catch (updateError) {
+      console.error('Error updating failure status:', updateError);
+    }
+
     res.status(500).json({ 
       error: 'Payment error',
       details: error.response?.data || error.message 
     });
   }
-});
-
+}); 
 app.post('/api/p24/verify', async (req, res) => {
   const notification = req.body;
   const crc = process.env.P24_CRC;
@@ -198,7 +267,7 @@ app.post('/api/p24/verify', async (req, res) => {
 
     console.log('Verify payload:', verifyPayload);
 
-    const verifyResponse = await axios.put(  // Changed from post to put
+    const verifyResponse = await axios.put(
       'https://secure.przelewy24.pl/api/v1/transaction/verify',
       verifyPayload,
       {
@@ -209,27 +278,86 @@ app.post('/api/p24/verify', async (req, res) => {
       }
     );
 
+    console.log('Verify response:', verifyResponse.data);
+
     if (verifyResponse.data?.data?.status === 'success') {
+      // Aktualizuj status płatności na success
       const paymentRef = db.collection('payments').doc(notification.sessionId);
       await paymentRef.update({
-        status: 'completed',
+        status: 'success',
         updatedAt: new Date(),
-        orderId: notification.orderId,
+        p24OrderId: notification.orderId,
         methodId: notification.methodId,
-        statement: notification.statement
+        statement: notification.statement,
+        verifiedAt: new Date()
       });
+
+      // Pobierz dane płatności, żeby znaleźć powiązane zamówienie
+      const paymentDoc = await paymentRef.get();
+      if (paymentDoc.exists) {
+        const paymentData = paymentDoc.data();
+        
+        // Jeśli płatność ma powiązane zamówienie, zaktualizuj jego status
+        if (paymentData.orderId) {
+          const orderRef = db.collection('orders').doc(paymentData.orderId);
+          await orderRef.update({
+            orderStatus: 'success',
+            paymentStatus: 'success',
+            updatedAt: new Date(),
+            completedAt: new Date(),
+            p24OrderId: notification.orderId
+          });
+          console.log('✅ Zamówienie zaktualizowane na success!');
+        }
+      }
+
       console.log('✅ Płatność potwierdzona!');
       return res.status(200).send('OK');
     } else {
       console.error('❌ Weryfikacja P24 nie powiodła się:', verifyResponse.data);
+      
+      // Aktualizuj status płatności na failed
+      const paymentRef = db.collection('payments').doc(notification.sessionId);
+      await paymentRef.update({
+        status: 'failed',
+        updatedAt: new Date(),
+        verificationError: verifyResponse.data
+      });
+
+      // Pobierz dane płatności i zaktualizuj zamówienie
+      const paymentDoc = await paymentRef.get();
+      if (paymentDoc.exists) {
+        const paymentData = paymentDoc.data();
+        if (paymentData.orderId) {
+          const orderRef = db.collection('orders').doc(paymentData.orderId);
+          await orderRef.update({
+            orderStatus: 'failed',
+            paymentStatus: 'failed',
+            updatedAt: new Date()
+          });
+        }
+      }
+
       return res.status(400).send('Verification failed');
     }
   } catch (error) {
     console.error('Błąd weryfikacji webhooka P24:', error.message, error.response?.data);
+    
+    // Oznacz płatność jako failed w przypadku błędu
+    try {
+      const paymentRef = db.collection('payments').doc(notification.sessionId);
+      await paymentRef.update({
+        status: 'failed',
+        updatedAt: new Date(),
+        errorDetails: error.message
+      });
+    } catch (updateError) {
+      console.error('Error updating payment status on verification error:', updateError);
+    }
+
     return res.status(500).send('Internal server error');
   }
 });
-
 app.get('/api/p24/payment-result', async (req, res) => {
   const { sessionId } = req.query;
 
@@ -238,11 +366,10 @@ app.get('/api/p24/payment-result', async (req, res) => {
   }
 
   try {
-    // Zmieniono z 'orders' na 'payments' - zgodnie z tym gdzie zapisywane są płatności
     const paymentRef = db.collection('payments').doc(sessionId);
-    const doc = await paymentRef.get();
+    const paymentDoc = await paymentRef.get();
 
-    if (!doc.exists) {
+    if (!paymentDoc.exists) {
       console.warn('Payment result requested for non-existent session:', sessionId);
       return res.status(404).json({
         status: 'error',
@@ -250,30 +377,42 @@ app.get('/api/p24/payment-result', async (req, res) => {
       });
     }
 
-    const paymentData = doc.data();
+    const paymentData = paymentDoc.data();
     console.log('Payment Data from Firestore for sessionId', sessionId, ':', paymentData);
 
-    if (paymentData.status === 'completed') {
+    // Pobierz także dane zamówienia jeśli istnieje
+    let orderData = null;
+    if (paymentData.orderId) {
+      const orderRef = db.collection('orders').doc(paymentData.orderId);
+      const orderDoc = await orderRef.get();
+      if (orderDoc.exists) {
+        orderData = orderDoc.data();
+      }
+    }
+
+    if (paymentData.status === 'success') {
       res.json({
         status: 'success',
         message: 'Płatność zakończona pomyślnie! Dziękujemy za zakupy.',
         sessionId,
-        paymentData
+        paymentData,
+        orderData
       });
-    } else if (paymentData.status === 'pending') {
+    } else if (paymentData.status === 'pending' || paymentData.status === 'processing') {
       res.json({
         status: 'pending',
         message: 'Oczekiwanie na potwierdzenie płatności...',
         sessionId,
-        paymentData
+        paymentData,
+        orderData
       });
     } else {
-      // Handle other potential statuses like 'failed', 'failed_verification', etc.
       res.json({
         status: 'failed',
         message: 'Płatność nie powiodła się lub została anulowana.',
         sessionId,
-        paymentData
+        paymentData,
+        orderData
       });
     }
   } catch (error) {
@@ -287,6 +426,34 @@ app.get('/api/p24/payment-result', async (req, res) => {
   }
 });
 
+app.get('/api/p24/test-access', async (req, res) => {
+  try {
+    const response = await axios.get(
+      process.env.P24_SANDBOX === 'true'
+        ? 'https://sandbox.przelewy24.pl/api/v1/testAccess'
+        : 'https://secure.przelewy24.pl/api/v1/testAccess',
+      {
+        headers: {
+          Authorization: `Basic ${Buffer.from(`${process.env.P24_POS_ID}:${process.env.P24_SECRET}`).toString('base64')}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    console.log('Test access response:', response.data);
+    res.status(200).json({
+      status: 'success',
+      data: response.data,
+      message: 'Połączenie z API Przelewy24 działa poprawnie',
+    });
+  } catch (error) {
+    console.error('Test access error:', error.message, error.response?.data);
+    res.status(error.response?.status || 500).json({
+      status: 'error',
+      message: 'Błąd podczas testowania połączenia z API Przelewy24',
+      details: error.response?.data || error.message,
+    });
+  }
+});
 
 app.post('/api/p24/checkout', async (req, res) => {
   const { firstName, lastName, email, address, postalCode, city, phone, productId, productName, price } = req.body;
@@ -305,13 +472,43 @@ app.post('/api/p24/checkout', async (req, res) => {
   });
 
   try {
-    res.status(200).json({ message: 'Checkout data received successfully' });
+    // Zapisz zamówienie do Firestore
+    const orderRef = db.collection('orders').doc(); // Automatycznie generuje ID
+    const orderId = orderRef.id;
+    
+    await orderRef.set({
+      orderId,
+      customerData: {
+        firstName,
+        lastName,
+        email,
+        address,
+        postalCode,
+        city,
+        phone
+      },
+      productData: {
+        productId,
+        productName,
+        price: parseFloat(price)
+      },
+      orderStatus: 'pending', // początkowy status zamówienia
+      paymentStatus: 'pending', // początkowy status płatności
+      createdAt: new Date(),
+      updatedAt: new Date()
+    });
+
+    console.log('Order saved to Firestore with ID:', orderId);
+    
+    res.status(200).json({ 
+      message: 'Checkout data received and saved successfully',
+      orderId: orderId
+    });
   } catch (error) {
     console.error('Error processing checkout data:', error);
     res.status(500).json({ error: 'Failed to process checkout data' });
   }
 });
-
 
 app.get('/api/items', async (req, res) => {
   try {

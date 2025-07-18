@@ -3,8 +3,9 @@ import { motion } from "framer-motion";
 import Navbar from './pages/Navbar';
 import Form from './pages/Form';
 import Footer from './pages/Footer';
-import videoMain from './public/filmik_main.mp4';
+import videoMain from '../public/filmik_main.mp4';
 import './App.css';
+import Map from './Map'; // Importuj komponent mapy
 
 function App() {
   const offerings = [
@@ -27,52 +28,52 @@ function App() {
     {
       name: "MOSiR Szczecin",
       address: "ul. Władysława Szafera 7, 71-245 Szczecin",
-      mapsURL: "https://www.google.com/maps/search/?api=1&query=ul.+W%C5%82adys%C5%82awa+Szafera+7%2C+71-245+Szczecin"
+      coordinates: [53.4642, 14.4914],
     },
     {
       name: "Boisko Witkiewicza 72",
       address: "Stanisława Ignacego Witkiewicza 72, 70-001 Szczecin",
-      mapsURL: "https://www.google.com/maps/search/?api=1&query=Stanis%C5%82awa+Ignacego+Witkiewicza+72%2C+70-001+Szczecin"
+      coordinates: [53.4256, 14.5300], // Przykład, sprawdź rzeczywiste współrzędne
     },
     {
       name: "Boisko Kresowa 42",
       address: "Kresowa 42, 71-899 Szczecin",
-      mapsURL: "https://www.google.com/maps/search/?api=1&query=Kresowa+42%2C+71-899+Szczecin"
+      coordinates: [53.3800, 14.6200], // Przykład, sprawdź rzeczywiste współrzędne
     },
     {
       name: "Boisko Bandurskiego 35",
       address: "księdza Biskupa Władysława Bandurskiego 35, 71-685 Szczecin",
-      mapsURL: "https://www.google.com/maps/search/?api=1&query=ksi%C4%99dza+Biskupa+W%C5%82adys%C5%82awa+Bandurskiego+35%2C+71-685+Szczecin"
+      coordinates: [53.4500, 14.5000], // Przykład, sprawdź rzeczywiste współrzędne
     },
     {
       name: "Boisko Pomarańczowa 31",
       address: "Pomarańczowa 31, 70-781 Szczecin",
-      mapsURL: "https://www.google.com/maps/search/?api=1&query=Pomara%C5%84czowa+31%2C+70-781+Szczecin"
+      coordinates: [53.4100, 14.5400], // Przykład, sprawdź rzeczywiste współrzędne
     },
     {
       name: "Hala Narutowicza",
       address: "Narutowicza 17, 70-240 Szczecin",
-      mapsURL: "https://www.google.com/maps/search/?api=1&query=Narutowicza+17%2C+70-240+Szczecin"
+      coordinates: [53.4350, 14.5450], // Przykład, sprawdź rzeczywiste współrzędne
     },
     {
       name: "SP16 Chobolańska 20",
       address: "Chobolańska 20, 71-023 Szczecin",
-      mapsURL: "https://www.google.com/maps/search/?api=1&query=Chobola%C5%84ska+20%2C+71-023+Szczecin"
+      coordinates: [53.4650, 14.4800], // Przykład, sprawdź rzeczywiste współrzędne
     },
     {
       name: "SP35 Świętoborzyców 40",
       address: "Świętoborzyców 40, 71-665 Szczecin",
-      mapsURL: "https://www.google.com/maps/search/?api=1&query=%C5%9Awi%C4%99toborzyc%C3%B3w+40%2C+71-665+Szczecin"
+      coordinates: [53.4550, 14.5100], // Przykład, sprawdź rzeczywiste współrzędne
     },
     {
       name: "LO13 Unisławy 26",
       address: "Unisławy 26, 71-413 Szczecin",
-      mapsURL: "https://www.google.com/maps/search/?api=1&query=Unis%C5%82awy+26%2C+71-413+Szczecin"
+      coordinates: [53.4050, 14.5600], // Przykład, sprawdź rzeczywiste współrzędne
     },
     {
       name: "LO1 al. Piastów 12",
       address: "al. Piastów 12, 70-331 Szczecin",
-      mapsURL: "https://www.google.com/maps/search/?api=1&query=al.+Piast%C3%B3w+12%2C+70-331+Szczecin"
+      coordinates: [53.4300, 14.5500], // Przykład, sprawdź rzeczywiste współrzędne
     }
   ];
 
@@ -228,10 +229,11 @@ function App() {
             </motion.div>
           </div>
         </section>
-          <section id="locations" className="py-12 bg-gradient-to-br from-yellow-50 via-amber-50 to-yellow-100">
+        <section id="locations" className="py-12 bg-gradient-to-br from-yellow-50 via-amber-50 to-yellow-100">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">Nasze Lokalizacje</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Map locations={locations} /> {/* Wstawienie komponentu mapy */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
               {locations.map((location, index) => (
                 <motion.div 
                   key={index}
@@ -245,7 +247,7 @@ function App() {
                     <h3 className="text-xl font-semibold mb-2 text-gray-800">{location.name}</h3>
                     <p className="text-gray-600 mb-4">{location.address}</p>
                     <a
-                      href={location.mapsURL}
+                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location.address)}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-block bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
@@ -262,8 +264,6 @@ function App() {
         <div id="form">
           <Form />
         </div>
-
-        
       </main>
       <Footer />
     </>
