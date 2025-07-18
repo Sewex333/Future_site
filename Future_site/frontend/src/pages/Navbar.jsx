@@ -56,7 +56,7 @@ const Navbar = () => {
         <Link to="/o-nas" className="hover:text-yellow-400" onClick={scrolUp}>O nas</Link>
         <Link to="/aktualnosci" className="hover:text-yellow-400" onClick={scrolUp}>Aktualności</Link>
         <Link to="/oferta" className="hover:text-yellow-400" onClick={scrolUp}>Oferta</Link>
-        <Link to="/obozy-i-polkolonie" className="hover:text-yellow-400" onClick={scrolUp}>Obozy</Link>
+        <Link to="/obozy-i-polkolonie" className="hover:text-yellow-400" onClick={scrolUp}>Obozy / Półkolonie</Link>
         <Link to="/eventy" className="hover:text-yellow-400" onClick={scrolUp}>Eventy / Turnieje</Link>
         <div className="relative group">
           <button className="hover:text-yellow-400">Treningi</button>

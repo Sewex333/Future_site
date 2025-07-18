@@ -1,45 +1,61 @@
 body {
     font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 .container {
-    width: 100%;
-    margin: 50px auto;
+    max-width: 90rem;
+    margin: 3rem auto;
     display: flex;
     flex-direction: column;
-    gap: 40px;
-    padding: 60px 20px;
+    gap: 4rem;
+    padding: 4rem 1.5rem;
+    }
+
+.section-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch; 
+    gap: 2.5rem;
+    flex-wrap: nowrap;
+}
+
+
+.reverse-row {
+    flex-direction: row-reverse;
 }
 
 .blok {
+    flex: 1;
+    max-width: 60%;
     background-color: #1a1a1a;
-    border-left: 6px solid #d4af37;
-    border-radius: 14px;
-    padding: 28px 32px;
-    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.15);
-    max-width: 700px;
+    border-left: 0.4rem solid #d4af37;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 0.25rem 1.25rem rgba(255, 215, 0, 0.15);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .blok:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 24px rgba(255, 215, 0, 0.2);
-}
+    transform: translateY(-0.3rem);
+    box-shadow: 0 0.4rem 1.5rem rgba(255, 215, 0, 0.2);
+    }
 
 .blok h1 {
-    font-size: 1.9rem;
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
     color: #d4af37;
-    margin-bottom: 16px;
+    margin-bottom: 1rem;
 }
 
 .blok p {
     margin-bottom: 1.2em;
     line-height: 1.7;
-    font-size: 1.05rem;
+    font-size: 1.3rem;
     color: #f2f2f2;
 }
 
-.blok .span1 {
+.span1 {
     font-weight: bold;
     color: #f7c948;
     font-style: italic;
@@ -50,10 +66,30 @@ body {
     font-weight: bold;
 }
 
-.lewo {
-    align-self: flex-start;
+.about-image {
+    flex: 1;
+    max-width: 40%;
+    width: 100%;
+    height: auto;
+    border-radius: 0.8rem;
+    object-fit: cover;
+    box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.25);
+    aspect-ratio: 4 / 3;
 }
 
-.prawo {
-    align-self: flex-end;
+@media (max-width: 48rem) {
+.section-row,
+.reverse-row {
+    flex-direction: column;
+    align-items: center;
+}   
+
+.blok,
+.about-image {
+    max-width: 100%;
+}
+
+.about-image {
+    margin-top: 1rem;
+}
 }

@@ -27,7 +27,7 @@ const ShopSite = () => {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen bg-neutral-900 text-white my-10">
+    <div className="flex flex-col min-h-screen bg-neutral-900 text-white">
       <Navbar />
        <div className="bg-gradient-to-r from-black via-gray-900 to-black text-white py-20 relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-yellow-500 opacity-20"></div>
