@@ -115,7 +115,7 @@ function App() {
               transition={{ duration: 1, delay: 0.3 }}
               viewport={{ once: true }}
             >
-              Dołącz do najlepszego klubu sportowego i rozwijaj swoje umiejętności pod okiem profesjonalnych trenerów
+              Dołącz do jednego z czołowych klubów sportowych w regionie i rozwijaj swoje umiejętności pod okiem doświadczonych trenerów. Trenuj w profesjonalnym środowisku i osiągaj swoje cele!
             </motion.p>
 
             <motion.div 

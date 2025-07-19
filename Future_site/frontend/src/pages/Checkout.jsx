@@ -127,7 +127,7 @@ const Checkout = () => {
   if (error || !product) return <p className="text-center py-20 text-red-600">Produkt nie znaleziony lub wystąpił błąd.</p>;
 
   return (
-    <div className="flex flex-col min-h-screen bg-neutral-900 text-white my-10"> 
+    <div className="flex flex-col min-h-screen bg-neutral-900 text-white"> 
       <Navbar />
       <main className="flex-grow py-12 px-4">
         <div className="max-w-6xl mx-auto bg-neutral-800 shadow-xl rounded-2xl p-8"> 
