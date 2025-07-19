@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import { Link } from 'react-router';
+import videoMain from '/filmik_main.mp4';
+//import videoMain from '/filmik_event.mp4';
 
 const Eventy = () => {
   const [events, setEvents] = useState([]);
@@ -137,6 +139,17 @@ const Eventy = () => {
             </p>
           </div>
         </div>
+        <section className="relative h-[50vh] sm:h-[70vh] md:h-[90vh] overflow-hidden bg-gray-900 mb-[-20px]">     
+          <video
+            className="absolute top-0 left-0 w-full h-full object-cover z-0"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            src={videoMain}
+          />
+        </section>
 
         <section className="py-12 bg-white">
           <div className="max-w-6xl mx-auto px-4">

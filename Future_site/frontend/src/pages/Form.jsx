@@ -9,13 +9,11 @@ const Form = () => {
   const [nr_tel, setNr_tel] = useState('');
   const [mail, setMail] = useState('');
   const [info, setInfo] = useState('');
-  const [formType, setFormType] = useState("zawodnik"); // domyślnie 'zawodnik'
   
   const form = useRef();
 
   const handleForm = (event) => {
     event.preventDefault();
-    // console.log(name, b_date, nr_tel, mail, info);
     emailjs.sendForm("service_wy21u3d", "template_wabyhgk", form.current, 'XKBdsBjZTnh66Riss')
       .then((result) => {
         console.log(result.text);
@@ -43,40 +41,10 @@ const Form = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-yellow-50 via-amber-50 to-yellow-100">
       <div className="w-full max-w-md p-8 bg-white rounded-2xl shadow-2xl border-2 border-yellow-400 mt-20 mb-20">
-        <div className="mb-8 text-center">
-          <div className="inline-flex bg-black rounded-xl p-1 shadow-lg">
-            <button
-              className={`px-6 py-3 mx-1 rounded-lg font-semibold transition-all duration-300 ${
-                formType === "zawodnik" 
-                  ? "bg-gradient-to-r from-yellow-400 to-amber-500 text-black shadow-lg transform scale-105" 
-                  : "bg-transparent text-yellow-400 hover:bg-yellow-400 hover:text-black"
-              }`}
-              onClick={() => setFormType("zawodnik")}
-              type="button"
-            >
-              Zawodnik
-            </button>
-            <button
-              className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
-                formType === "rodzic" 
-                  ? "bg-gradient-to-r from-yellow-400 to-amber-500 text-black shadow-lg transform scale-105" 
-                  : "bg-transparent text-yellow-400 hover:bg-yellow-400 hover:text-black"
-              }`}
-              onClick={() => setFormType("rodzic")}
-              type="button"
-            >
-              Rodzic
-            </button>
-          </div>
-        </div>
-
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold bg-gradient-to-r from-yellow-600 to-amber-600 bg-clip-text text-transparent mb-2">
             Formularz zgłoszeniowy
           </h1>
-          <p className="text-gray-700 font-medium">
-            wypełnia {formType === "zawodnik" ? "zawodnik" : "rodzic"}
-          </p>
         </div>
 
         <form ref={form} onSubmit={handleForm} className='max-w-sm mx-auto'>
