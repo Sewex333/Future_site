@@ -158,13 +158,13 @@ function App() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
               {offerings.map((item, index) => (
-                <motion.div 
+                <div 
                   key={index}
-                  className="flex items-center gap-4 bg-white p-4 sm:p-6 rounded-xl shadow-lg hover:scale-[1.02] transition-transform border-l-4 border-yellow-500"
-                  initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
+                  className="flex items-center  bg-white p-4 sm:p-6 rounded-xl shadow-lg hover:scale-[1.02] transition-transform border-l-4 border-yellow-500"
+                  // initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                  // whileInView={{ opacity: 1, x: 0 }}
+                  // transition={{ duration: 0.6, delay: index * 0.1 }}
+                  // viewport={{ once: true }}
                 >
                   <img 
                     src={`/icons/${item.icon}`} 
@@ -174,7 +174,7 @@ function App() {
                   <p className="text-base sm:text-lg font-medium text-gray-800">
                     {item.text}
                   </p>
-                </motion.div>
+                </div>
               ))}
             </div>
 
