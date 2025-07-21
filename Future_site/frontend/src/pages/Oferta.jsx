@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const Oferta = () => {
   const [oferty, setOferty] = useState([]);
@@ -42,8 +42,6 @@ const Oferta = () => {
         </div>
         <p className="text-gray-600 mb-4">{oferta.opis}</p>
         
-        
-
         <div className="mb-6">
           <h4 className="font-semibold text-gray-800 mb-2">Program zawiera:</h4>
           <ul className="space-y-1">
@@ -61,7 +59,7 @@ const Oferta = () => {
         </div>
 
         <Link to={oferta.link}>
-          <button className={`w-full bg-gradient-to-r from-gray-800 to-black text-white py-3 px-4 rounded-lg hover:opacity-90 transition-opacity duration-200 font-semibold shadow-lg`}>
+          <button className="w-full bg-gradient-to-r from-gray-800 to-black text-white py-3 px-4 rounded-lg hover:opacity-90 transition-opacity duration-200 font-semibold shadow-lg">
             Sprawdź szczegóły
           </button>
         </Link>
@@ -164,6 +162,18 @@ const Oferta = () => {
                 ))}
               </div>
             )}
+            <div className="mt-12 p-6 bg-white rounded-xl shadow-lg">
+              <h3 className="text-2xl font-bold text-gray-800 mb-4">Treningi zespołowe</h3>
+              <p className="text-gray-600">
+                Oferujemy treningi zespołowe dla różnych kategorii wiekowych i poziomów zaawansowania. Nasze programy są dostosowane do potrzeb zawodników, od początkujących po zaawansowanych, i skupiają się na rozwoju techniki, taktyki oraz kondycji fizycznej.
+              </p>
+              <ul className="list-disc list-inside mt-4 text-gray-600">
+                <li>Treningi dla juniorów (U10, U12, U14)</li>
+                <li>Treningi dla seniorów</li>
+                <li>Treningi dla drużyn kobiecych</li>
+                <li>Indywidualne sesje z trenerem</li>
+              </ul>
+            </div>
           </div>
         </section>
 
@@ -182,12 +192,11 @@ const Oferta = () => {
               Dołącz do Future Football Club i rozwijaj swoje umiejętności pod okiem doświadczonych trenerów
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              
-              <Link to="/kontakt">
+              <a href="/#form">
                 <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-black transition-colors cursor-pointer">
                   Umów trening próbny
                 </button>
-              </Link>
+              </a>
             </div>
           </div>
         </section>

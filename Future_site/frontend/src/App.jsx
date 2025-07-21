@@ -3,9 +3,9 @@ import { motion } from "framer-motion";
 import Navbar from './pages/Navbar';
 import Form from './pages/Form';
 import Footer from './pages/Footer';
-import videoMain from '../public/filmik_main.mp4';
+import videoMain from '../public/filmik_glowna.mp4';
 import './App.css';
-import Map from './Map'; // Importuj komponent mapy
+import Map from './Map';
 
 function App() {
   const offerings = [
@@ -29,51 +29,61 @@ function App() {
       name: "MOSiR Szczecin",
       address: "ul. Władysława Szafera 7, 71-245 Szczecin",
       coordinates: [53.4642, 14.4914],
+      category: "Seniorzy"
     },
     {
       name: "Boisko Witkiewicza 72",
       address: "Stanisława Ignacego Witkiewicza 72, 70-001 Szczecin",
-      coordinates: [53.4256, 14.5300], // Przykład, sprawdź rzeczywiste współrzędne
+      coordinates: [53.4256, 14.5300],
+      category: "Juniorzy"
     },
     {
       name: "Boisko Kresowa 42",
       address: "Kresowa 42, 71-899 Szczecin",
-      coordinates: [53.3800, 14.6200], // Przykład, sprawdź rzeczywiste współrzędne
+      coordinates: [53.3800, 14.6200],
+      category: "Młodziki"
     },
     {
       name: "Boisko Bandurskiego 35",
       address: "księdza Biskupa Władysława Bandurskiego 35, 71-685 Szczecin",
-      coordinates: [53.4500, 14.5000], // Przykład, sprawdź rzeczywiste współrzędne
+      coordinates: [53.4500, 14.5000],
+      category: "Seniorzy"
     },
     {
       name: "Boisko Pomarańczowa 31",
       address: "Pomarańczowa 31, 70-781 Szczecin",
-      coordinates: [53.4100, 14.5400], // Przykład, sprawdź rzeczywiste współrzędne
+      coordinates: [53.4100, 14.5400],
+      category: "Juniorzy"
     },
     {
       name: "Hala Narutowicza",
       address: "Narutowicza 17, 70-240 Szczecin",
-      coordinates: [53.4350, 14.5450], // Przykład, sprawdź rzeczywiste współrzędne
+      coordinates: [53.4350, 14.5450],
+      category: "Młodziki"
     },
     {
       name: "SP16 Chobolańska 20",
       address: "Chobolańska 20, 71-023 Szczecin",
-      coordinates: [53.4650, 14.4800], // Przykład, sprawdź rzeczywiste współrzędne
+      coordinates: [53.4650, 14.4800],
+      category: "Młodziki"
     },
     {
       name: "SP35 Świętoborzyców 40",
       address: "Świętoborzyców 40, 71-665 Szczecin",
-      coordinates: [53.4550, 14.5100], // Przykład, sprawdź rzeczywiste współrzędne
+      coordinates: [53.4550, 14.5100],
+      category: "Juniorzy"
     },
     {
       name: "LO13 Unisławy 26",
       address: "Unisławy 26, 71-413 Szczecin",
-      coordinates: [53.4050, 14.5600], // Przykład, sprawdź rzeczywiste współrzędne
+      coordinates: [53.4050, 14.5600],
+      category: "Seniorzy"
     },
     {
       name: "LO1 al. Piastów 12",
       address: "al. Piastów 12, 70-331 Szczecin",
-      coordinates: [53.4300, 14.5500], // Przykład, sprawdź rzeczywiste współrzędne
+      coordinates: [53.4300, 14.5500],
+      category: "Młodziki"
     }
   ];
 
@@ -81,9 +91,9 @@ function App() {
     <>
       <Navbar />
       <main>
-        <section className="relative h-[50vh] sm:h-[70vh] md:h-[90vh] overflow-hidden bg-gray-900 mb-[-20px]">     
+        <section className="relative h-[50vh] sm:h-[60vh] md:h-[70vh] overflow-hidden bg-gray-900 mb-[-20px]">
           <video
-            className="absolute top-0 left-0 w-full h-full object-cover z-0"
+            className="absolute top-20 left-0 w-full h-full object-cover z-0"
             autoPlay
             loop
             muted
@@ -160,11 +170,7 @@ function App() {
               {offerings.map((item, index) => (
                 <div 
                   key={index}
-                  className="flex items-center  bg-white p-4 sm:p-6 rounded-xl shadow-lg hover:scale-[1.02] transition-transform border-l-4 border-yellow-500"
-                  // initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                  // whileInView={{ opacity: 1, x: 0 }}
-                  // transition={{ duration: 0.6, delay: index * 0.1 }}
-                  // viewport={{ once: true }}
+                  className="flex items-center bg-white p-4 sm:p-6 rounded-xl shadow-lg hover:scale-[1.02] transition-transform border-l-4 border-yellow-500"
                 >
                   <img 
                     src={`/icons/${item.icon}`} 
@@ -215,6 +221,7 @@ function App() {
             >
               <div className="bg-white rounded-xl shadow-lg overflow-hidden w-full max-w-2xl">
                 <iframe
+                  className="fb-iframe"
                   src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FFutureSportClub&tabs=timeline&width=500&height=700&small_header=false&adapt_container_width=true&hide_cover=true&show_facepile=true"
                   width="100%"
                   height="700"
@@ -232,7 +239,7 @@ function App() {
         <section id="locations" className="py-12 bg-gradient-to-br from-yellow-50 via-amber-50 to-yellow-100">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">Nasze Lokalizacje</h2>
-            <Map locations={locations} /> {/* Wstawienie komponentu mapy */}
+            <Map locations={locations} />
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
               {locations.map((location, index) => (
                 <motion.div 
@@ -244,7 +251,7 @@ function App() {
                   viewport={{ once: true }}
                 >
                   <div>
-                    <h3 className="text-xl font-semibold mb-2 text-gray-800">{location.name}</h3>
+                    <h3 className="text-xl font-semibold mb-2 text-gray-800">{location.name} - {location.category}</h3>
                     <p className="text-gray-600 mb-4">{location.address}</p>
                     <a
                       href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location.address)}`}
