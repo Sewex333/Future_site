@@ -29,61 +29,51 @@ function App() {
       name: "MOSiR Szczecin",
       address: "ul. Władysława Szafera 7, 71-245 Szczecin",
       coordinates: [53.4642, 14.4914],
-      category: "Seniorzy"
     },
     {
       name: "Boisko Witkiewicza 72",
       address: "Stanisława Ignacego Witkiewicza 72, 70-001 Szczecin",
       coordinates: [53.4256, 14.5300],
-      category: "Juniorzy"
     },
     {
       name: "Boisko Kresowa 42",
       address: "Kresowa 42, 71-899 Szczecin",
       coordinates: [53.3800, 14.6200],
-      category: "Młodziki"
     },
     {
       name: "Boisko Bandurskiego 35",
       address: "księdza Biskupa Władysława Bandurskiego 35, 71-685 Szczecin",
       coordinates: [53.4500, 14.5000],
-      category: "Seniorzy"
     },
     {
       name: "Boisko Pomarańczowa 31",
       address: "Pomarańczowa 31, 70-781 Szczecin",
       coordinates: [53.4100, 14.5400],
-      category: "Juniorzy"
     },
     {
       name: "Hala Narutowicza",
       address: "Narutowicza 17, 70-240 Szczecin",
       coordinates: [53.4350, 14.5450],
-      category: "Młodziki"
     },
     {
       name: "SP16 Chobolańska 20",
       address: "Chobolańska 20, 71-023 Szczecin",
       coordinates: [53.4650, 14.4800],
-      category: "Młodziki"
     },
     {
       name: "SP35 Świętoborzyców 40",
       address: "Świętoborzyców 40, 71-665 Szczecin",
       coordinates: [53.4550, 14.5100],
-      category: "Juniorzy"
     },
     {
       name: "LO13 Unisławy 26",
       address: "Unisławy 26, 71-413 Szczecin",
       coordinates: [53.4050, 14.5600],
-      category: "Seniorzy"
     },
     {
       name: "LO1 al. Piastów 12",
       address: "al. Piastów 12, 70-331 Szczecin",
       coordinates: [53.4300, 14.5500],
-      category: "Młodziki"
     }
   ];
 
@@ -222,7 +212,7 @@ function App() {
               <div className="bg-white rounded-xl shadow-lg overflow-hidden w-full max-w-2xl">
                 <iframe
                   className="fb-iframe"
-                  src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FFutureSportClub&tabs=timeline&width=500&height=700&small_header=false&adapt_container_width=true&hide_cover=true&show_facepile=true"
+                  src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FFutureSportClub&tabs=timeline&width=600&height=700&small_header=false&adapt_container_width=true&hide_cover=true&show_facepile=true"
                   width="100%"
                   height="700"
                   style={{ border: "none", overflow: "hidden" }}
@@ -251,7 +241,7 @@ function App() {
                   viewport={{ once: true }}
                 >
                   <div>
-                    <h3 className="text-xl font-semibold mb-2 text-gray-800">{location.name} - {location.category}</h3>
+                    <h3 className="text-xl font-semibold mb-2 text-gray-800">{location.name}</h3>
                     <p className="text-gray-600 mb-4">{location.address}</p>
                     <a
                       href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location.address)}`}
