@@ -63,6 +63,7 @@ const Navbar = () => {
           <div className="absolute invisible group-hover:visible bg-black text-white shadow-lg rounded py-2 px-4 top-full left-0 z-10 min-w-40">
             <Link to="/treningi-indywidualne" className="block py-2 text-white hover:text-yellow-400 px-2 rounded" onClick={scrolUp}>Indywidualne</Link>
             <Link to="/treningi-mentalne" className="block py-2 text-white hover:text-yellow-400 px-2 rounded" onClick={scrolUp}>Mentalne</Link>
+            <Link to="/treningi-dzieci" className="block py-2 text-white hover:text-yellow-400 px-2 rounded" onClick={scrolUp}>Grupowe</Link>
           </div>
         </div>
         <Link to="/sklep" className="hover:text-yellow-400" onClick={scrolUp}>Sklep</Link>

@@ -20,6 +20,7 @@ import Form from './pages/Form.jsx'
 import ProductDetail from './pages/ProductDetail.jsx'
 import PaymentResult from './pages/PaymentResult.jsx'
 import Checkout from './pages/Checkout.jsx'
+import Treningi from './pages/TreningiDzieci.jsx'
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
@@ -32,6 +33,7 @@ createRoot(document.getElementById('root')).render(
       <Route path="/eventy" element={<Eventy />} />
       <Route path="/treningi-indywidualne" element={<TreningiIndywidualne />} />
       <Route path="/treningi-mentalne" element={<TreningiMentalne />} />
+      <Route path="/treningi-dzieci" element={<Treningi />} />
       <Route path="/sklep" element={<ShopSite />} />
       <Route path="/ebooki-materialy" element={<Ebooki />} />
       <Route path="/aktualnosci" element={<Aktualnosci />} />
