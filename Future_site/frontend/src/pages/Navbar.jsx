@@ -54,7 +54,7 @@ const Navbar = () => {
       
       <div className="hidden md:flex gap-8 text-lg">
         <Link to="/o-nas" className="hover:text-yellow-400" onClick={scrolUp}>O nas</Link>
-        <Link to="/aktualnosci" className="hover:text-yellow-400" onClick={scrolUp}>Aktualności</Link>
+        <Link to="/aktualnosci" className="hover:text-yellow-400" onClick={scrolUp}>Ściana Chwały</Link>
         <Link to="/oferta" className="hover:text-yellow-400" onClick={scrolUp}>Oferta</Link>
         <Link to="/obozy-i-polkolonie" className="hover:text-yellow-400" onClick={scrolUp}>Obozy / Półkolonie</Link>
         <Link to="/eventy" className="hover:text-yellow-400" onClick={scrolUp}>Eventy / Turnieje</Link>
@@ -75,7 +75,7 @@ const Navbar = () => {
       {isMenuOpen && (
         <div className="md:hidden absolute top-20 left-0 w-full bg-black text-white shadow-lg py-4 px-6 flex flex-col gap-4">
           <Link to="/o-nas" className="hover:text-yellow-400" onClick={toggleMenu}>O nas</Link>
-          <Link to="/aktualnosci" className="hover:text-yellow-400" onClick={toggleMenu}>Aktualności</Link>
+          <Link to="/aktualnosci" className="hover:text-yellow-400" onClick={toggleMenu}>Ściana Chwały</Link>
           <Link to="/oferta" className="hover:text-yellow-400" onClick={toggleMenu}>Oferta</Link>
           <Link to="/obozy-i-polkolonie" className="hover:text-yellow-400" onClick={toggleMenu}>Obozy / Połkolonie</Link>
           <Link to="/eventy" className="hover:text-yellow-400" onClick={toggleMenu}>Eventy/Turnieje</Link>
@@ -84,6 +84,7 @@ const Navbar = () => {
             <div className="ml-4 mt-2 flex flex-col gap-2">
               <Link to="/treningi-indywidualne" className="hover:text-yellow-400" onClick={toggleMenu}>Indywidualne</Link>
               <Link to="/treningi-mentalne" className="hover:text-yellow-400" onClick={toggleMenu}>Mentalne</Link>
+            <Link to="/treningi-dzieci" className="block py-2 text-white hover:text-yellow-400 px-2 rounded" onClick={scrolUp}>Grupowe</Link>
             </div>
           </div>
           <Link to="/sklep" className="hover:text-yellow-400" onClick={toggleMenu}>Sklep</Link>

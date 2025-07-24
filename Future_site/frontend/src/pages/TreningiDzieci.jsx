@@ -105,7 +105,7 @@ const Treningi = () => {
                 <div className="text-gray-600">Doświadczenie od</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-black mb-2">5</div>
+                <div className="text-3xl font-bold text-black mb-2">8</div>
                 <div className="text-gray-600">Grup treningowych</div>
               </div>
             </div>

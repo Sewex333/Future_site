@@ -17,7 +17,8 @@ const Form = () => {
     emailjs.sendForm("service_wy21u3d", "template_wabyhgk", form.current, 'XKBdsBjZTnh66Riss')
       .then((result) => {
         console.log(result.text);
-        alert('Message Sent Successfully');
+        localStorage.setItem('formSubmitted', 'true');
+        window.location.href = "/ebooki-materialy"; // przekierowanie po wysłaniu
       }, (error) => {
         console.log(error.text);
         alert('Something went wrong!');
@@ -36,6 +37,8 @@ const Form = () => {
         Informacje_Dodatkowe: info
       })
     })
+
+    localStorage.setItem('formSubmitted', 'true');
   }
 
   return (

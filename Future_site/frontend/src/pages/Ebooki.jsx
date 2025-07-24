@@ -8,8 +8,12 @@ const Ebooki = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [downloadMessage, setDownloadMessage] = useState('');
+  const [formSent, setFormSent] = useState(false);
 
   useEffect(() => {
+    const isSubmitted = localStorage.getItem('formSubmitted') === 'true';
+    setFormSent(isSubmitted);
+
     const fetchEbooki = async () => {
       try {
         const response = await fetch('/api/ebooki');
@@ -27,15 +31,20 @@ const Ebooki = () => {
   }, []);
 
   const handleDownload = (pdfPath, tytul) => {
-    // Symulacja pobierania - w rzeczywistości będzie to bezpośredni link
-    const link = document.createElement('a');
-    link.href = pdfPath;
-    link.download = tytul.replace(/[^\w\s]/gi, '') + '.pdf';
-    link.click();
-    
-    setDownloadMessage(`Pobieranie "${tytul}" rozpoczęte!`);
+  if (!formSent) {
+    setDownloadMessage("Wypełnij formularz, aby pobrać e-book.");
     setTimeout(() => setDownloadMessage(''), 3000);
-  };
+    return;
+  }
+
+  const link = document.createElement('a');
+  link.href = pdfPath;
+  link.download = tytul.replace(/[^\w\s]/gi, '') + '.pdf';
+  link.click();
+
+  setDownloadMessage(`Pobieranie "${tytul}" rozpoczęte!`);
+  setTimeout(() => setDownloadMessage(''), 3000);
+};
 
   const EbookCard = ({ ebook }) => (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-black">
@@ -63,10 +72,15 @@ const Ebooki = () => {
 
         <button 
           onClick={() => handleDownload(ebook.pdfPath, ebook.tytul)}
-          className="w-full bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors duration-200 font-semibold text-sm flex items-center justify-center cursor-pointer"
+          disabled={!formSent}
+          className={`w-full px-6 py-3 rounded-lg font-semibold text-sm flex items-center justify-center transition-colors duration-200 ${
+            formSent
+              ? 'bg-black text-white hover:bg-gray-800 cursor-pointer'
+              : 'bg-gray-400 text-white cursor-not-allowed'
+          }`}
         >
           <span className="mr-2">📥</span>
-          Pobierz PDF
+          {formSent ? 'Pobierz PDF' : 'Wypełnij formularz'}
         </button>
       </div>
     </div>
@@ -152,15 +166,27 @@ const Ebooki = () => {
                 <p className="text-gray-600">Brak dostępnych e-booków. Sprawdź później!</p>
               </div>
             ) : (
+              <>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
                 {ebooki.map(ebook => (
                   <EbookCard key={ebook.id} ebook={ebook} />
                 ))}
               </div>
+
+               {!formSent && (
+                  <div className="text-center mt-6">
+                    <Link 
+                      to="/formularz"
+                      className="inline-block bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 text-sm sm:text-base"
+                    >
+                      Wypełnij formularz, aby pobrać e-booki
+                    </Link>
+                  </div>
+                )}
+                </>
             )}
           </div>
         </section>
-
         <section className="py-16 bg-yellow-400">
           <div className="max-w-6xl mx-auto px-4">
             <h2 className="text-3xl font-bold text-center mb-8 text-black">
