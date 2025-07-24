@@ -135,8 +135,8 @@ const Oferta = () => {
                 <div className="text-gray-600">Doświadczenie od</div>
               </div>
               <div className="border-r border-gray-200 last:border-r-0">
-                <div className="text-3xl font-bold text-yellow-600 mb-2">500+</div>
-                <div className="text-gray-600">Zawodników w klubie</div>
+                <div className="text-3xl font-bold text-yellow-600 mb-2">250+</div>
+                <div className="text-gray-600">Aktywnych Zawodników</div>
               </div>
               <div>
                 <div className="text-3xl font-bold text-black mb-2">100%</div>

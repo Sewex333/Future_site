@@ -121,7 +121,7 @@ const Kontakt = () => {
                     Kontakt
                   </h2>
                   <div className="bg-gradient-to-r from-yellow-100 to-amber-100 rounded-xl p-6 border-2 border-yellow-300">
-                    <h3 className="text-xl font-bold text-black mb-4">Damian Pepliński</h3>
+                    <h3 className="text-xl font-bold text-black mb-4">Biuro FUTURE</h3>
                     <div className="space-y-3">
                       <div className="flex items-center justify-center text-gray-800">
                         <span className="text-yellow-600 mr-2">📞</span>

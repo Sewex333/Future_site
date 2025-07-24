@@ -155,11 +155,11 @@ const Eventy = () => {
           <div className="max-w-6xl mx-auto px-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               <div>
-                <div className="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent mb-2">50+</div>
+                <div className="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent mb-2">Min. 10</div>
                 <div className="text-gray-600">Eventów rocznie</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-black mb-2">1000+</div>
+                <div className="text-3xl font-bold text-black mb-2">2000+</div>
                 <div className="text-gray-600">Uczestników</div>
               </div>
               <div>

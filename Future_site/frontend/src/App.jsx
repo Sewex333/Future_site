@@ -4,10 +4,20 @@ import Navbar from './pages/Navbar';
 import Form from './pages/Form';
 import Footer from './pages/Footer';
 import videoMain from '../public/filmik_glowna.mp4';
+import { useEffect, useRef } from 'react';
 import './App.css';
 import Map from './Map';
 
 function App() {
+
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+  if (videoRef.current) {
+    videoRef.current.playbackRate = 1.5;
+  }
+}, []);
+
   const offerings = [
     { icon: "shoot.png", text: "Sportową rywalizację" },
     { icon: "strategy.png", text: "Rozwój pod okiem najlepszych trenerów" },
@@ -83,6 +93,7 @@ function App() {
       <main>
         <section className="relative h-[50vh] sm:h-[60vh] md:h-[70vh] overflow-hidden bg-gray-900 mb-[-20px]">
           <video
+            ref={videoRef}
             className="absolute top-20 left-0 w-full h-full object-cover z-0"
             autoPlay
             loop

@@ -110,7 +110,7 @@ const Aktualnosci = () => {
           <div className="max-w-6xl mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold text-black mb-4">
-                Najnowsze Wiadomości
+                Największe Osiągniecia
               </h2>
               <div className="w-24 h-1 bg-gradient-to-r from-yellow-400 to-yellow-500 mx-auto rounded-full"></div>
             </div>

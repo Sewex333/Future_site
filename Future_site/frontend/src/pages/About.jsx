@@ -4,9 +4,10 @@ import "../About.css";
 import Footer from './Footer';
 import one from '../assets/images/tak.JPG';
 import dwa from '../assets/images/trzy.JPG';
-import trzy from '../assets/images/nie.jpg';
+import trzy from '../assets/images/oplaty_zdjecie.jpg';
 import cztery from '../assets/images/nuen.jpg';
 import five from '../assets/images/cztey.jpg';
+import { Link } from 'react-router';
 
 function About() {
   return (
@@ -74,7 +75,7 @@ function About() {
           <div id="obozy" className="blok">
             <h1>🏕️ Obozy i półkolonie:</h1>
             <p>Organizujemy wyjazdowe obozy sportowe oraz półkolonie – są one <strong>obowiązkową częścią szkolenia</strong>.</p>
-            <p>Proszę zapoznać się z dokumentami w folderach i przesłać ewentualne uwagi dotyczące warunków współpracy.</p>
+            <p>Więcej informacji o znajdziecie w zakładce <Link to="/obozy-i-polkolonie"><button className='border-1 border-white text-white px-4 py-1 rounded-lg font-semibold hover:bg-white hover:text-black transition-colors cursor-pointer'>Obozy i półkolonie</button></Link></p>
             <p>W razie pytań – jesteśmy do dyspozycji! 🤝</p>
           </div>
           <img src={five} alt="Obozy" className="about-image" />
